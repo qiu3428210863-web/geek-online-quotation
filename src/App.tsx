@@ -63,7 +63,7 @@ export default function App() {
   }
 
   const changeCase = (direction: number) => {
-    const pageCount = caseCards.length - 1
+    const pageCount = Math.ceil(caseCards.length / 2)
     const next = (caseIndex + direction + pageCount) % pageCount
     setCaseIndex(next)
   }
@@ -200,19 +200,17 @@ export default function App() {
             <div className="case-controls"><button type="button" aria-label="上一个案例" onClick={() => changeCase(-1)}><ArrowLeft size={18} /></button><button type="button" aria-label="下一个案例" onClick={() => changeCase(1)}><ArrowRight size={18} /></button></div>
           </div>
           <div className="case-carousel-wrap">
-            <div className="case-carousel" aria-label="案例卡片列表">
-              <div className="case-visible-pair">
-                {caseCards.slice(caseIndex, caseIndex + 2).map((card, offset) => <div className="case-slot" key={offset}>
-                  <article className="case-card">
-                    <div className="case-card-title"><span>{card.brand}</span><h3>{card.title}</h3></div>
-                    <button className="case-image-button" type="button" onClick={() => setCasePreview({ image: card.image, title: `${card.brand} · ${card.title}` })} aria-label={`点击查看${card.brand}${card.title}完整图片`}><img src={card.image} alt={`${card.brand}${card.title}案例`} /><span className="case-image-hint">点击图片查看完整案例</span></button>
-                    <div className="case-card-body"><span className="case-rule">—</span><p>{card.body}</p></div>
-                    <span className="case-card-index">0{caseIndex + offset + 1}</span>
-                  </article>
-                </div>)}
-              </div>
+            <div className="case-visible-pair" aria-label="案例卡片列表">
+              {caseCards.slice(caseIndex * 2, caseIndex * 2 + 2).map((card, offset) => <div className="case-slot" key={card.id}>
+                <article className="case-card">
+                  <div className="case-card-title"><span>{card.brand}</span><h3>{card.title}</h3></div>
+                  <button className="case-image-button" type="button" onClick={() => setCasePreview({ image: card.image, title: `${card.brand} · ${card.title}` })} aria-label={`点击查看${card.brand}${card.title}完整图片`}><img src={card.image} alt={`${card.brand}${card.title}案例`} /><span className="case-image-hint">点击图片查看完整案例</span></button>
+                  <div className="case-card-body"><span className="case-rule">—</span><p>{card.body}</p></div>
+                  <span className="case-card-index">0{caseIndex * 2 + offset + 1}</span>
+                </article>
+              </div>)}
             </div>
-            <div className="case-carousel-footer"><span>切换案例浏览</span><div className="case-dots" aria-hidden="true">{caseCards.slice(0, -1).map((card, index) => <i className={index === caseIndex ? 'active' : ''} key={card.id} />)}</div></div>
+            <div className="case-carousel-footer"><span>切换案例浏览</span><div className="case-dots" aria-hidden="true">{Array.from({ length: Math.ceil(caseCards.length / 2) }, (_, index) => <i className={index === caseIndex ? 'active' : ''} key={index} />)}</div></div>
           </div>
         </section>
         {sections.slice(2).map(([id]) => {
