@@ -58,6 +58,18 @@ const supportServices = [
   { title: '持续迭代', body: '收集用户反馈持续迭代，提升不同场景下产品的功能表现' },
 ] as const
 
+const processStages = [
+  { phase: '售前', title: '需求沟通', body: '深入了解客户的业务背景与需求，提供针对性的解决思路且48小时内免费提供定制化方案。', icon: '⌁' },
+  { phase: '售前', title: '调研与规划', body: '通过深入需求梳理与确认，完善项目需求，并制定原型设计与项目OKR实施计划，确保项目目标与交付标准清晰可行。', icon: '◌' },
+  { phase: '售前', title: '报价确认', body: '我们会通过“售前会议”确认方案细节，确保可行性与业务逻辑的契合，并明确每个阶段的目标与交付标准。在充分理解客户需求的基础上，提供透明、详细的报价方案，结合客户预算灵活调整，确保高性价比。', icon: '▦' },
+  { phase: '售中', title: '项目管理', body: '每日站会同步目标、障碍与行动，通过燃尽图+看板实时透明进度，确保需求-进度-质量三维平衡，并通过项目里程碑验收标准提前识别并消除阻碍，降低不确定性，确保每个迭代按时高质量交付。', icon: '✦' },
+  { phase: '售中', title: '原型设计', body: '高效输出功能原型图，直观展示产品结构与核心交互，确保客户对产品有清晰的预期，并提前发现可能的优化点。', icon: '◒' },
+  { phase: '售中', title: 'UI/UX设计', body: '基于品牌调性和用户体验优化原则，进行界面设计，确保视觉与交互体验既符合用户习惯，又能强化品牌形象。', icon: '↗' },
+  { phase: '售中', title: '开发与测试', body: '采用敏捷式开发，将一个大的项目拆分为多个迭代，定期向客户展示迭代进度，并通过功能、性能、安全等多维测试，确保系统的稳定性与可靠性。', icon: '◈' },
+  { phase: '售中', title: '自动化运维', body: '通过自动化运维告警提高系统的稳定性、故障响应速度和性能优化，减少人工干预和错误风险，推动业务的长期稳定运行和持续增长，实现客户持续成功。', icon: '⚙' },
+  { phase: '售中', title: '上线与交付', body: '协助完成应用市场审核与上架，确保产品顺利上线。同时，完整交付源码与技术文档，保障客户的自主可控性，并支持后续扩展开发。', icon: '⌂' },
+] as const
+
 const costCategories = ['全部', '基础设施', '域名与证书', '存储与分发', '外部服务'] as const
 const optionLinkUrl = 'https://cloud.tencent.com/login?s_url=https%3A%2F%2Fbuy.cloud.tencent.com%2Fredis'
 const thirdPartyCosts = [
@@ -307,6 +319,33 @@ export default function App() {
         </section>
         {sections.slice(2).map(([id]) => {
           const item = sectionCopy[id]
+          if (id === 'process') return <section className="content-section process-content" id={id} key={id}>
+            <div className="process-inner">
+              <div className="process-heading">
+                <p className="section-eyebrow">06 / DELIVERY FLOW</p>
+                <h2>从需求到上线，流程清晰可追踪。</h2>
+                <p className="section-body">把每一个关键环节拆开，让协作、反馈与交付都有明确的下一步。</p>
+              </div>
+              <div className="process-phase-legend" aria-label="流程阶段"><span><i />售前</span><span><i />售中</span></div>
+              <div className="process-flow" aria-label="开发流程清单">
+                <motion.div className="process-flow-line" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: .2 }}>
+                  <motion.span className="process-timeline-fill" initial={{ scaleY: 0 }} whileInView={{ scaleY: 1 }} viewport={{ once: true, amount: .2 }} transition={{ duration: 1.25, ease: [.22, 1, .36, 1] }} />
+                </motion.div>
+                <ol className="process-flow-list">
+                  {processStages.map((stage, index) => <motion.li key={stage.title} className={`process-flow-item process-flow-item-${index % 2 === 0 ? 'left' : 'right'}`} initial={{ opacity: 0, y: 26 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .25 }} transition={{ delay: .8 + index * .13, duration: .55, ease: [.22, 1, .36, 1] }}>
+                    <div className="process-card">
+                      <div className="process-card-top"><span>{stage.phase}</span><b>0{index + 1}</b></div>
+                      <div className="process-card-icon" aria-hidden="true">{stage.icon}</div>
+                      <h3>{stage.title}</h3>
+                      <p>{stage.body}</p>
+                    </div>
+                    <span className="process-node" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+                  </motion.li>)}
+                </ol>
+              </div>
+            </div>
+            <span className="section-number">06</span>
+          </section>
           if (id === 'support') return <section className="content-section support-content" id={id} key={id}>
             <div className="support-inner">
               <div className="support-heading">
@@ -389,7 +428,7 @@ export default function App() {
             <span className="section-number">04</span>
           </section>
           return <section className={`content-section ${id === 'features' ? 'features-content' : ''}`} id={id} key={id}>
-            <div className="section-inner"><p className="section-eyebrow">{item.eyebrow}</p><h2>{item.title}</h2><p className="section-body">{id === 'features' ? '贴售前功能清单附件' : item.body}</p><span className="section-number">{id === 'features' ? '03' : id === 'meeting' ? '05' : id === 'process' ? '06' : '07'}</span></div>
+            <div className="section-inner"><p className="section-eyebrow">{item.eyebrow}</p><h2>{item.title}</h2><p className="section-body">{id === 'features' ? '贴售前功能清单附件' : item.body}</p><span className="section-number">{id === 'features' ? '03' : id === 'meeting' ? '05' : '07'}</span></div>
             {id === 'features' && <div className="attachment-card">
               <div className="attachment-heading"><span className="attachment-icon"><FileText size={22} /></span><div><strong>售前功能清单附件</strong><small>支持 PDF、DOCX、XLSX、PNG</small></div></div>
               <label className="attachment-drop"><input type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg" onChange={(event) => setAttachmentName(event.target.files?.[0]?.name ?? '')} /><Upload size={18} /><span>{attachmentName || '点击选择功能清单文件'}</span><em><Paperclip size={14} /> 浏览文件</em></label>
