@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowRight, CheckCircle2, Layers3, Sparkles } from 'lucide-react'
 
 const stats = [
@@ -29,9 +29,17 @@ const sectionCopy: Record<(typeof sections)[number][0], { eyebrow: string; title
   support: { eyebrow: '07 / AFTER-SALES', title: '上线之后，我们仍然在场。', body: '持续维护、数据观察与体验优化，让这份报价方案真正成为业务增长的起点。' },
 }
 
+const companyCards = [
+  { id: 'brand', label: '品牌定位', title: '价值创造', body: '相较于只关注交付的传统开发服务商，我们更注重整体价值创造。', image: './company-value.png' },
+  { id: 'tech', label: '技术与思考', title: '企业级技术栈', body: '使用最为先进和稳定的框架进行构建和开发。', image: './company-tech.png' },
+  { id: 'challenge', label: '创作与挑战', title: '共担风险的态度', body: '遇到困难时，共同解决问题的担当，而非推诿责任。', image: './company-challenge.png' },
+]
+
 export default function App() {
   const [active, setActive] = useState('company')
   const [scrollProgress, setScrollProgress] = useState(0)
+  const [companyCard, setCompanyCard] = useState(0)
+  const [cardDirection, setCardDirection] = useState(1)
 
   useEffect(() => {
     let frame = 0
@@ -99,6 +107,25 @@ export default function App() {
           </div>
         </motion.section>
       </div>
+      <section className="company-feature" id="company-overview" aria-label="公司介绍">
+        <div className="company-panel">
+          <div className="company-left">
+            <h2 className="company-title">公司介绍</h2>
+            <div className="company-body"><p>我们是一支专注品牌与数字体验的创意技术团队。</p><p>从策略到开发，以长期主义陪伴每一次重要的增长。</p></div>
+          </div>
+          <div className="company-right">
+            <fieldset className="company-switcher"><legend className="sr-only">公司介绍主题</legend>{companyCards.map((card, index) => <label key={card.id} className={companyCard === index ? 'selected' : ''}><input type="radio" name="company-topic" checked={companyCard === index} onChange={() => { setCardDirection(index >= companyCard ? 1 : -1); setCompanyCard(index) }} />{card.label}</label>)}</fieldset>
+            <div className="company-stack" aria-live="polite">
+              <AnimatePresence initial={false} custom={cardDirection} mode="popLayout">
+                {companyCards.map((card, offset) => {
+                  const position = (offset - companyCard + companyCards.length) % companyCards.length
+                  return <motion.article key={`${card.id}-${position}`} className={`stack-card stack-card-${position}`} custom={cardDirection} initial={{ opacity: position === 0 ? 0 : 1, x: position === 0 ? cardDirection * 180 : 0, rotate: position === 0 ? cardDirection * 8 : position === 1 ? -3 : 4, y: position * 15 }} animate={{ opacity: 1, x: 0, rotate: position === 0 ? 0 : position === 1 ? -3 : 4, y: position * 15 }} exit={{ opacity: 0, x: -cardDirection * 220, rotate: -cardDirection * 10 }} transition={{ type: 'spring', stiffness: 170, damping: 20 }}><div className="stack-copy"><span>{card.title}</span><p>{card.body}</p></div><img src={card.image} alt="" /></motion.article>
+                })}
+              </AnimatePresence>
+            </div>
+          </div>
+        </div>
+      </section>
       <div className="long-page">
         {sections.slice(1).map(([id]) => {
           const item = sectionCopy[id]
