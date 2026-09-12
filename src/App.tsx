@@ -259,6 +259,20 @@ export default function App() {
                 <p>开发工期为技术开发时间，按原型图&amp;UI确认后开始计算；可分功能版块逐步上线，后续迭代升级。</p>
                 <p>本次报价为含税1%（增值税专票），不包含服务器、第三方平台（例如人脸识别、消息推送等产生的费用）。</p>
               </div>
+              <section className="labor-details" aria-labelledby="labor-details-title">
+                <div className="labor-details-heading"><h3 id="labor-details-title">人力投入明细</h3></div>
+                <div className="labor-details-panel">
+                  <div className="labor-detail-group">
+                    <h4>开发工期：</h4>
+                    <p>项目开发工期为自设计稿确认以后，<strong>60 个工作日</strong></p>
+                  </div>
+                  <div className="labor-detail-group">
+                    <h4>费用计算公式：</h4>
+                    <p>人天合计 = 人数 × 人天/人</p>
+                    <p>金额 = 人天合计 × 单价</p>
+                  </div>
+                </div>
+              </section>
               <section className="cost-library" aria-labelledby="cost-library-title">
                 <div className="cost-library-heading"><h3 id="cost-library-title">第三方费用</h3></div>
                 <div className="cost-notice"><strong>第三方费用说明：</strong><p>云服务资费费用为第三方官方费用，由极客上线负责代购及部署，不涉及收取相关服务费，相关价格以第三方官方实时价格为准。</p></div>
