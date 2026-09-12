@@ -148,6 +148,13 @@ h1 span { display:inline; background:linear-gradient(110deg,#151a2b 20%,#6b3be4 
 .pricing-notes h3 { margin:0 0 12px; color:#2c2e3b; font-size:clamp(18px,1.6vw,24px); letter-spacing:-.04em; }
 .pricing-notes p { position:relative; margin:8px 0 0; padding-left:18px; color:#686d7c; font-size:clamp(13px,1.2vw,16px); line-height:1.75; }
 .pricing-notes p::before { content:""; position:absolute; top:.75em; left:0; width:6px; height:6px; border-radius:50%; background:#6a3be2; box-shadow:0 0 0 4px rgba(106,59,226,.1); }
+.labor-details { margin-top:clamp(54px,7vw,92px); }
+.labor-details-heading h3 { margin:0; color:#242633; font-size:clamp(23px,1.9vw,31px); letter-spacing:-.05em; }
+.labor-details-panel { margin-top:24px; padding:clamp(26px,2.5vw,42px) clamp(24px,2.7vw,46px); border-radius:22px; color:#625b7e; background:rgba(241,236,255,.8); box-shadow:inset 0 1px rgba(255,255,255,.84); }
+.labor-detail-group + .labor-detail-group { margin-top:24px; }
+.labor-detail-group h4 { margin:0 0 12px; color:#4f269f; font-size:clamp(17px,1.45vw,23px); letter-spacing:-.03em; }
+.labor-detail-group p { margin:6px 0 0; font-size:clamp(15px,1.25vw,19px); line-height:1.75; }
+.labor-detail-group strong { color:#4f269f; font-weight:800; }
 .cost-library { width:100%; margin-top:clamp(54px,7vw,92px); }
 .cost-library-heading { display:flex; align-items:center; justify-content:flex-start; gap:12px; }
 .cost-library-heading h3 { margin:0; color:#242633; font-size:clamp(23px,1.9vw,31px); letter-spacing:-.05em; }
