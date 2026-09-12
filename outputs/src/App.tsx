@@ -42,6 +42,13 @@ const caseCards = [
   { id: 'awen-membership', brand: '阿闻宠物', title: '会员中心', image: './case-awen-membership.png', body: '会员权益与服务一站式呈现，为养宠生活提供持续而安心的陪伴。' },
 ]
 
+const pricingSegments = [
+  { label: '一期 · 40%', title: '项目启动款', detail: '第一期款40%为项目启动款，该阶段完成产品原型设计和UI设计。' },
+  { label: '二期 · 30%', title: '设计确认款', detail: '第二期款30%为设计确认款，甲方签署设计确认函后，启动开发工作。' },
+  { label: '三期 · 20%', title: '项目开发款', detail: '第三期款20%为项目开发款，项目开发完成并发布第一个内部版本后，启动验收工作。' },
+  { label: '四期 · 10%', title: '项目尾款', detail: '第四期款10%为项目尾款，甲方支付尾款后进行项目验收和部署上线，并交付源代码。' },
+] as const
+
 export default function App() {
   const [active, setActive] = useState('company')
   const [scrollProgress, setScrollProgress] = useState(0)
@@ -215,8 +222,27 @@ export default function App() {
         </section>
         {sections.slice(2).map(([id]) => {
           const item = sectionCopy[id]
+          if (id === 'pricing') return <section className="content-section pricing-content" id={id} key={id}>
+            <div className="pricing-inner">
+              <p className="section-eyebrow">04 / DEVELOPMENT QUOTE</p>
+              <h2>定制开发报价清单</h2>
+              <div className="pricing-bar" aria-label="付款比例与阶段说明">
+                {pricingSegments.map((segment, index) => <button className={`pricing-segment pricing-segment-${index + 1}`} type="button" key={segment.label} aria-label={`${segment.label}：${segment.detail}`}>
+                  <span>{segment.label}</span>
+                  <strong>{segment.title}</strong>
+                  <span className="pricing-tooltip" role="tooltip">{segment.detail}</span>
+                </button>)}
+              </div>
+              <div className="pricing-notes">
+                <h3>补充说明</h3>
+                <p>开发工期为技术开发时间，按原型图&amp;UI确认后开始计算；可分功能版块逐步上线，后续迭代升级。</p>
+                <p>本次报价为含税1%（增值税专票），不包含服务器、第三方平台（例如人脸识别、消息推送等产生的费用）。</p>
+              </div>
+            </div>
+            <span className="section-number">04</span>
+          </section>
           return <section className={`content-section ${id === 'features' ? 'features-content' : ''}`} id={id} key={id}>
-            <div className="section-inner"><p className="section-eyebrow">{item.eyebrow}</p><h2>{item.title}</h2><p className="section-body">{id === 'features' ? '贴售前功能清单附件' : item.body}</p><span className="section-number">{id === 'cases' ? '02' : id === 'features' ? '03' : id === 'pricing' ? '04' : id === 'meeting' ? '05' : id === 'process' ? '06' : '07'}</span></div>
+            <div className="section-inner"><p className="section-eyebrow">{item.eyebrow}</p><h2>{item.title}</h2><p className="section-body">{id === 'features' ? '贴售前功能清单附件' : item.body}</p><span className="section-number">{id === 'features' ? '03' : id === 'meeting' ? '05' : id === 'process' ? '06' : '07'}</span></div>
             {id === 'features' && <div className="attachment-card">
               <div className="attachment-heading"><span className="attachment-icon"><FileText size={22} /></span><div><strong>售前功能清单附件</strong><small>支持 PDF、DOCX、XLSX、PNG</small></div></div>
               <label className="attachment-drop"><input type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg" onChange={(event) => setAttachmentName(event.target.files?.[0]?.name ?? '')} /><Upload size={18} /><span>{attachmentName || '点击选择功能清单文件'}</span><em><Paperclip size={14} /> 浏览文件</em></label>
