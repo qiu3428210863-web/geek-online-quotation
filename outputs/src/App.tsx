@@ -282,6 +282,7 @@ export default function App() {
             <div className="company-heading"><p className="company-chapter">CHAPTER 01</p><h2 className="company-title">公司介绍</h2></div>
             <fieldset className="company-switcher"><legend className="sr-only">公司介绍主题</legend>{companyCards.map((card, index) => <label key={card.id} className={companyCard === index ? 'selected' : ''} onClick={() => selectCompanyCard(index)}><input type="radio" name="company-topic" checked={companyCard === index} onChange={() => selectCompanyCard(index)} />{card.label}</label>)}</fieldset>
             <motion.div key={companyCards[companyCard].id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="company-body">{companyCards[companyCard].body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</motion.div>
+            <a className="primary company-more" href="https://www.geekonup.com/">了解更多 <ArrowRight size={16} /></a>
           </div>
           <div className="company-right">
             <div className="company-stack" aria-live="polite">
