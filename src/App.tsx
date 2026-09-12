@@ -143,7 +143,7 @@ export default function App() {
       <section className="company-feature" id="company-overview" aria-label="公司介绍">
         <div className="company-panel">
           <div className="company-left">
-            <h2 className="company-title">公司介绍</h2>
+            <div className="company-heading"><p className="company-chapter">CHAPTER 01</p><h2 className="company-title">公司介绍</h2></div>
             <fieldset className="company-switcher"><legend className="sr-only">公司介绍主题</legend>{companyCards.map((card, index) => <label key={card.id} className={companyCard === index ? 'selected' : ''}><input type="radio" name="company-topic" checked={companyCard === index} onChange={() => { setCardDirection(index >= companyCard ? 1 : -1); setCompanyCard(index) }} />{card.label}</label>)}</fieldset>
             <motion.div key={companyCards[companyCard].id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="company-body">{companyCards[companyCard].body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</motion.div>
           </div>
