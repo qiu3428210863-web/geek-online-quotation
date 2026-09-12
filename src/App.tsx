@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent, type PointerEvent as ReactPointerEvent } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ArrowLeft, ArrowRight, CheckCircle2, Layers3, Sparkles, X } from 'lucide-react'
+import { ArrowLeft, ArrowRight, CheckCircle2, CircleDollarSign, ClipboardList, Code2, Kanban, Layers3, LayoutTemplate, Palette, Rocket, Search, Settings2, Sparkles, X } from 'lucide-react'
 
 const stats = [
   ['[XX 工作日]', '项目工期'],
@@ -59,16 +59,18 @@ const supportServices = [
 ] as const
 
 const processStages = [
-  { phase: '售前', title: '需求沟通', body: '深入了解客户的业务背景与需求，提供针对性的解决思路且48小时内免费提供定制化方案。', icon: '⌁' },
-  { phase: '售前', title: '调研与规划', body: '通过深入需求梳理与确认，完善项目需求，并制定原型设计与项目OKR实施计划，确保项目目标与交付标准清晰可行。', icon: '◌' },
-  { phase: '售前', title: '报价确认', body: '我们会通过“售前会议”确认方案细节，确保可行性与业务逻辑的契合，并明确每个阶段的目标与交付标准。在充分理解客户需求的基础上，提供透明、详细的报价方案，结合客户预算灵活调整，确保高性价比。', icon: '▦' },
-  { phase: '售中', title: '项目管理', body: '每日站会同步目标、障碍与行动，通过燃尽图+看板实时透明进度，确保需求-进度-质量三维平衡，并通过项目里程碑验收标准提前识别并消除阻碍，降低不确定性，确保每个迭代按时高质量交付。', icon: '✦' },
-  { phase: '售中', title: '原型设计', body: '高效输出功能原型图，直观展示产品结构与核心交互，确保客户对产品有清晰的预期，并提前发现可能的优化点。', icon: '◒' },
-  { phase: '售中', title: 'UI/UX设计', body: '基于品牌调性和用户体验优化原则，进行界面设计，确保视觉与交互体验既符合用户习惯，又能强化品牌形象。', icon: '↗' },
-  { phase: '售中', title: '开发与测试', body: '采用敏捷式开发，将一个大的项目拆分为多个迭代，定期向客户展示迭代进度，并通过功能、性能、安全等多维测试，确保系统的稳定性与可靠性。', icon: '◈' },
-  { phase: '售中', title: '自动化运维', body: '通过自动化运维告警提高系统的稳定性、故障响应速度和性能优化，减少人工干预和错误风险，推动业务的长期稳定运行和持续增长，实现客户持续成功。', icon: '⚙' },
-  { phase: '售中', title: '上线与交付', body: '协助完成应用市场审核与上架，确保产品顺利上线。同时，完整交付源码与技术文档，保障客户的自主可控性，并支持后续扩展开发。', icon: '⌂' },
+  { phase: '售前', title: '需求沟通', body: '深入了解客户的业务背景与需求，提供针对性的解决思路且48小时内免费提供定制化方案。', icon: 'search' },
+  { phase: '售前', title: '调研与规划', body: '通过深入需求梳理与确认，完善项目需求，并制定原型设计与项目OKR实施计划，确保项目目标与交付标准清晰可行。', icon: 'planning' },
+  { phase: '售前', title: '报价确认', body: '我们会通过“售前会议”确认方案细节，确保可行性与业务逻辑的契合，并明确每个阶段的目标与交付标准。在充分理解客户需求的基础上，提供透明、详细的报价方案，结合客户预算灵活调整，确保高性价比。', icon: 'quote' },
+  { phase: '售中', title: '项目管理', body: '每日站会同步目标、障碍与行动，通过燃尽图+看板实时透明进度，确保需求-进度-质量三维平衡，并通过项目里程碑验收标准提前识别并消除阻碍，降低不确定性，确保每个迭代按时高质量交付。', icon: 'management' },
+  { phase: '售中', title: '原型设计', body: '高效输出功能原型图，直观展示产品结构与核心交互，确保客户对产品有清晰的预期，并提前发现可能的优化点。', icon: 'prototype' },
+  { phase: '售中', title: 'UI/UX设计', body: '基于品牌调性和用户体验优化原则，进行界面设计，确保视觉与交互体验既符合用户习惯，又能强化品牌形象。', icon: 'design' },
+  { phase: '售中', title: '开发与测试', body: '采用敏捷式开发，将一个大的项目拆分为多个迭代，定期向客户展示迭代进度，并通过功能、性能、安全等多维测试，确保系统的稳定性与可靠性。', icon: 'development' },
+  { phase: '售中', title: '自动化运维', body: '通过自动化运维告警提高系统的稳定性、故障响应速度和性能优化，减少人工干预和错误风险，推动业务的长期稳定运行和持续增长，实现客户持续成功。', icon: 'operations' },
+  { phase: '售中', title: '上线与交付', body: '协助完成应用市场审核与上架，确保产品顺利上线。同时，完整交付源码与技术文档，保障客户的自主可控性，并支持后续扩展开发。', icon: 'launch' },
 ] as const
+
+const processIconMap = { search: Search, planning: ClipboardList, quote: CircleDollarSign, management: Kanban, prototype: LayoutTemplate, design: Palette, development: Code2, operations: Settings2, launch: Rocket } as const
 
 const meetingPrinciples = [
   { accent: '提前准备', title: '让沟通更聚焦', points: ['提前准备「会议文档」明确核心议题，并同步给参会人员预读', '提前收集补充讨论点，确保所有关键问题「有备而谈」提高会议效率'] },
@@ -356,15 +358,15 @@ export default function App() {
                   <motion.span className="process-timeline-fill" initial={{ scaleY: 0 }} whileInView={{ scaleY: 1 }} viewport={{ once: true, amount: .12 }} transition={{ duration: .5, ease: [.22, 1, .36, 1] }} />
                 </motion.div>
                 <ol className="process-flow-list">
-                  {processStages.map((stage, index) => <motion.li key={stage.title} className={`process-flow-item process-flow-item-${index % 2 === 0 ? 'left' : 'right'}`} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .12 }} transition={{ delay: .4 + index * .07, duration: .32, ease: [.22, 1, .36, 1] }}>
+                  {processStages.map((stage, index) => { const ProcessIcon = processIconMap[stage.icon]; return <motion.li key={stage.title} className={`process-flow-item process-flow-item-${index % 2 === 0 ? 'left' : 'right'}`} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .12 }} transition={{ delay: .4 + index * .07, duration: .32, ease: [.22, 1, .36, 1] }}>
                     <div className="process-card">
                       <div className="process-card-top"><span>{stage.phase}</span><b>0{index + 1}</b></div>
-                      <div className="process-card-icon" aria-hidden="true">{stage.icon}</div>
+                      <div className="process-card-icon" aria-hidden="true"><ProcessIcon size={21} strokeWidth={1.9} /></div>
                       <h3>{stage.title}</h3>
                       <p>{stage.body}</p>
                     </div>
                     <span className="process-node" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
-                  </motion.li>)}
+                  </motion.li>})}
                 </ol>
               </div>
             </div>
