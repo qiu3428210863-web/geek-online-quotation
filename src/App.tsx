@@ -260,7 +260,7 @@ export default function App() {
                 <p>本次报价为含税1%（增值税专票），不包含服务器、第三方平台（例如人脸识别、消息推送等产生的费用）。</p>
               </div>
               <section className="cost-library" aria-labelledby="cost-library-title">
-                <div className="cost-library-heading"><span>4.3</span><h3 id="cost-library-title">第三方费用</h3></div>
+                <div className="cost-library-heading"><h3 id="cost-library-title">第三方费用</h3></div>
                 <div className="cost-notice"><strong>第三方费用说明：</strong><p>云服务资费费用为第三方官方费用，由极客上线负责代购及部署，不涉及收取相关服务费，相关价格以第三方官方实时价格为准。</p></div>
                 <div className="cost-filters" role="tablist" aria-label="第三方费用分类">
                   {costCategories.map((category) => <button type="button" role="tab" aria-selected={costCategory === category} className={costCategory === category ? 'active' : ''} key={category} onClick={() => setCostCategory(category)}>{category}</button>)}
