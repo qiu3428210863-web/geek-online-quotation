@@ -337,7 +337,7 @@ export default function App() {
               <div className="pricing-title-wrap">
                 <p className="section-eyebrow">04 / DEVELOPMENT QUOTE</p>
                 <h2>定制开发报价清单</h2>
-                <p className="pricing-subtitle">项目付款节点</p>
+                <div className="pricing-subtitle-row"><p className="pricing-subtitle">项目付款节点</p><span className="pricing-hint"><Sparkles size={13} /> 悬停节点查看详情</span></div>
               </div>
               <div className="pricing-bar" aria-label="付款比例与阶段说明">
                 {pricingSegments.map((segment, index) => <button className={`pricing-segment pricing-segment-${index + 1}`} type="button" key={segment.label} aria-label={`${segment.label}：${segment.detail}`}>
