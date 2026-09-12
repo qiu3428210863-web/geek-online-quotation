@@ -131,8 +131,9 @@ h1 span { display:inline; background:linear-gradient(110deg,#151a2b 20%,#6b3be4 
 .pricing-content { justify-content:center; padding-right:0; padding-left:0; }
 .pricing-content::before { display:none; }
 .pricing-inner { position:relative; z-index:2; width:min(1700px,88vw); margin:0 auto; }
-.pricing-inner .section-eyebrow { text-align:center; }
-.pricing-inner h2 { max-width:none; text-align:center; }
+.pricing-title-wrap { display:flex; width:100%; flex-direction:column; align-items:center; text-align:center; }
+.pricing-title-wrap .section-eyebrow { text-align:center; }
+.pricing-title-wrap h2 { max-width:none; text-align:center; }
 .pricing-subtitle { margin:16px 0 0; color:#686b7b; font-size:clamp(16px,1.45vw,21px); font-weight:700; letter-spacing:.08em; text-align:center; }
 .pricing-bar { position:relative; z-index:3; display:flex; width:100%; min-height:104px; margin-top:30px; padding:7px; border:1px solid rgba(255,255,255,.9); border-radius:30px; background:rgba(232,228,250,.68); box-shadow:0 20px 44px rgba(80,58,155,.12),inset 0 1px rgba(255,255,255,.9); }
 .pricing-segment { position:relative; display:flex; min-width:0; min-height:88px; flex-direction:column; align-items:flex-start; justify-content:center; gap:7px; cursor:pointer; padding:14px 18px; border:0; border-radius:22px; color:#55576b; background:transparent; text-align:left; transition:color .25s ease,background .25s ease,transform .25s ease; }
