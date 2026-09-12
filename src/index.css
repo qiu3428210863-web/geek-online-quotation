@@ -186,6 +186,12 @@ h1 span { display:inline; background:linear-gradient(110deg,#151a2b 20%,#6b3be4 
 .cost-detail p { margin:0; }
 .cost-detail a { display:inline-block; margin-top:5px; color:#7041d5; font-weight:700; text-decoration:none; transition:color .2s ease,transform .2s ease; }
 .cost-detail a:hover,.cost-detail a:focus-visible { color:#4f269f; text-decoration:underline; transform:translateX(2px); }
+.support-library { width:100%; margin-top:clamp(54px,7vw,92px); padding:clamp(24px,3vw,42px); border:1px solid rgba(255,255,255,.78); border-radius:28px; background:linear-gradient(145deg,rgba(255,255,255,.54),rgba(247,243,255,.32)); box-shadow:0 22px 56px rgba(73,50,150,.1),inset 0 1px rgba(255,255,255,.88); backdrop-filter:blur(16px); }
+.support-library-heading { display:flex; align-items:center; justify-content:flex-start; gap:12px; }
+.support-library-heading h3 { margin:0; color:#242633; font-size:var(--type-subheading); letter-spacing:-.05em; }
+.support-library-description { margin:20px 0 0; color:#67617e; font-size:var(--type-body); line-height:1.8; }
+.support-library .support-inner { width:100%; margin:0; }
+.support-library .support-panel { margin-top:26px; padding:0; border:0; border-radius:0; background:transparent; box-shadow:none; backdrop-filter:none; }
 .support-content { align-items:center; }
 .support-inner { position:relative; z-index:2; width:min(1700px,88vw); margin:0 auto; }
 .support-heading h2 { max-width:none; }
