@@ -282,7 +282,7 @@ export default function App() {
           </div>
         </motion.section>
       </div>
-      <section className="company-feature" id="company-overview" aria-label="公司介绍">
+      <motion.section className="company-feature" id="company-overview" aria-label="公司介绍" initial={{ opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .14 }} transition={{ duration: .72, ease: [.22, 1, .36, 1] }}>
         <div className="company-panel">
           <div className="company-left">
             <div className="company-heading"><p className="company-chapter">CHAPTER 01</p><h2 className="company-title">公司介绍</h2></div>
@@ -301,9 +301,9 @@ export default function App() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
       <div className="long-page">
-        <section className="case-study-section" id="cases" aria-label="参考案例">
+        <motion.section className="case-study-section" id="cases" aria-label="参考案例" initial={{ opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .14 }} transition={{ duration: .72, ease: [.22, 1, .36, 1] }}>
           <div className="case-heading-block">
             <p className="case-chapter">CHAPTER 02</p>
             <h2>参考案例</h2>
@@ -323,10 +323,10 @@ export default function App() {
             </div>
             <div className="case-carousel-footer"><span>切换案例浏览</span><div className="case-dots" aria-hidden="true">{Array.from({ length: Math.ceil(caseCards.length / 2) }, (_, index) => <i className={index === caseIndex ? 'active' : ''} key={index} />)}</div></div>
           </div>
-        </section>
+        </motion.section>
         {sections.slice(2).map(([id]) => {
           const item = sectionCopy[id]
-          if (id === 'meeting') return <section className="content-section meeting-content" id={id} key={id}>
+          if (id === 'meeting') return <motion.section className="content-section meeting-content" id={id} key={id} initial={{ opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .14 }} transition={{ duration: .72, ease: [.22, 1, .36, 1] }}>
             <div className="meeting-inner">
               <div className="meeting-section-heading">
                 <p className="section-eyebrow">05 / WORKSHOP</p>
@@ -343,8 +343,8 @@ export default function App() {
               </div>
             </div>
             <span className="section-number">05</span>
-          </section>
-          if (id === 'process') return <section className="content-section process-content" id={id} key={id}>
+          </motion.section>
+          if (id === 'process') return <motion.section className="content-section process-content" id={id} key={id} initial={{ opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .14 }} transition={{ duration: .72, ease: [.22, 1, .36, 1] }}>
             <div className="process-inner">
               <div className="process-heading">
                 <p className="section-eyebrow">06 / DELIVERY FLOW</p>
@@ -370,8 +370,8 @@ export default function App() {
               </div>
             </div>
             <span className="section-number">06</span>
-          </section>
-          if (id === 'support') return <section className="content-section support-content" id={id} key={id}>
+          </motion.section>
+          if (id === 'support') return <motion.section className="content-section support-content" id={id} key={id} initial={{ opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .14 }} transition={{ duration: .72, ease: [.22, 1, .36, 1] }}>
             <div className="support-inner">
               <div className="support-heading">
                 <p className="section-eyebrow">07 / AFTER-SALES</p>
@@ -395,8 +395,8 @@ export default function App() {
               </div>
             </div>
             <span className="section-number">07</span>
-          </section>
-          if (id === 'pricing') return <section className="content-section pricing-content" id={id} key={id}>
+          </motion.section>
+          if (id === 'pricing') return <motion.section className="content-section pricing-content" id={id} key={id} initial={{ opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .14 }} transition={{ duration: .72, ease: [.22, 1, .36, 1] }}>
             <div className="pricing-inner">
               <div className="pricing-title-wrap">
                 <p className="section-eyebrow">04 / DEVELOPMENT QUOTE</p>
@@ -451,14 +451,14 @@ export default function App() {
               </section>
             </div>
             <span className="section-number">04</span>
-          </section>
-          return <section className={`content-section ${id === 'features' ? 'features-content' : ''}`} id={id} key={id}>
+          </motion.section>
+          return <motion.section className={`content-section ${id === 'features' ? 'features-content' : ''}`} id={id} key={id} initial={{ opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .14 }} transition={{ duration: .72, ease: [.22, 1, .36, 1] }}>
             <div className="section-inner"><p className="section-eyebrow">{item.eyebrow}</p><h2>{item.title}</h2><p className="section-body">{id === 'features' ? '贴售前功能清单附件' : item.body}</p><span className="section-number">{id === 'features' ? '03' : '07'}</span></div>
             {id === 'features' && <div className="attachment-card">
               <div className="attachment-heading"><span className="attachment-icon"><FileText size={22} /></span><div><strong>售前功能清单附件</strong><small>支持 PDF、DOCX、XLSX、PNG</small></div></div>
               <label className="attachment-drop"><input type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg" onChange={(event) => setAttachmentName(event.target.files?.[0]?.name ?? '')} /><Upload size={18} /><span>{attachmentName || '点击选择功能清单文件'}</span><em><Paperclip size={14} /> 浏览文件</em></label>
             </div>}
-          </section>
+          </motion.section>
         })}
       </div>
       <AnimatePresence>
