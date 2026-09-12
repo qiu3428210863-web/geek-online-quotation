@@ -49,7 +49,6 @@ export default function App() {
   const [cardDirection, setCardDirection] = useState(1)
   const [attachmentName, setAttachmentName] = useState('')
   const [caseIndex, setCaseIndex] = useState(0)
-  const [caseDirection, setCaseDirection] = useState(1)
   const [casePreview, setCasePreview] = useState<{ image: string; title: string } | null>(null)
 
   const handleSectionNavigate = (event: ReactMouseEvent<HTMLAnchorElement>, id: string) => {
@@ -66,7 +65,6 @@ export default function App() {
   const changeCase = (direction: number) => {
     const pageCount = caseCards.length - 1
     const next = (caseIndex + direction + pageCount) % pageCount
-    setCaseDirection(direction)
     setCaseIndex(next)
   }
 
@@ -205,14 +203,12 @@ export default function App() {
             <div className="case-carousel" aria-label="案例卡片列表">
               <div className="case-visible-pair">
                 {caseCards.slice(caseIndex, caseIndex + 2).map((card, offset) => <div className="case-slot" key={offset}>
-                  <AnimatePresence initial={false} mode="popLayout" custom={caseDirection}>
-                    <motion.article className="case-card" key={`${card.id}-${caseIndex}`} custom={caseDirection} initial={{ opacity: 0, x: caseDirection * 26 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -caseDirection * 26 }} transition={{ duration: .26, ease: [0.22, 1, 0.36, 1], delay: offset * .07 }}>
-                      <div className="case-card-title"><span>{card.brand}</span><h3>{card.title}</h3></div>
-                      <button className="case-image-button" type="button" onClick={() => setCasePreview({ image: card.image, title: `${card.brand} · ${card.title}` })} aria-label={`点击查看${card.brand}${card.title}完整图片`}><img src={card.image} alt={`${card.brand}${card.title}案例`} /><span className="case-image-hint">点击图片查看完整案例</span></button>
-                      <div className="case-card-body"><span className="case-rule">—</span><p>{card.body}</p></div>
-                      <span className="case-card-index">0{caseIndex + offset + 1}</span>
-                    </motion.article>
-                  </AnimatePresence>
+                  <article className="case-card">
+                    <div className="case-card-title"><span>{card.brand}</span><h3>{card.title}</h3></div>
+                    <button className="case-image-button" type="button" onClick={() => setCasePreview({ image: card.image, title: `${card.brand} · ${card.title}` })} aria-label={`点击查看${card.brand}${card.title}完整图片`}><img src={card.image} alt={`${card.brand}${card.title}案例`} /><span className="case-image-hint">点击图片查看完整案例</span></button>
+                    <div className="case-card-body"><span className="case-rule">—</span><p>{card.body}</p></div>
+                    <span className="case-card-index">0{caseIndex + offset + 1}</span>
+                  </article>
                 </div>)}
               </div>
             </div>
