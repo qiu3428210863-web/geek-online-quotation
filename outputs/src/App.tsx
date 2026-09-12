@@ -45,15 +45,19 @@ export default function App() {
     let frame = 0
     const updateProgress = () => {
       // Map the viewport's scroll position to the real section anchors. A
-      // whole-document ratio makes the thumb reach evenly-spaced dots early
+      // A whole-document ratio makes the thumb reach evenly-spaced dots early
       // when sections have different heights, so use piecewise interpolation
-      // between each section's top edge instead.
+      // between the visual focus anchors of each chapter instead.
+      const focusOffset = Math.min(window.innerHeight * 0.35, 360)
       const anchors = sections
         .map(([id]) => document.getElementById(id))
         .filter(Boolean)
-        .map((element) => {
+        .map((element, index) => {
           const node = element as HTMLElement
-          return node.getBoundingClientRect().top + window.scrollY
+          const documentTop = node.getBoundingClientRect().top + window.scrollY
+          // Switch a chapter when it reaches the visual focus line below the
+          // fixed nav, keeping the active label and moving thumb in lockstep.
+          return index === 0 ? 0 : Math.max(0, documentTop - focusOffset)
         })
 
       let percent = 0
