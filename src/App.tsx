@@ -348,16 +348,16 @@ export default function App() {
             <div className="process-inner">
               <div className="process-heading">
                 <p className="section-eyebrow">06 / DELIVERY FLOW</p>
-                <h2>从需求到上线，流程清晰可追踪。</h2>
+                <h2>开发流程说明</h2>
                 <p className="section-body">把每一个关键环节拆开，让协作、反馈与交付都有明确的下一步。</p>
               </div>
               <div className="process-phase-legend" aria-label="流程阶段"><span><i />售前</span><span><i />售中</span></div>
               <div className="process-flow" aria-label="开发流程清单">
-                <motion.div className="process-flow-line" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: .2 }}>
-                  <motion.span className="process-timeline-fill" initial={{ scaleY: 0 }} whileInView={{ scaleY: 1 }} viewport={{ once: true, amount: .2 }} transition={{ duration: 1.25, ease: [.22, 1, .36, 1] }} />
+                <motion.div className="process-flow-line" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: .12 }}>
+                  <motion.span className="process-timeline-fill" initial={{ scaleY: 0 }} whileInView={{ scaleY: 1 }} viewport={{ once: true, amount: .12 }} transition={{ duration: .5, ease: [.22, 1, .36, 1] }} />
                 </motion.div>
                 <ol className="process-flow-list">
-                  {processStages.map((stage, index) => <motion.li key={stage.title} className={`process-flow-item process-flow-item-${index % 2 === 0 ? 'left' : 'right'}`} initial={{ opacity: 0, y: 26 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .25 }} transition={{ delay: .8 + index * .13, duration: .55, ease: [.22, 1, .36, 1] }}>
+                  {processStages.map((stage, index) => <motion.li key={stage.title} className={`process-flow-item process-flow-item-${index % 2 === 0 ? 'left' : 'right'}`} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .12 }} transition={{ delay: .4 + index * .07, duration: .32, ease: [.22, 1, .36, 1] }}>
                     <div className="process-card">
                       <div className="process-card-top"><span>{stage.phase}</span><b>0{index + 1}</b></div>
                       <div className="process-card-icon" aria-hidden="true">{stage.icon}</div>
