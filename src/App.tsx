@@ -1,6 +1,6 @@
-import { useEffect, useState, type MouseEvent as ReactMouseEvent } from 'react'
+import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ArrowRight, CheckCircle2, FileText, Layers3, Paperclip, Sparkles, Upload } from 'lucide-react'
+import { ArrowLeft, ArrowRight, CheckCircle2, FileText, Layers3, Paperclip, Sparkles, Upload, X } from 'lucide-react'
 
 const stats = [
   ['[XX 工作日]', '项目工期'],
@@ -35,12 +35,22 @@ const companyCards = [
   { id: 'challenge', label: '创作与挑战', image: './company-challenge.png', body: ['面对服务过程中的挑战，我们从不退缩。不畏惧不设限，才能推开更多可能。', '我们享受热血创作的过程，每一次都全力以赴，把未知拆成可以前进的步伐。'] },
 ]
 
+const caseCards = [
+  { id: 'liuda-map', brand: '溜搭', title: '地图探索', image: './case-liuda-map.png', body: '把附近的路线、互动与惊喜放在一张地图里，让每一次出发都值得期待。' },
+  { id: 'liuda-style', brand: '溜搭', title: '宠物装扮', image: './case-liuda-style.png', body: '用轻松有趣的装扮体验，建立属于自己的宠物形象与社交表达。' },
+  { id: 'awen-profile', brand: '阿闻宠物', title: '完善信息', image: './case-awen-profile.png', body: '档案、品种与健康信息集中管理，让科学照顾从记录开始。' },
+  { id: 'awen-membership', brand: '阿闻宠物', title: '会员中心', image: './case-awen-membership.png', body: '会员权益与服务一站式呈现，为养宠生活提供持续而安心的陪伴。' },
+]
+
 export default function App() {
   const [active, setActive] = useState('company')
   const [scrollProgress, setScrollProgress] = useState(0)
   const [companyCard, setCompanyCard] = useState(0)
   const [cardDirection, setCardDirection] = useState(1)
   const [attachmentName, setAttachmentName] = useState('')
+  const [caseIndex, setCaseIndex] = useState(0)
+  const [casePreview, setCasePreview] = useState<{ image: string; title: string } | null>(null)
+  const caseViewportRef = useRef<HTMLDivElement>(null)
 
   const handleSectionNavigate = (event: ReactMouseEvent<HTMLAnchorElement>, id: string) => {
     event.preventDefault()
@@ -51,6 +61,24 @@ export default function App() {
     const targetTop = target.getBoundingClientRect().top + window.scrollY - navOffset
     window.history.replaceState(null, '', `#${id}`)
     window.scrollTo({ top: Math.max(0, targetTop), behavior: 'auto' })
+  }
+
+  const scrollCases = (direction: number) => {
+    const viewport = caseViewportRef.current
+    if (!viewport) return
+    const card = viewport.querySelector<HTMLElement>('.case-card')
+    const gap = Number.parseFloat(getComputedStyle(viewport).columnGap || '') || 16
+    const amount = card ? card.offsetWidth + gap : viewport.clientWidth * .72
+    viewport.scrollBy({ left: direction * amount, behavior: 'smooth' })
+  }
+
+  const handleCaseScroll = () => {
+    const viewport = caseViewportRef.current
+    if (!viewport) return
+    const card = viewport.querySelector<HTMLElement>('.case-card')
+    if (!card) return
+    const gap = Number.parseFloat(getComputedStyle(viewport).columnGap || '') || 16
+    setCaseIndex(Math.min(caseCards.length - 1, Math.max(0, Math.round(viewport.scrollLeft / (card.offsetWidth + gap)))))
   }
 
   useEffect(() => {
@@ -172,17 +200,22 @@ export default function App() {
       </section>
       <div className="long-page">
         <section className="case-study-section" id="cases" aria-label="参考案例">
-          <div className="case-gallery">
-            <img src="./case-reference.png" alt="溜搭与阿闻宠物案例界面展示" />
-            <div className="case-gallery-caption"><span>02 / REFERENCE CASE</span><strong>案例展示</strong></div>
+          <div className="case-heading-block">
+            <p className="case-chapter">CHAPTER 02</p>
+            <h2>参考案例（如果有就填）</h2>
+            <p className="case-heading-note">Design, develop and run any business software you need.</p>
+            <div className="case-controls"><button type="button" aria-label="上一个案例" onClick={() => scrollCases(-1)}><ArrowLeft size={18} /></button><button type="button" aria-label="下一个案例" onClick={() => scrollCases(1)}><ArrowRight size={18} /></button></div>
           </div>
-          <div className="case-flow">
-            <p className="section-eyebrow">PROJECT FLOW</p>
-            <ol>
-              <li><span className="flow-index">01</span><div><h3>溜搭</h3><p>档案、装扮、社交</p></div></li>
-              <li><span className="flow-index">02</span><div><h3>阿闻宠物</h3><p>档案、会员</p></div></li>
-              <li><span className="flow-index">03</span><div><h3>敬请期待</h3><p>更多案例即将发布</p></div></li>
-            </ol>
+          <div className="case-carousel-wrap">
+            <div className="case-carousel" ref={caseViewportRef} onScroll={handleCaseScroll} aria-label="案例卡片列表">
+              {caseCards.map((card, index) => <article className="case-card" key={card.id}>
+                <div className="case-card-title"><span>{card.brand}</span><h3>{card.title}</h3></div>
+                <button className="case-image-button" type="button" onClick={() => setCasePreview({ image: card.image, title: `${card.brand} · ${card.title}` })} aria-label={`点击查看${card.brand}${card.title}完整图片`}><img src={card.image} alt={`${card.brand}${card.title}案例`} /><span className="case-image-hint">点击图片查看完整案例</span></button>
+                <div className="case-card-body"><span className="case-rule">—</span><p>{card.body}</p></div>
+                <span className="case-card-index">0{index + 1}</span>
+              </article>)}
+            </div>
+            <div className="case-carousel-footer"><span>左右滑动浏览案例</span><div className="case-dots" aria-hidden="true">{caseCards.map((card, index) => <i className={index === caseIndex ? 'active' : ''} key={card.id} />)}</div></div>
           </div>
         </section>
         {sections.slice(2).map(([id]) => {
@@ -196,6 +229,15 @@ export default function App() {
           </section>
         })}
       </div>
+      <AnimatePresence>
+        {casePreview && <motion.div className="case-lightbox" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setCasePreview(null)} role="dialog" aria-modal="true" aria-label={`${casePreview.title}完整图片`}>
+          <motion.div className="case-lightbox-inner" initial={{ scale: .94, y: 18 }} animate={{ scale: 1, y: 0 }} exit={{ scale: .94, y: 18 }} onClick={(event) => event.stopPropagation()}>
+            <button type="button" className="case-lightbox-close" onClick={() => setCasePreview(null)} aria-label="关闭完整图片"><X size={20} /></button>
+            <img src={casePreview.image} alt={`${casePreview.title}完整案例`} />
+            <p>{casePreview.title}</p>
+          </motion.div>
+        </motion.div>}
+      </AnimatePresence>
     </main>
   )
 }
