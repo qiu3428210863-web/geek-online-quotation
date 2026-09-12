@@ -281,7 +281,7 @@ export default function App() {
                 </div>
                 <p className="cost-count">显示全部 {visibleCosts.length} 项资源</p>
                 <div className="cost-grid">
-                  {visibleCosts.map((cost) => <article className="cost-card" key={cost.id}>
+                  {visibleCosts.map((cost) => <article className={`cost-card ${expandedCosts[cost.id] ? 'is-expanded' : ''}`} key={cost.id}>
                     <p className="cost-breadcrumb">{cost.category} / {cost.label}</p>
                     <h4>{cost.label}</h4>
                     <p className="cost-price">{cost.price}</p>
