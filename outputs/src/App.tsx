@@ -67,6 +67,7 @@ export default function App() {
                 <div><b>项目编号</b><span>[G-XXXX]</span></div>
                 <div><b>项目名称</b><span>[项目名称]</span></div>
               </motion.div>
+              <div className="stats-frame" id="quote-data"><div className="stat-row">{stats.map(([value,label])=><div className="stat" key={label}><p className="stat-value">{value}</p><p className="stat-label">{label}</p></div>)}</div></div>
             </div>
             <div className="art" aria-hidden="true">
               <div className="art-glow"/><div className="grid-plane"/>
@@ -76,7 +77,6 @@ export default function App() {
               <div className="device"><div className="device-ring"/><img className="device-logo" src="./logo.svg" alt=""/><span className="device-caption">brand quotation</span></div>
             </div>
           </div>
-          <div className="stats-frame" id="quote-data"><div className="stat-row">{stats.map(([value,label])=><div className="stat" key={label}><p className="stat-value">{value}</p><p className="stat-label">{label}</p></div>)}</div></div>
         </motion.section>
       </div>
       <div className="long-page">
