@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ArrowRight, CheckCircle2, Layers3, Sparkles } from 'lucide-react'
+import { ArrowRight, CheckCircle2, FileText, Layers3, Paperclip, Sparkles, Upload } from 'lucide-react'
 
 const stats = [
   ['[XX 工作日]', '项目工期'],
@@ -40,6 +40,7 @@ export default function App() {
   const [scrollProgress, setScrollProgress] = useState(0)
   const [companyCard, setCompanyCard] = useState(0)
   const [cardDirection, setCardDirection] = useState(1)
+  const [attachmentName, setAttachmentName] = useState('')
 
   useEffect(() => {
     let frame = 0
@@ -175,8 +176,12 @@ export default function App() {
         </section>
         {sections.slice(2).map(([id]) => {
           const item = sectionCopy[id]
-          return <section className="content-section" id={id} key={id}>
-            <div className="section-inner"><p className="section-eyebrow">{item.eyebrow}</p><h2>{item.title}</h2><p className="section-body">{item.body}</p><span className="section-number">{id === 'cases' ? '02' : id === 'features' ? '03' : id === 'pricing' ? '04' : id === 'meeting' ? '05' : id === 'process' ? '06' : '07'}</span></div>
+          return <section className={`content-section ${id === 'features' ? 'features-content' : ''}`} id={id} key={id}>
+            <div className="section-inner"><p className="section-eyebrow">{item.eyebrow}</p><h2>{item.title}</h2><p className="section-body">{id === 'features' ? '贴售前功能清单附件' : item.body}</p><span className="section-number">{id === 'cases' ? '02' : id === 'features' ? '03' : id === 'pricing' ? '04' : id === 'meeting' ? '05' : id === 'process' ? '06' : '07'}</span></div>
+            {id === 'features' && <div className="attachment-card">
+              <div className="attachment-heading"><span className="attachment-icon"><FileText size={22} /></span><div><strong>售前功能清单附件</strong><small>支持 PDF、DOCX、XLSX、PNG</small></div></div>
+              <label className="attachment-drop"><input type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg" onChange={(event) => setAttachmentName(event.target.files?.[0]?.name ?? '')} /><Upload size={18} /><span>{attachmentName || '点击选择功能清单文件'}</span><em><Paperclip size={14} /> 浏览文件</em></label>
+            </div>}
           </section>
         })}
       </div>
