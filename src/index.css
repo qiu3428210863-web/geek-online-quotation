@@ -234,7 +234,7 @@ h1 span { display:inline; background:linear-gradient(110deg,#151a2b 20%,#6b3be4 
 .process-flow-item-left .process-card p { margin-left:0; }
 .process-node { grid-column:1; grid-row:2; z-index:2; display:grid; width:42px; height:42px; place-self:center; border:7px solid #f1edff; border-radius:50%; color:#6a3be2; background:#fff; box-shadow:0 0 0 1px rgba(106,59,226,.18),0 0 0 7px rgba(106,59,226,.08); font-size:10px; font-weight:800; letter-spacing:.06em; }
 .meeting-content { align-items:flex-start; padding-right:0; padding-left:0; }
-.meeting-content::before { inset:3% 6vw; border-radius:36px; background:linear-gradient(180deg,rgba(255,255,255,.92) 0%,rgba(255,255,255,.78) 34%,rgba(140,99,240,.82) 100%); box-shadow:0 26px 74px rgba(88,65,180,.16),inset 0 1px rgba(255,255,255,.9); }
+.meeting-content::before { display:none; }
 .meeting-inner { position:relative; z-index:2; width:min(1700px,88vw); margin:0 auto; }
 .meeting-section-heading h2 { max-width:none; margin:0; color:#151827; font-size:var(--type-heading); line-height:1.05; letter-spacing:-.065em; }
 .meeting-board { margin-top:clamp(40px,5vw,72px); overflow:hidden; border:1px solid rgba(255,255,255,.88); border-radius:30px; background:rgba(255,255,255,.72); box-shadow:0 22px 54px rgba(73,50,150,.12),inset 0 1px rgba(255,255,255,.92); }
