@@ -44,16 +44,18 @@ export default function App() {
 
   return (
     <main className="landing-shell">
-      <a className="brand-corner" href="#top" aria-label="极客上线首页"><img src="./logo.svg" alt="极客上线 Logo" /></a>
-      <nav className="progress-nav" aria-label="报价方案章节">
-        <div className="progress-labels">
-          {sections.map(([id, label]) => <a key={id} className={active === id ? 'active' : ''} href={`#${id}`}>{label}</a>)}
+      <nav className="site-nav" aria-label="报价方案章节">
+        <a className="nav-brand" href="#top" aria-label="极客上线首页"><img src="./logo.svg" alt="极客上线 Logo" /></a>
+        <div className="progress-nav">
+          <div className="progress-labels">
+            {sections.map(([id, label]) => <a key={id} className={active === id ? 'active' : ''} href={`#${id}`}>{label}</a>)}
+          </div>
+          <div className="progress-track"><span style={{ width: `${(sections.findIndex(([id]) => id === active) / (sections.length - 1)) * 100}%` }} /><i style={{ left: `${(sections.findIndex(([id]) => id === active) / (sections.length - 1)) * 100}%` }} />{sections.map(([id], index) => <b key={id} style={{ left: `${(index / (sections.length - 1)) * 100}%` }} />)}</div>
         </div>
-        <div className="progress-track"><span style={{ width: `${(sections.findIndex(([id]) => id === active) / (sections.length - 1)) * 100}%` }} /><i style={{ left: `${(sections.findIndex(([id]) => id === active) / (sections.length - 1)) * 100}%` }} />{sections.map(([id], index) => <b key={id} style={{ left: `${(index / (sections.length - 1)) * 100}%` }} />)}</div>
+        <a className="primary nav-cta" href="#cases">走进我们的品牌世界 <ArrowRight size={16} /></a>
       </nav>
       <div className="hero-wrap" id="top">
         <motion.section id="company" initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .8, ease: [0.22, 1, 0.36, 1] }} className="quote-card" aria-label="售前报价方案">
-          <motion.a initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .45, duration: .55 }} className="primary top-cta" href="#cases">走进我们的品牌世界 <ArrowRight size={17} /></motion.a>
           <div className="card-content">
             <div className="copy">
               <motion.p initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .2, duration: .55 }} className="kicker">PRE-SALES PROPOSAL</motion.p>
