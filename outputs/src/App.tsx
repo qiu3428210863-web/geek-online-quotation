@@ -72,12 +72,6 @@ const processStages = [
 
 const processIconMap = { search: Search, planning: ClipboardList, quote: CircleDollarSign, management: Kanban, prototype: LayoutTemplate, design: Palette, development: Code2, operations: Settings2, launch: Rocket } as const
 
-const meetingPrinciples = [
-  { accent: '提前准备', title: '让沟通更聚焦', points: ['提前准备「会议文档」明确核心议题，并同步给参会人员预读', '提前收集补充讨论点，确保所有关键问题「有备而谈」提高会议效率'] },
-  { accent: '结构化讨论', title: '高效达成共识', points: ['基于会议文档逐项推进议题，实时记录重要结论', '对于争议点采用「5分钟决策法」在限定时间内无法形成结论的，归档至后续进行深度讨论，避免会议陷入低效拉扯'] },
-  { accent: '成果可视化', title: '推进落地执行', points: ['整理「会议纪要」确保关键决策、待办事项和责任人清晰可见', '所有结论以文档同步，形成「闭环跟进机制」确保每一次会议都能驱动业务推进'] },
-] as const
-
 const costCategories = ['全部', '基础设施', '域名与证书', '存储与分发', '外部服务'] as const
 const optionLinkUrl = 'https://cloud.tencent.com/login?s_url=https%3A%2F%2Fbuy.cloud.tencent.com%2Fredis'
 const thirdPartyCosts = [
@@ -334,13 +328,7 @@ export default function App() {
                 <h2>关于会议</h2>
               </div>
               <div className="meeting-board">
-                <div className="meeting-board-heading"><span className="meeting-spark" aria-hidden="true" /><div><h3>高效会议</h3><p>从高效会议到执行我们如何跟进</p></div></div>
-                <div className="meeting-principles">
-                  {meetingPrinciples.map((principle, index) => <motion.article className="meeting-principle" key={principle.title} initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .25 }} transition={{ delay: index * .12, duration: .55, ease: [.22, 1, .36, 1] }}>
-                    <h4><span>{principle.accent}</span>{principle.title}</h4>
-                    <div className="meeting-principle-card">{principle.points.map((point) => <p key={point}>{point}</p>)}</div>
-                  </motion.article>)}
-                </div>
+                <img className="meeting-board-image" src="./meeting-board.png" alt="高效会议与执行跟进" />
               </div>
             </div>
             <span className="section-number">05</span>
