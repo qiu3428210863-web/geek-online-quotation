@@ -30,9 +30,9 @@ const sectionCopy: Record<(typeof sections)[number][0], { eyebrow: string; title
 }
 
 const companyCards = [
-  { id: 'brand', label: '品牌定位', title: '价值创造', body: '相较于只关注交付的传统开发服务商，我们更注重整体价值创造。', image: './company-value.png' },
-  { id: 'tech', label: '技术与思考', title: '企业级技术栈', body: '使用最为先进和稳定的框架进行构建和开发。', image: './company-tech.png' },
-  { id: 'challenge', label: '创作与挑战', title: '共担风险的态度', body: '遇到困难时，共同解决问题的担当，而非推诿责任。', image: './company-challenge.png' },
+  { id: 'brand', label: '品牌定位', image: './company-value.png' },
+  { id: 'tech', label: '技术与思考', image: './company-tech.png' },
+  { id: 'challenge', label: '创作与挑战', image: './company-challenge.png' },
 ]
 
 export default function App() {
@@ -119,7 +119,7 @@ export default function App() {
               <AnimatePresence initial={false} custom={cardDirection} mode="popLayout">
                 {companyCards.map((card, offset) => {
                   const position = (offset - companyCard + companyCards.length) % companyCards.length
-                  return <motion.article key={`${card.id}-${position}`} className={`stack-card stack-card-${position}`} custom={cardDirection} initial={{ opacity: position === 0 ? 0 : 1, x: position === 0 ? cardDirection * 180 : 0, rotate: position === 0 ? cardDirection * 8 : position === 1 ? -3 : 4, y: position * 15 }} animate={{ opacity: 1, x: 0, rotate: position === 0 ? 0 : position === 1 ? -3 : 4, y: position * 15 }} exit={{ opacity: 0, x: -cardDirection * 220, rotate: -cardDirection * 10 }} transition={{ type: 'spring', stiffness: 170, damping: 20 }}><div className="stack-copy"><span>{card.title}</span><p>{card.body}</p></div><img src={card.image} alt="" /></motion.article>
+                  return <motion.article key={`${card.id}-${position}`} className={`stack-card stack-card-${position}`} style={{ zIndex: 30 - position }} custom={cardDirection} initial={{ opacity: position === 0 ? 0 : 1, x: position === 0 ? cardDirection * 180 : 0, rotate: position === 0 ? cardDirection * 8 : position === 1 ? -3 : 4, y: position * 15 }} animate={{ opacity: 1, x: 0, rotate: position === 0 ? 0 : position === 1 ? -3 : 4, y: position * 15 }} exit={{ opacity: 0, x: -cardDirection * 220, rotate: -cardDirection * 10 }} transition={{ type: 'spring', stiffness: 170, damping: 20 }}><img src={card.image} alt={card.label} /></motion.article>
                 })}
               </AnimatePresence>
             </div>

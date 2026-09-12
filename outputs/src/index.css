@@ -57,9 +57,9 @@ h1 span { display:inline; background:linear-gradient(110deg,#151a2b 20%,#6b3be4 
 .long-page { position:relative; z-index:5; }
 .company-feature { position:relative; z-index:5; min-height:94svh; display:flex; align-items:center; padding:clamp(76px,9vw,128px) clamp(24px,5vw,78px); scroll-margin-top:112px; }
 .company-panel { display:grid; grid-template-columns:31% 69%; width:min(1440px,100%); min-height:620px; margin:0 auto; overflow:hidden; border:1px solid rgba(255,255,255,.8); border-radius:clamp(28px,4vw,48px); background:rgba(255,255,255,.56); box-shadow:0 28px 72px rgba(74,49,153,.13),inset 0 1px rgba(255,255,255,.9); backdrop-filter:blur(20px); }
-.company-left { display:flex; flex-direction:column; justify-content:space-between; padding:clamp(34px,4vw,58px); background:rgba(20,20,25,.08); }
-.company-title { display:inline-flex; align-self:flex-start; margin:0; padding:18px 24px; color:#fff; background:#19191d; font-size:clamp(25px,2.6vw,42px); line-height:1; letter-spacing:-.06em; }
-.company-body { max-width:280px; padding:24px 22px; color:#5e606d; background:rgba(139,139,146,.26); font-size:clamp(14px,1.2vw,17px); line-height:1.75; }
+.company-left { display:flex; flex-direction:column; justify-content:space-between; padding:clamp(34px,4vw,58px); background:transparent; }
+.company-title { display:inline-flex; align-self:flex-start; margin:0; padding:0; color:#19191d; background:transparent; font-size:clamp(25px,2.6vw,42px); line-height:1; letter-spacing:-.06em; }
+.company-body { max-width:280px; padding:0; color:#5e606d; background:transparent; font-size:clamp(14px,1.2vw,17px); line-height:1.75; }
 .company-body p { margin:0; }.company-body p + p { margin-top:12px; }
 .company-right { position:relative; min-width:0; padding:clamp(32px,4vw,62px); }
 .company-switcher { display:flex; justify-content:flex-end; gap:7px; margin:0; padding:0; border:0; }
@@ -67,9 +67,10 @@ h1 span { display:inline; background:linear-gradient(110deg,#151a2b 20%,#6b3be4 
 .company-switcher label:hover { color:#6338dd; border-color:rgba(99,56,221,.35); }.company-switcher label.selected { color:#fff; border-color:#6a3be2; background:#6a3be2; box-shadow:0 8px 20px rgba(102,58,220,.2); }
 .company-switcher input { position:absolute; opacity:0; pointer-events:none; }
 .company-stack { position:relative; height:clamp(380px,39vw,520px); margin-top:clamp(28px,4vw,54px); }
-.stack-card { position:absolute; inset:0; display:grid; grid-template-columns:31% 69%; overflow:hidden; border:1px solid rgba(255,255,255,.94); border-radius:25px; background:linear-gradient(135deg,rgba(255,255,255,.98),rgba(245,242,255,.86)); box-shadow:0 20px 35px rgba(54,35,110,.18); transform-origin:50% 100%; }
+.stack-card { position:absolute; inset:0; display:grid; grid-template-columns:1fr; overflow:hidden; border:1px solid rgba(255,255,255,.94); border-radius:25px; background:transparent; box-shadow:0 20px 35px rgba(54,35,110,.18); transform-origin:50% 100%; }
+.stack-card-0 { z-index:3; }
 .stack-card-1 { inset:20px -14px -14px 14px; opacity:.78; box-shadow:0 17px 28px rgba(54,35,110,.12); }.stack-card-2 { inset:38px -28px -28px 28px; opacity:.55; box-shadow:0 14px 24px rgba(54,35,110,.08); }
-.stack-copy { display:flex; flex-direction:column; justify-content:space-between; padding:clamp(20px,3vw,38px); color:#26242f; }.stack-copy span { font-size:clamp(20px,2.5vw,36px); font-weight:800; line-height:1.08; letter-spacing:-.06em; }.stack-copy p { margin:0; color:#626372; font-size:clamp(12px,1.15vw,16px); line-height:1.7; }.stack-card img { width:100%; height:100%; object-fit:cover; object-position:center; }
+.stack-copy { display:none; }.stack-card img { width:100%; height:100%; object-fit:cover; object-position:center; }
 .sr-only { position:absolute; width:1px; height:1px; padding:0; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
 .content-section { position:relative; min-height:86svh; display:flex; align-items:center; padding:clamp(100px,13vw,180px) clamp(24px,10vw,160px); scroll-margin-top:110px; }
 .content-section::before { content:""; position:absolute; inset:15% 8%; border:1px solid rgba(255,255,255,.7); border-radius:clamp(26px,4vw,54px); background:linear-gradient(130deg,rgba(255,255,255,.5),rgba(255,255,255,.18)); box-shadow:0 24px 70px rgba(88,65,180,.1); backdrop-filter:blur(18px); }
