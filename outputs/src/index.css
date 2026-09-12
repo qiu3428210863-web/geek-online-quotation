@@ -56,12 +56,12 @@ h1 span { display:inline; background:linear-gradient(110deg,#151a2b 20%,#6b3be4 
 .stat { min-width:0; padding:0 clamp(8px,1.2vw,21px); border-left:1px solid rgba(72,56,141,.2); }.stat:first-child{padding-left:0;border-left:0}.stat-value{font-size:clamp(17px,1.75vw,26px);line-height:1.08;font-weight:800;letter-spacing:-.06em;color:#111725;overflow-wrap:anywhere}.stat-label{margin-top:10px;color:#858da6;font-size:clamp(9px,.82vw,11px);font-weight:700}
 .long-page { position:relative; z-index:5; }
 .company-feature { position:relative; z-index:5; min-height:100svh; display:flex; align-items:center; padding:clamp(76px,9vw,128px) clamp(24px,5vw,78px); scroll-margin-top:112px; }
-.company-panel { display:grid; grid-template-columns:31% 69%; width:min(1560px,100%); min-height:650px; margin:0 auto; overflow:visible; border:0; border-radius:0; background:transparent; box-shadow:none; backdrop-filter:none; }
-.company-left { display:flex; flex-direction:column; justify-content:flex-start; gap:clamp(24px,3vw,46px); padding:clamp(34px,4vw,58px); background:transparent; }
+.company-panel { display:grid; grid-template-columns:28% 72%; width:min(1700px,88vw); min-height:650px; margin:0 auto; overflow:visible; border:0; border-radius:0; background:transparent; box-shadow:none; backdrop-filter:none; }
+.company-left { display:flex; flex-direction:column; justify-content:flex-start; gap:clamp(24px,3vw,46px); padding:clamp(34px,4vw,58px) clamp(18px,2.2vw,32px); background:transparent; }
 .company-title { display:inline-flex; align-self:flex-start; margin:0; padding:0; color:#19191d; background:transparent; font-size:clamp(34px,3.6vw,56px); line-height:1; letter-spacing:-.06em; }
 .company-body { max-width:420px; padding:0; color:#5e606d; background:transparent; font-size:clamp(15px,1.3vw,18px); line-height:1.75; }
 .company-body p { margin:0; }.company-body p + p { margin-top:12px; }
-.company-right { position:relative; min-width:0; padding:0 0 clamp(32px,4vw,62px) clamp(20px,3vw,46px); }
+.company-right { position:relative; min-width:0; padding:0 0 clamp(32px,4vw,62px) clamp(8px,1.4vw,22px); }
 .company-switcher { display:flex; justify-content:flex-start; gap:7px; margin:0; padding:0; border:0; }
 .company-switcher label { display:inline-flex; align-items:center; cursor:pointer; padding:10px 15px; border:1px solid rgba(97,79,188,.15); border-radius:999px; color:#6c6b79; background:rgba(255,255,255,.45); font-size:clamp(11px,1.05vw,15px); font-weight:700; transition:.25s ease; }
 .company-switcher label:hover { color:#6338dd; border-color:rgba(99,56,221,.35); }.company-switcher label.selected { color:#fff; border-color:#6a3be2; background:#6a3be2; box-shadow:0 8px 20px rgba(102,58,220,.2); }
