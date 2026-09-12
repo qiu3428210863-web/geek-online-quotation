@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type MouseEvent as ReactMouseEvent } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowRight, CheckCircle2, FileText, Layers3, Paperclip, Sparkles, Upload } from 'lucide-react'
 
@@ -41,6 +41,17 @@ export default function App() {
   const [companyCard, setCompanyCard] = useState(0)
   const [cardDirection, setCardDirection] = useState(1)
   const [attachmentName, setAttachmentName] = useState('')
+
+  const handleSectionNavigate = (event: ReactMouseEvent<HTMLAnchorElement>, id: string) => {
+    event.preventDefault()
+    const target = document.getElementById(id)
+    if (!target) return
+    const nav = document.querySelector('.site-nav') as HTMLElement | null
+    const navOffset = (nav?.getBoundingClientRect().bottom ?? 0) + 16
+    const targetTop = target.getBoundingClientRect().top + window.scrollY - navOffset
+    window.history.replaceState(null, '', `#${id}`)
+    window.scrollTo({ top: Math.max(0, targetTop), behavior: 'auto' })
+  }
 
   useEffect(() => {
     let frame = 0
@@ -108,10 +119,10 @@ export default function App() {
   return (
     <main className="landing-shell">
       <nav className="site-nav" aria-label="报价方案章节">
-        <a className="nav-brand" href="#top" aria-label="极客上线首页"><img src="./logo.svg" alt="极客上线 Logo" /></a>
+        <a className="nav-brand" href="#top" onClick={(event) => handleSectionNavigate(event, 'top')} aria-label="极客上线首页"><img src="./logo.svg" alt="极客上线 Logo" /></a>
         <div className="progress-nav">
           <div className="progress-labels">
-            {sections.map(([id, label]) => <a key={id} className={active === id ? 'active' : ''} href={`#${id}`}>{label}</a>)}
+            {sections.map(([id, label]) => <a key={id} className={active === id ? 'active' : ''} href={`#${id}`} onClick={(event) => handleSectionNavigate(event, id)}>{label}</a>)}
           </div>
           <div className="progress-track"><span style={{ width: `${scrollProgress}%` }} /><i style={{ left: `${scrollProgress}%` }} />{sections.map(([id], index) => <b key={id} style={{ left: `${(index / (sections.length - 1)) * 100}%` }} />)}</div>
         </div>
