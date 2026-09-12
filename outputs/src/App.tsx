@@ -14,9 +14,9 @@ const sections = [
   ['cases', '参考案例'],
   ['features', '功能清单'],
   ['pricing', '开发报价'],
+  ['support', '售后服务'],
   ['meeting', '关于会议'],
   ['process', '开发流程'],
-  ['support', '售后服务'],
 ] as const
 
 const sectionCopy: Record<(typeof sections)[number][0], { eyebrow: string; title: string; body: string }> = {
@@ -376,31 +376,7 @@ export default function App() {
             </div>
             <span className="section-number">06</span>
           </motion.section>
-          if (id === 'support') return <motion.section className="content-section support-content" id={id} key={id} initial={{ opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .14 }} transition={{ duration: .72, ease: [.22, 1, .36, 1] }}>
-            <div className="support-inner">
-              <div className="support-heading">
-                <p className="section-eyebrow">07 / AFTER-SALES</p>
-                <h2>后期维护费用</h2>
-                <p className="section-body">上线之后，首年赠送一年技术运维服务，确保应用程序可正常使用。</p>
-              </div>
-              <div className="support-panel">
-                <div className="support-panel-top"><span>服务内容</span><strong>开发费用 × 10% <em>按年</em></strong></div>
-                <div className={`support-carousel-window ${supportDragging ? 'is-dragging' : ''}`} ref={supportCarouselRef} onPointerDown={beginSupportDrag} onPointerMove={moveSupportDrag} onPointerUp={endSupportDrag} onPointerCancel={endSupportDrag}>
-                  <div className="support-carousel-track" style={{ transform: `translate3d(${supportStep ? -supportIndex * supportStep + supportDragOffset : supportDragOffset}px, 0, 0)`, transition: supportDragging ? 'none' : undefined }}>
-                    {supportServices.map((service, index) => <article className="support-service-card" key={service.title}>
-                      <span className="support-service-index">0{index + 1}</span>
-                      <div className="support-service-mark">✦</div>
-                      <h3>{service.title}</h3>
-                      <p>{service.body}</p>
-                      <span className="support-service-arrow">↗</span>
-                    </article>)}
-                  </div>
-                </div>
-                <div className="support-carousel-footer"><span>拖动或使用按钮浏览服务</span><div className="support-carousel-controls"><button type="button" aria-label="上一项服务" onClick={() => changeSupport(-1)}><ArrowLeft size={16} /></button><span>0{supportIndex + 1} / 0{supportServices.length}</span><button type="button" aria-label="下一项服务" onClick={() => changeSupport(1)}><ArrowRight size={16} /></button></div></div>
-              </div>
-            </div>
-            <span className="section-number">07</span>
-          </motion.section>
+          if (id === 'support') return null
           if (id === 'pricing') return <motion.section className="content-section pricing-content" id={id} key={id} initial={{ opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .14 }} transition={{ duration: .72, ease: [.22, 1, .36, 1] }}>
             <div className="pricing-inner">
               <div className="pricing-title-wrap">
@@ -452,6 +428,27 @@ export default function App() {
                       {expandedCosts[cost.id] && <motion.div className="cost-detail" initial={{ opacity: 0, height: 0, marginTop: 0, y: -5 }} animate={{ opacity: 1, height: 'auto', marginTop: 10, y: 0 }} exit={{ opacity: 0, height: 0, marginTop: 0, y: -5 }} transition={{ type: 'spring', stiffness: 420, damping: 28, mass: .45 }}><p>{cost.note}</p>{cost.link && <a href={optionLinkUrl} target="_blank" rel="noreferrer">参考选配链接 ↗</a>}</motion.div>}
                     </AnimatePresence>
                   </article>)}
+                </div>
+              </section>
+              <section className="support-library" id="support" aria-labelledby="support-library-title">
+                <div className="support-library-heading"><h3 id="support-library-title">后期维护费用</h3></div>
+                <p className="support-library-description">上线之后，首年赠送一年技术运维服务，确保应用程序可正常使用。</p>
+                <div className="support-inner">
+                  <div className="support-panel">
+                    <div className="support-panel-top"><span>服务内容</span><strong>开发费用 × 10% <em>按年</em></strong></div>
+                    <div className={`support-carousel-window ${supportDragging ? 'is-dragging' : ''}`} ref={supportCarouselRef} onPointerDown={beginSupportDrag} onPointerMove={moveSupportDrag} onPointerUp={endSupportDrag} onPointerCancel={endSupportDrag}>
+                      <div className="support-carousel-track" style={{ transform: `translate3d(${supportStep ? -supportIndex * supportStep + supportDragOffset : supportDragOffset}px, 0, 0)`, transition: supportDragging ? 'none' : undefined }}>
+                        {supportServices.map((service, index) => <article className="support-service-card" key={service.title}>
+                          <span className="support-service-index">0{index + 1}</span>
+                          <div className="support-service-mark">✦</div>
+                          <h3>{service.title}</h3>
+                          <p>{service.body}</p>
+                          <span className="support-service-arrow">↗</span>
+                        </article>)}
+                      </div>
+                    </div>
+                    <div className="support-carousel-footer"><span>拖动或使用按钮浏览服务</span><div className="support-carousel-controls"><button type="button" aria-label="上一项服务" onClick={() => changeSupport(-1)}><ArrowLeft size={16} /></button><span>0{supportIndex + 1} / 0{supportServices.length}</span><button type="button" aria-label="下一项服务" onClick={() => changeSupport(1)}><ArrowRight size={16} /></button></div></div>
+                  </div>
                 </div>
               </section>
             </div>
