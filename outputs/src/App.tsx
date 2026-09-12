@@ -156,18 +156,16 @@ export default function App() {
       </section>
       <div className="long-page">
         <section className="case-study-section" id="cases" aria-label="参考案例">
-          <div className="case-intro-card">
-            <p className="section-eyebrow">02 / REFERENCE CASE</p>
-            <h2>把复杂的挑战，<br /><em>变成清晰的结果。</em></h2>
-            <p className="case-summary">从第一轮洞察到最终上线，我们把每一次合作沉淀成可复用的品牌与数字体验方法。</p>
-            <div className="case-meta"><span>CASE / 2025</span><span>BRAND × DIGITAL</span></div>
+          <div className="case-gallery">
+            <img src="./case-reference.png" alt="溜搭与阿闻宠物案例界面展示" />
+            <div className="case-gallery-caption"><span>02 / REFERENCE CASE</span><strong>案例展示</strong></div>
           </div>
           <div className="case-flow">
             <p className="section-eyebrow">PROJECT FLOW</p>
             <ol>
-              <li><span className="flow-index">01</span><div><h3>洞察</h3><p>找到真实问题，明确值得解决的方向。</p></div></li>
-              <li><span className="flow-index">02</span><div><h3>结构</h3><p>建立清晰路径，把想法变成可执行方案。</p></div></li>
-              <li><span className="flow-index">03</span><div><h3>落地</h3><p>持续验证与迭代，让结果真正发生。</p></div></li>
+              <li><span className="flow-index">01</span><div><h3>溜搭</h3><p>档案、装扮、社交</p></div></li>
+              <li><span className="flow-index">02</span><div><h3>阿闻宠物</h3><p>档案、会员</p></div></li>
+              <li><span className="flow-index">03</span><div><h3>敬请期待</h3><p>更多案例即将发布</p></div></li>
             </ol>
           </div>
         </section>
