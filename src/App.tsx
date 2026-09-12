@@ -272,7 +272,9 @@ export default function App() {
                     <p className="cost-unit">{cost.unit}</p>
                     <div className="cost-tags">{cost.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
                     <button type="button" className="cost-toggle" aria-expanded={Boolean(expandedCosts[cost.id])} onClick={() => setExpandedCosts((current) => ({ ...current, [cost.id]: !current[cost.id] }))}>▼ 费用备注与选配链接</button>
-                    {expandedCosts[cost.id] && <div className="cost-detail"><p>{cost.note}</p>{cost.link && <span>参考选配链接 ↗</span>}</div>}
+                    <AnimatePresence initial={false}>
+                      {expandedCosts[cost.id] && <motion.div className="cost-detail" initial={{ opacity: 0, height: 0, marginTop: 0, y: -5 }} animate={{ opacity: 1, height: 'auto', marginTop: 10, y: 0 }} exit={{ opacity: 0, height: 0, marginTop: 0, y: -5 }} transition={{ type: 'spring', stiffness: 420, damping: 28, mass: .45 }}><p>{cost.note}</p>{cost.link && <span>参考选配链接 ↗</span>}</motion.div>}
+                    </AnimatePresence>
                   </article>)}
                 </div>
               </section>
