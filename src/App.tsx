@@ -1,4 +1,4 @@
-import { useEffect, useState, type MouseEvent as ReactMouseEvent } from 'react'
+import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent, type PointerEvent as ReactPointerEvent } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowLeft, ArrowRight, CheckCircle2, FileText, Layers3, Paperclip, Sparkles, Upload, X } from 'lucide-react'
 
@@ -49,6 +49,15 @@ const pricingSegments = [
   { label: '四期 · 10%', title: '项目尾款', detail: '第四期款10%为项目尾款，甲方支付尾款后进行项目验收和部署上线，并交付源代码。' },
 ] as const
 
+const supportServices = [
+  { title: '生产保障', body: '生产环境 24×7 技术支持' },
+  { title: '可观测性', body: '日志监控、性能指标分析' },
+  { title: '异常响应', body: '异常告警，接入群聊通知' },
+  { title: '技术支持', body: '技术咨询、线上 BUG 修复' },
+  { title: '稳定运营', body: '确保系统稳定运行，保障客户持续成功' },
+  { title: '持续迭代', body: '收集用户反馈持续迭代，提升不同场景下产品的功能表现' },
+] as const
+
 const costCategories = ['全部', '基础设施', '域名与证书', '存储与分发', '外部服务'] as const
 const optionLinkUrl = 'https://cloud.tencent.com/login?s_url=https%3A%2F%2Fbuy.cloud.tencent.com%2Fredis'
 const thirdPartyCosts = [
@@ -74,6 +83,12 @@ export default function App() {
   const [casePreview, setCasePreview] = useState<{ image: string; title: string } | null>(null)
   const [costCategory, setCostCategory] = useState<(typeof costCategories)[number]>('全部')
   const [expandedCosts, setExpandedCosts] = useState<Record<string, boolean>>({})
+  const [supportIndex, setSupportIndex] = useState(0)
+  const [supportDragOffset, setSupportDragOffset] = useState(0)
+  const [supportDragging, setSupportDragging] = useState(false)
+  const [supportPointerStart, setSupportPointerStart] = useState<number | null>(null)
+  const [supportStep, setSupportStep] = useState(0)
+  const supportCarouselRef = useRef<HTMLDivElement | null>(null)
 
   const handleSectionNavigate = (event: ReactMouseEvent<HTMLAnchorElement>, id: string) => {
     event.preventDefault()
@@ -92,6 +107,32 @@ export default function App() {
     setCaseIndex(next)
   }
 
+  const changeSupport = (direction: number) => {
+    setSupportIndex((current) => (current + direction + supportServices.length) % supportServices.length)
+    setSupportDragOffset(0)
+  }
+
+  const beginSupportDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
+    setSupportDragging(true)
+    setSupportPointerStart(event.clientX)
+    event.currentTarget.setPointerCapture(event.pointerId)
+  }
+
+  const moveSupportDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (supportPointerStart === null) return
+    setSupportDragOffset(event.clientX - supportPointerStart)
+  }
+
+  const endSupportDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (supportPointerStart === null) return
+    const distance = event.clientX - supportPointerStart
+    if (Math.abs(distance) > 54) changeSupport(distance < 0 ? 1 : -1)
+    setSupportDragOffset(0)
+    setSupportPointerStart(null)
+    setSupportDragging(false)
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId)
+  }
+
   const selectCompanyCard = (index: number) => {
     if (index === companyCard) return
     setCardDirection(index >= companyCard ? 1 : -1)
@@ -99,6 +140,31 @@ export default function App() {
   }
 
   const visibleCosts = costCategory === '全部' ? thirdPartyCosts : thirdPartyCosts.filter((cost) => cost.category === costCategory)
+
+  useEffect(() => {
+    const node = supportCarouselRef.current
+    if (!node) return
+    const measureStep = () => {
+      const card = node.querySelector<HTMLElement>('.support-service-card')
+      if (!card) return
+      const gap = Number.parseFloat(window.getComputedStyle(node).columnGap || window.getComputedStyle(node).gap || '0')
+      setSupportStep(card.getBoundingClientRect().width + gap)
+    }
+    measureStep()
+    const observer = new ResizeObserver(measureStep)
+    observer.observe(node)
+    window.addEventListener('resize', measureStep)
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('resize', measureStep)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (supportDragging) return
+    const timer = window.setInterval(() => setSupportIndex((current) => (current + 1) % supportServices.length), 7200)
+    return () => window.clearInterval(timer)
+  }, [supportDragging])
 
   useEffect(() => {
     let frame = 0
@@ -241,6 +307,31 @@ export default function App() {
         </section>
         {sections.slice(2).map(([id]) => {
           const item = sectionCopy[id]
+          if (id === 'support') return <section className="content-section support-content" id={id} key={id}>
+            <div className="support-inner">
+              <div className="support-heading">
+                <p className="section-eyebrow">07 / AFTER-SALES</p>
+                <h2>后期维护费用</h2>
+                <p className="section-body">上线之后，首年赠送一年技术运维服务，确保应用程序可正常使用。</p>
+              </div>
+              <div className="support-panel">
+                <div className="support-panel-top"><span>服务内容</span><strong>开发费用 × 10% <em>按年</em></strong></div>
+                <div className={`support-carousel-window ${supportDragging ? 'is-dragging' : ''}`} ref={supportCarouselRef} onPointerDown={beginSupportDrag} onPointerMove={moveSupportDrag} onPointerUp={endSupportDrag} onPointerCancel={endSupportDrag}>
+                  <div className="support-carousel-track" style={{ transform: `translate3d(${supportStep ? -supportIndex * supportStep + supportDragOffset : supportDragOffset}px, 0, 0)`, transition: supportDragging ? 'none' : undefined }}>
+                    {supportServices.map((service, index) => <article className="support-service-card" key={service.title}>
+                      <span className="support-service-index">0{index + 1}</span>
+                      <div className="support-service-mark">✦</div>
+                      <h3>{service.title}</h3>
+                      <p>{service.body}</p>
+                      <span className="support-service-arrow">↗</span>
+                    </article>)}
+                  </div>
+                </div>
+                <div className="support-carousel-footer"><span>拖动或使用按钮浏览服务</span><div className="support-carousel-controls"><button type="button" aria-label="上一项服务" onClick={() => changeSupport(-1)}><ArrowLeft size={16} /></button><span>0{supportIndex + 1} / 0{supportServices.length}</span><button type="button" aria-label="下一项服务" onClick={() => changeSupport(1)}><ArrowRight size={16} /></button></div></div>
+              </div>
+            </div>
+            <span className="section-number">07</span>
+          </section>
           if (id === 'pricing') return <section className="content-section pricing-content" id={id} key={id}>
             <div className="pricing-inner">
               <div className="pricing-title-wrap">
