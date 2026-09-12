@@ -44,8 +44,46 @@ export default function App() {
   useEffect(() => {
     let frame = 0
     const updateProgress = () => {
-      const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight)
-      const percent = Math.min(100, Math.max(0, (window.scrollY / maxScroll) * 100))
+      // Map the viewport's scroll position to the real section anchors. A
+      // whole-document ratio makes the thumb reach evenly-spaced dots early
+      // when sections have different heights, so use piecewise interpolation
+      // between each section's top edge instead.
+      const anchors = sections
+        .map(([id]) => document.getElementById(id))
+        .filter(Boolean)
+        .map((element) => {
+          const node = element as HTMLElement
+          return node.getBoundingClientRect().top + window.scrollY
+        })
+
+      let percent = 0
+      const y = window.scrollY
+      if (anchors.length > 1) {
+        if (y <= anchors[0]) {
+          percent = 0
+        } else if (y >= anchors[anchors.length - 1]) {
+          percent = 100
+        } else {
+          let segment = 0
+          for (let index = 0; index < anchors.length - 1; index += 1) {
+            if (y >= anchors[index] && y <= anchors[index + 1]) {
+              segment = index
+              break
+            }
+          }
+          const start = anchors[segment]
+          const end = anchors[segment + 1]
+          const localProgress = end === start ? 0 : (y - start) / (end - start)
+          percent = ((segment + Math.min(1, Math.max(0, localProgress))) / (anchors.length - 1)) * 100
+        }
+      }
+      // Keep the highlighted label on the same anchor boundary as the
+      // moving thumb so neither indicator appears to arrive first.
+      let activeIndex = 0
+      for (let index = 0; index < anchors.length; index += 1) {
+        if (y >= anchors[index]) activeIndex = index
+      }
+      setActive(sections[Math.min(activeIndex, sections.length - 1)][0])
       setScrollProgress(percent)
     }
     const onScroll = () => {
@@ -60,16 +98,6 @@ export default function App() {
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', updateProgress)
     }
-  }, [])
-
-  useEffect(() => {
-    const targets = sections.map(([id]) => document.getElementById(id)).filter(Boolean) as HTMLElement[]
-    const observer = new IntersectionObserver((entries) => {
-      const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
-      if (visible) setActive(visible.target.id)
-    }, { rootMargin: '-30% 0px -55% 0px', threshold: [0.05, 0.2, 0.5] })
-    targets.forEach((target) => observer.observe(target))
-    return () => observer.disconnect()
   }, [])
 
   return (
