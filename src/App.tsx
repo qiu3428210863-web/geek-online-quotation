@@ -30,9 +30,9 @@ const sectionCopy: Record<(typeof sections)[number][0], { eyebrow: string; title
 }
 
 const companyCards = [
-  { id: 'brand', label: '品牌定位', image: './company-value.png' },
-  { id: 'tech', label: '技术与思考', image: './company-tech.png' },
-  { id: 'challenge', label: '创作与挑战', image: './company-challenge.png' },
+  { id: 'brand', label: '品牌定位', image: './company-value.png', body: ['我们是一支专注品牌与数字体验的创意技术团队。', '从策略到开发，以长期主义陪伴每一次重要的增长。'] },
+  { id: 'tech', label: '技术与思考', image: './company-tech.png', body: ['我们紧跟前沿技术，研发占比85%的硬核团队。', '从稳定的云基础，到灵活的数据平台，再到融合AI的智能推荐，我们构建了一套可演进的技术体系，支撑项目从可用到可成长。'] },
+  { id: 'challenge', label: '创作与挑战', image: './company-challenge.png', body: ['面对服务过程中的挑战，我们从不退缩。不畏惧不设限，才能推开更多可能。', '我们享受热血创作的过程，每一次都全力以赴，把未知拆成可以前进的步伐。'] },
 ]
 
 export default function App() {
@@ -111,7 +111,7 @@ export default function App() {
         <div className="company-panel">
           <div className="company-left">
             <h2 className="company-title">公司介绍</h2>
-            <div className="company-body"><p>我们是一支专注品牌与数字体验的创意技术团队。</p><p>从策略到开发，以长期主义陪伴每一次重要的增长。</p></div>
+            <motion.div key={companyCards[companyCard].id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="company-body">{companyCards[companyCard].body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</motion.div>
           </div>
           <div className="company-right">
             <fieldset className="company-switcher"><legend className="sr-only">公司介绍主题</legend>{companyCards.map((card, index) => <label key={card.id} className={companyCard === index ? 'selected' : ''}><input type="radio" name="company-topic" checked={companyCard === index} onChange={() => { setCardDirection(index >= companyCard ? 1 : -1); setCompanyCard(index) }} />{card.label}</label>)}</fieldset>
@@ -127,7 +127,23 @@ export default function App() {
         </div>
       </section>
       <div className="long-page">
-        {sections.slice(1).map(([id]) => {
+        <section className="case-study-section" id="cases" aria-label="参考案例">
+          <div className="case-intro-card">
+            <p className="section-eyebrow">02 / REFERENCE CASE</p>
+            <h2>把复杂的挑战，<br /><em>变成清晰的结果。</em></h2>
+            <p className="case-summary">从第一轮洞察到最终上线，我们把每一次合作沉淀成可复用的品牌与数字体验方法。</p>
+            <div className="case-meta"><span>CASE / 2025</span><span>BRAND × DIGITAL</span></div>
+          </div>
+          <div className="case-flow">
+            <p className="section-eyebrow">PROJECT FLOW</p>
+            <ol>
+              <li><span className="flow-index">01</span><div><h3>洞察</h3><p>找到真实问题，明确值得解决的方向。</p></div></li>
+              <li><span className="flow-index">02</span><div><h3>结构</h3><p>建立清晰路径，把想法变成可执行方案。</p></div></li>
+              <li><span className="flow-index">03</span><div><h3>落地</h3><p>持续验证与迭代，让结果真正发生。</p></div></li>
+            </ol>
+          </div>
+        </section>
+        {sections.slice(2).map(([id]) => {
           const item = sectionCopy[id]
           return <section className="content-section" id={id} key={id}>
             <div className="section-inner"><p className="section-eyebrow">{item.eyebrow}</p><h2>{item.title}</h2><p className="section-body">{item.body}</p><span className="section-number">{id === 'cases' ? '02' : id === 'features' ? '03' : id === 'pricing' ? '04' : id === 'meeting' ? '05' : id === 'process' ? '06' : '07'}</span></div>
