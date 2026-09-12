@@ -32,7 +32,7 @@ const sectionCopy: Record<(typeof sections)[number][0], { eyebrow: string; title
 export default function App() {
   const [active, setActive] = useState('company')
   const activeIndex = Math.max(0, sections.findIndex(([id]) => id === active))
-  const activePercent = ((activeIndex + 0.5) / sections.length) * 100
+  const activePercent = (activeIndex / (sections.length - 1)) * 100
 
   useEffect(() => {
     const targets = sections.map(([id]) => document.getElementById(id)).filter(Boolean) as HTMLElement[]
@@ -52,7 +52,7 @@ export default function App() {
           <div className="progress-labels">
             {sections.map(([id, label]) => <a key={id} className={active === id ? 'active' : ''} href={`#${id}`}>{label}</a>)}
           </div>
-          <div className="progress-track"><span style={{ width: `${activePercent}%` }} /><i style={{ left: `${activePercent}%` }} />{sections.map(([id], index) => <b key={id} style={{ left: `${((index + 0.5) / sections.length) * 100}%` }} />)}</div>
+          <div className="progress-track"><span style={{ width: `${activePercent}%` }} /><i style={{ left: `${activePercent}%` }} />{sections.map(([id], index) => <b key={id} style={{ left: `${(index / (sections.length - 1)) * 100}%` }} />)}</div>
         </div>
         <a className="primary nav-cta" href="https://www.geekonup.com/">走进我们的品牌世界 <ArrowRight size={16} /></a>
       </nav>
