@@ -51,16 +51,16 @@ const pricingSegments = [
 
 const costCategories = ['全部', '基础设施', '域名与证书', '存储与分发', '外部服务'] as const
 const thirdPartyCosts = [
-  { id: 'server', category: '基础设施', label: '服务器', price: '¥5000', unit: '/ 年 · 原文单价', tags: ['CPU：8核', '内存：16G', '硬盘：50G SSD', '网络：10Mbps', '操作系统：Ubuntu 24.04 LTS'], note: '可按需扩容，价格以阿里云、腾讯云为参考。', link: true },
-  { id: 'database', category: '基础设施', label: '业务数据库', price: '¥3000', unit: '/ 年 · 原文单价', tags: ['类型：MySQL 8.0', '存储：200G', '系列：高可用', 'CPU：2核', '内存：4G', 'Max connection：4000'], note: '可按需扩容，价格以阿里云、腾讯云为参考。', link: true },
-  { id: 'redis', category: '基础设施', label: '缓存数据库', price: '¥400', unit: '/ 年 · 原文单价', tags: ['类型：Redis 6.0+', '存储：100G', '系列：单节点', '分片：1', '内存：1G'], note: '可按需扩容，价格以阿里云、腾讯云为参考。', link: true },
-  { id: 'domain', category: '域名与证书', label: '.com域名', price: '¥100', unit: '/ 年 · 原文单价', tags: ['.com域名'], note: '.com域名通常 100 元左右。', link: false },
-  { id: 'ssl', category: '域名与证书', label: 'SSL 泛域名证书', price: '¥200', unit: '/ 年 · 原文单价', tags: ['SSL 泛域名证书'], note: 'SSL 泛域名证书在淘宝约 200 元左右。', link: false },
-  { id: 'cos-storage', category: '存储与分发', label: 'COS 对象存储', price: '¥500', unit: '/ 年 · 原文单价', tags: ['COS 对象存储', '存储：500GB'], note: '可按需扩容，价格以云厂商为参考。', link: true },
-  { id: 'cos-request', category: '存储与分发', label: 'COS 读写请求', price: '¥40', unit: '/ 次 · 原文单价', tags: ['COS 读写请求', '次数：500 万次'], note: '按实际请求次数计费，可在项目增长后弹性调整。', link: true },
-  { id: 'cdn', category: '存储与分发', label: 'CDN 流量包', price: '¥500', unit: '/ 年 · 原文单价', tags: ['CDN 流量包'], note: '可按访问量购买不同规格的流量包。', link: true },
-  { id: 'sms', category: '外部服务', label: '短信服务', price: '¥0.042', unit: '按量 · 原文单价', tags: ['按量购买'], note: '可按资源包购买，价格以阿里云、腾讯云为参考。', link: true },
-  { id: 'login', category: '外部服务', label: '第三方登录', price: '¥300', unit: '/ 年 · 原文单价', tags: ['微信认证'], note: '微信登录和微信支付等场景需要用到微信企业认证。', link: false },
+  { id: 'server', category: '基础设施', label: '服务器', price: '¥5000', unit: '/ 年', tags: ['CPU：8核', '内存：16G', '硬盘：50G SSD', '网络：10Mbps', '操作系统：Ubuntu 24.04 LTS'], note: '可按需扩容，价格以阿里云、腾讯云为参考。', link: true },
+  { id: 'database', category: '基础设施', label: '业务数据库', price: '¥3000', unit: '/ 年', tags: ['类型：MySQL 8.0', '存储：200G', '系列：高可用', 'CPU：2核', '内存：4G', 'Max connection：4000'], note: '可按需扩容，价格以阿里云、腾讯云为参考。', link: true },
+  { id: 'redis', category: '基础设施', label: '缓存数据库', price: '¥400', unit: '/ 年', tags: ['类型：Redis 6.0+', '存储：100G', '系列：单节点', '分片：1', '内存：1G'], note: '可按需扩容，价格以阿里云、腾讯云为参考。', link: true },
+  { id: 'domain', category: '域名与证书', label: '.com域名', price: '¥100', unit: '/ 年', tags: ['.com域名'], note: '.com域名通常 100 元左右。', link: false },
+  { id: 'ssl', category: '域名与证书', label: 'SSL 泛域名证书', price: '¥200', unit: '/ 年', tags: ['SSL 泛域名证书'], note: 'SSL 泛域名证书在淘宝约 200 元左右。', link: false },
+  { id: 'cos-storage', category: '存储与分发', label: 'COS 对象存储', price: '¥500', unit: '/ 年', tags: ['COS 对象存储', '存储：500GB'], note: '可按需扩容，价格以云厂商为参考。', link: true },
+  { id: 'cos-request', category: '存储与分发', label: 'COS 读写请求', price: '¥40', unit: '/ 次', tags: ['COS 读写请求', '次数：500 万次'], note: '按实际请求次数计费，可在项目增长后弹性调整。', link: true },
+  { id: 'cdn', category: '存储与分发', label: 'CDN 流量包', price: '¥500', unit: '/ 年', tags: ['CDN 流量包'], note: '可按访问量购买不同规格的流量包。', link: true },
+  { id: 'sms', category: '外部服务', label: '短信服务', price: '¥0.042', unit: '按量', tags: ['按量购买'], note: '可按资源包购买，价格以阿里云、腾讯云为参考。', link: true },
+  { id: 'login', category: '外部服务', label: '第三方登录', price: '¥300', unit: '/ 年', tags: ['微信认证'], note: '微信登录和微信支付等场景需要用到微信企业认证。', link: false },
 ] as const
 
 export default function App() {
