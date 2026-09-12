@@ -111,10 +111,10 @@ export default function App() {
         <div className="company-panel">
           <div className="company-left">
             <h2 className="company-title">公司介绍</h2>
+            <fieldset className="company-switcher"><legend className="sr-only">公司介绍主题</legend>{companyCards.map((card, index) => <label key={card.id} className={companyCard === index ? 'selected' : ''}><input type="radio" name="company-topic" checked={companyCard === index} onChange={() => { setCardDirection(index >= companyCard ? 1 : -1); setCompanyCard(index) }} />{card.label}</label>)}</fieldset>
             <motion.div key={companyCards[companyCard].id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="company-body">{companyCards[companyCard].body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</motion.div>
           </div>
           <div className="company-right">
-            <fieldset className="company-switcher"><legend className="sr-only">公司介绍主题</legend>{companyCards.map((card, index) => <label key={card.id} className={companyCard === index ? 'selected' : ''}><input type="radio" name="company-topic" checked={companyCard === index} onChange={() => { setCardDirection(index >= companyCard ? 1 : -1); setCompanyCard(index) }} />{card.label}</label>)}</fieldset>
             <div className="company-stack" aria-live="polite">
               <AnimatePresence initial={false} custom={cardDirection} mode="popLayout">
                 {companyCards.map((card, offset) => {
