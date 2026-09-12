@@ -376,7 +376,7 @@ export default function App() {
                   {visibleCosts.map((cost) => <article className={`cost-card ${expandedCosts[cost.id] ? 'is-expanded' : ''}`} key={cost.id}>
                     <p className="cost-breadcrumb">{cost.category} / {cost.label}</p>
                     <h4>{cost.label}</h4>
-                    <p className="cost-price">{cost.price}</p>
+                    <p className="cost-price">{cost.price}<span className="cost-price-unit">/年</span></p>
                     <div className="cost-tags">{cost.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
                     <button type="button" className="cost-toggle" aria-expanded={Boolean(expandedCosts[cost.id])} onClick={() => setExpandedCosts((current) => ({ ...current, [cost.id]: !current[cost.id] }))}>▼ 费用备注与选配链接</button>
                     <AnimatePresence initial={false}>
