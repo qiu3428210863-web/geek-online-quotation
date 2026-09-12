@@ -64,8 +64,8 @@ export default function App() {
   }
 
   const changeCase = (direction: number) => {
-    const next = Math.min(caseCards.length - 2, Math.max(0, caseIndex + direction))
-    if (next === caseIndex) return
+    const pageCount = caseCards.length - 1
+    const next = (caseIndex + direction + pageCount) % pageCount
     setCaseDirection(direction)
     setCaseIndex(next)
   }
@@ -192,21 +192,23 @@ export default function App() {
           <div className="case-heading-block">
             <p className="case-chapter">CHAPTER 02</p>
             <h2>参考案例</h2>
-            <p className="case-heading-note">Design, develop and run any business software you need.</p>
-            <div className="case-controls"><button type="button" aria-label="上一个案例" onClick={() => changeCase(-1)} disabled={caseIndex === 0}><ArrowLeft size={18} /></button><button type="button" aria-label="下一个案例" onClick={() => changeCase(1)} disabled={caseIndex === caseCards.length - 2}><ArrowRight size={18} /></button></div>
+            <p className="case-heading-note">针对竞品调研分析的一些设计和视觉参考</p>
+            <div className="case-controls"><button type="button" aria-label="上一个案例" onClick={() => changeCase(-1)}><ArrowLeft size={18} /></button><button type="button" aria-label="下一个案例" onClick={() => changeCase(1)}><ArrowRight size={18} /></button></div>
           </div>
           <div className="case-carousel-wrap">
             <div className="case-carousel" aria-label="案例卡片列表">
-              <AnimatePresence initial={false} custom={caseDirection} mode="popLayout">
-                <motion.div key={`${caseCards[caseIndex].id}-${caseCards[caseIndex + 1].id}`} className="case-visible-pair" custom={caseDirection} initial={{ opacity: 0, x: caseDirection * 150, y: 30, rotate: caseDirection * 3 }} animate={{ opacity: 1, x: 0, y: 0, rotate: 0 }} exit={{ opacity: 0, x: -caseDirection * 190, y: 72, rotate: -caseDirection * 6 }} transition={{ type: 'spring', stiffness: 170, damping: 22 }}>
-                  {caseCards.slice(caseIndex, caseIndex + 2).map((card, offset) => <article className="case-card" key={card.id}>
-                    <div className="case-card-title"><span>{card.brand}</span><h3>{card.title}</h3></div>
-                    <button className="case-image-button" type="button" onClick={() => setCasePreview({ image: card.image, title: `${card.brand} · ${card.title}` })} aria-label={`点击查看${card.brand}${card.title}完整图片`}><img src={card.image} alt={`${card.brand}${card.title}案例`} /><span className="case-image-hint">点击图片查看完整案例</span></button>
-                    <div className="case-card-body"><span className="case-rule">—</span><p>{card.body}</p></div>
-                    <span className="case-card-index">0{caseIndex + offset + 1}</span>
-                  </article>)}
-                </motion.div>
-              </AnimatePresence>
+              <div className="case-visible-pair">
+                {caseCards.slice(caseIndex, caseIndex + 2).map((card, offset) => <div className="case-slot" key={offset}>
+                  <AnimatePresence initial={false} mode="popLayout" custom={caseDirection}>
+                    <motion.article className="case-card" key={`${card.id}-${caseIndex}`} custom={caseDirection} initial={{ opacity: 0, x: caseDirection * 26 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -caseDirection * 26 }} transition={{ duration: .26, ease: [0.22, 1, 0.36, 1], delay: offset * .07 }}>
+                      <div className="case-card-title"><span>{card.brand}</span><h3>{card.title}</h3></div>
+                      <button className="case-image-button" type="button" onClick={() => setCasePreview({ image: card.image, title: `${card.brand} · ${card.title}` })} aria-label={`点击查看${card.brand}${card.title}完整图片`}><img src={card.image} alt={`${card.brand}${card.title}案例`} /><span className="case-image-hint">点击图片查看完整案例</span></button>
+                      <div className="case-card-body"><span className="case-rule">—</span><p>{card.body}</p></div>
+                      <span className="case-card-index">0{caseIndex + offset + 1}</span>
+                    </motion.article>
+                  </AnimatePresence>
+                </div>)}
+              </div>
             </div>
             <div className="case-carousel-footer"><span>切换案例浏览</span><div className="case-dots" aria-hidden="true">{caseCards.slice(0, -1).map((card, index) => <i className={index === caseIndex ? 'active' : ''} key={card.id} />)}</div></div>
           </div>
