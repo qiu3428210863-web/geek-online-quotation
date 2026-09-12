@@ -31,6 +31,8 @@ const sectionCopy: Record<(typeof sections)[number][0], { eyebrow: string; title
 
 export default function App() {
   const [active, setActive] = useState('company')
+  const activeIndex = Math.max(0, sections.findIndex(([id]) => id === active))
+  const activePercent = ((activeIndex + 0.5) / sections.length) * 100
 
   useEffect(() => {
     const targets = sections.map(([id]) => document.getElementById(id)).filter(Boolean) as HTMLElement[]
@@ -50,9 +52,9 @@ export default function App() {
           <div className="progress-labels">
             {sections.map(([id, label]) => <a key={id} className={active === id ? 'active' : ''} href={`#${id}`}>{label}</a>)}
           </div>
-          <div className="progress-track"><span style={{ width: `${(sections.findIndex(([id]) => id === active) / (sections.length - 1)) * 100}%` }} /><i style={{ left: `${(sections.findIndex(([id]) => id === active) / (sections.length - 1)) * 100}%` }} />{sections.map(([id], index) => <b key={id} style={{ left: `${(index / (sections.length - 1)) * 100}%` }} />)}</div>
+          <div className="progress-track"><span style={{ width: `${activePercent}%` }} /><i style={{ left: `${activePercent}%` }} />{sections.map(([id], index) => <b key={id} style={{ left: `${((index + 0.5) / sections.length) * 100}%` }} />)}</div>
         </div>
-        <a className="primary nav-cta" href="#cases">走进我们的品牌世界 <ArrowRight size={16} /></a>
+        <a className="primary nav-cta" href="https://www.geekonup.com/">走进我们的品牌世界 <ArrowRight size={16} /></a>
       </nav>
       <div className="hero-wrap" id="top">
         <motion.section id="company" initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .8, ease: [0.22, 1, 0.36, 1] }} className="quote-card" aria-label="售前报价方案">
