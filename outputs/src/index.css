@@ -152,7 +152,7 @@ h1 span { display:inline; background:linear-gradient(110deg,#151a2b 20%,#6b3be4 
 .pricing-notes h3 { margin:0 0 12px; color:#2c2e3b; font-size:var(--type-subheading); letter-spacing:-.04em; }
 .pricing-notes p { position:relative; margin:8px 0 0; padding-left:18px; color:#686d7c; font-size:var(--type-body); line-height:1.75; }
 .pricing-notes p::before { content:""; position:absolute; top:.75em; left:0; width:6px; height:6px; border-radius:50%; background:#6a3be2; box-shadow:0 0 0 4px rgba(106,59,226,.1); }
-.labor-details { margin-top:clamp(54px,7vw,92px); }
+.labor-details { margin-top:clamp(54px,7vw,92px); padding:clamp(24px,3vw,42px); border:1px solid rgba(255,255,255,.78); border-radius:28px; background:linear-gradient(145deg,rgba(255,255,255,.54),rgba(247,243,255,.32)); box-shadow:0 22px 56px rgba(73,50,150,.1),inset 0 1px rgba(255,255,255,.88); backdrop-filter:blur(16px); }
 .labor-details-heading h3 { margin:0; color:#242633; font-size:var(--type-subheading); letter-spacing:-.05em; }
 .labor-details-panel { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; margin-top:24px; padding:clamp(26px,2.5vw,42px) 28px; border-radius:22px; color:#625b7e; background:rgba(241,236,255,.8); box-shadow:inset 0 1px rgba(255,255,255,.84); transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease; }
 .labor-details-panel:hover { border-color:rgba(106,59,226,.2); box-shadow:0 16px 34px rgba(76,54,145,.11),inset 0 1px rgba(255,255,255,.84); transform:translateY(-3px); }
@@ -160,7 +160,7 @@ h1 span { display:inline; background:linear-gradient(110deg,#151a2b 20%,#6b3be4 
 .labor-detail-group h4 { margin:0 0 12px; color:var(--purple); font-size:16px; font-weight:700; letter-spacing:0; }
 .labor-detail-group p { margin:6px 0 0; font-size:var(--type-body); line-height:1.75; }
 .labor-detail-group strong { color:var(--purple); font-weight:800; }
-.cost-library { width:100%; margin-top:clamp(54px,7vw,92px); }
+.cost-library { width:100%; margin-top:clamp(54px,7vw,92px); padding:clamp(24px,3vw,42px); border:1px solid rgba(255,255,255,.78); border-radius:28px; background:linear-gradient(145deg,rgba(255,255,255,.54),rgba(247,243,255,.32)); box-shadow:0 22px 56px rgba(73,50,150,.1),inset 0 1px rgba(255,255,255,.88); backdrop-filter:blur(16px); }
 .cost-library-heading { display:flex; align-items:center; justify-content:flex-start; gap:12px; }
 .cost-library-heading h3 { margin:0; color:#242633; font-size:var(--type-subheading); letter-spacing:-.05em; }
 .cost-notice { margin-top:24px; padding:24px 28px; border-radius:18px; color:#67617e; background:rgba(241,236,255,.8); }
