@@ -679,6 +679,15 @@ export default function App() {
           </div>
         </motion.section>
       </div>
+      <footer className="site-footer">
+        <div className="site-footer-inner">
+          <div className="site-footer-brand"><img src="./logo.svg" alt="极客上线 Logo" /><p>品牌与数字体验，从策略到交付持续相伴。</p></div>
+          <nav className="site-footer-links" aria-label="页脚导航">
+            {sections.slice(1).map(([id, label]) => <a key={id} href={`#${id}`} onClick={(event) => handleSectionNavigate(event, id)}>{label}</a>)}
+          </nav>
+          <div className="site-footer-meta"><span>© 2025 极客上线</span><a href="#top" onClick={(event) => handleSectionNavigate(event, 'top')}>回到顶部 ↑</a></div>
+        </div>
+      </footer>
       <AnimatePresence>
         {casePreview && <motion.div className="case-lightbox" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setCasePreview(null)} role="dialog" aria-modal="true" aria-label={`${casePreview.title}完整图片`}>
           <motion.div className="case-lightbox-inner" initial={{ scale: .94, y: 18 }} animate={{ scale: 1, y: 0 }} exit={{ scale: .94, y: 18 }} onClick={(event) => event.stopPropagation()}>
