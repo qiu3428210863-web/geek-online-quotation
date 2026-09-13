@@ -669,6 +669,7 @@ export default function App() {
                     {afterSalesCategory === 'visual' && <>
                       <h3>视觉维护说明</h3>
                       <p className="after-sales-intro">在不改变核心逻辑的前提下，提供以下轻量级体验优化支持。</p>
+                      <div className="after-sales-visual-notice"><p>如若超出范围，会根据功能来评估工作量来收取费用。</p></div>
                       <div className="after-sales-visual-list">{visualMaintenanceRows.map(([type, detail, range], index) => <div className="after-sales-visual-row" key={type}><span className="after-sales-visual-index">0{index + 1}</span><strong>{type}</strong><p>{detail}</p><em>{range}</em></div>)}</div>
                     </>}
                   </motion.div>
