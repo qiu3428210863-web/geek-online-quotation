@@ -14,7 +14,6 @@ const sections = [
   ['cases', '参考案例'],
   ['features', '功能清单'],
   ['pricing', '开发报价'],
-  ['support', '后期维护费用'],
   ['meeting', '关于会议'],
   ['process', '开发流程'],
 ] as const
@@ -26,7 +25,6 @@ const sectionCopy: Record<(typeof sections)[number][0], { eyebrow: string; title
   pricing: { eyebrow: '04 / DEVELOPMENT QUOTE', title: '报价透明，决策更笃定。', body: '每一项投入都对应具体产出，按阶段拆分计划与预算，便于团队灵活安排。' },
   meeting: { eyebrow: '05 / WORKSHOP', title: '在一次次对话里，找到正确答案。', body: '通过结构化会议同步目标、节奏与反馈，让每个关键节点都被充分理解。' },
   process: { eyebrow: '06 / DELIVERY FLOW', title: '从第一张草图到最终上线。', body: '策略、设计、开发、测试与交付环环相扣，建立可持续迭代的工作流。' },
-  support: { eyebrow: '07 / MAINTENANCE', title: '上线之后，我们仍然在场。', body: '持续维护、数据观察与体验优化，让这份报价方案真正成为业务增长的起点。' },
 }
 
 const companyCards = [
@@ -100,11 +98,15 @@ export default function App() {
   const [processSelected, setProcessSelected] = useState(0)
   const [costCategory, setCostCategory] = useState<(typeof costCategories)[number]>('全部')
   const [expandedCosts, setExpandedCosts] = useState<Record<string, boolean>>({})
-  const [supportIndex, setSupportIndex] = useState(0)
+  // Keep the carousel in the middle copy of a three-copy track. This gives
+  // both pointer dragging and autoplay room to travel in either direction
+  // before a seamless, invisible index reset is needed.
+  const [supportIndex, setSupportIndex] = useState<number>(supportServices.length)
   const [supportDragOffset, setSupportDragOffset] = useState(0)
   const [supportDragging, setSupportDragging] = useState(false)
   const [supportPointerStart, setSupportPointerStart] = useState<number | null>(null)
   const [supportStep, setSupportStep] = useState(0)
+  const [supportInstant, setSupportInstant] = useState(false)
   const supportCarouselRef = useRef<HTMLDivElement | null>(null)
   const supportAutoIntervalRef = useRef<number | null>(null)
   const supportAutoResumeRef = useRef<number | null>(null)
@@ -128,7 +130,7 @@ export default function App() {
   }
 
   const changeSupport = (direction: number) => {
-    setSupportIndex((current) => (current + direction + supportServices.length) % supportServices.length)
+    setSupportIndex((current) => current + direction)
     setSupportDragOffset(0)
   }
 
@@ -164,7 +166,7 @@ export default function App() {
 
   const startSupportAutoplay = () => {
     if (supportAutoIntervalRef.current !== null) window.clearInterval(supportAutoIntervalRef.current)
-    supportAutoIntervalRef.current = window.setInterval(() => setSupportIndex((current) => (current + 1) % supportServices.length), 7200)
+    supportAutoIntervalRef.current = window.setInterval(() => setSupportIndex((current) => current + 1), 7200)
   }
 
   const scheduleSupportAutoplay = () => {
@@ -200,6 +202,15 @@ export default function App() {
     return clearCompanyAutoplay
   }, [])
 
+  const handleSupportTransitionEnd = () => {
+    const count = supportServices.length
+    if (supportIndex < count || supportIndex >= count * 2) {
+      setSupportInstant(true)
+      setSupportIndex((current) => current < count ? current + count : current - count)
+      window.requestAnimationFrame(() => setSupportInstant(false))
+    }
+  }
+
   const selectCompanyCard = (index: number) => {
     deferCompanyAutoplay()
     if (index === companyCard) return
@@ -213,10 +224,16 @@ export default function App() {
     const node = supportCarouselRef.current
     if (!node) return
     const measureStep = () => {
-      const card = node.querySelector<HTMLElement>('.support-service-card')
-      if (!card) return
-      const gap = Number.parseFloat(window.getComputedStyle(node).columnGap || window.getComputedStyle(node).gap || '0')
+      const track = node.querySelector<HTMLElement>('.support-carousel-track')
+      const card = track?.querySelector<HTMLElement>('.support-service-card')
+      if (!track || !card) return
+      const gap = Number.parseFloat(window.getComputedStyle(track).columnGap || window.getComputedStyle(track).gap || '0')
       setSupportStep(card.getBoundingClientRect().width + gap)
+      // The first measurement moves from the first clone set to the middle
+      // set. Disable interpolation for that one frame so the carousel never
+      // visibly jumps on initial layout or responsive resize.
+      setSupportInstant(true)
+      window.requestAnimationFrame(() => setSupportInstant(false))
     }
     measureStep()
     const observer = new ResizeObserver(measureStep)
@@ -428,7 +445,6 @@ export default function App() {
             </div>
             <span className="section-number">06</span>
           </motion.section>
-          if (id === 'support') return null
           if (id === 'pricing') return <motion.section className="content-section pricing-content" id={id} key={id} initial={{ opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .14 }} transition={{ duration: .72, ease: [.22, 1, .36, 1] }}>
             <div className="pricing-inner">
               <div className="pricing-title-wrap">
@@ -489,11 +505,12 @@ export default function App() {
                   <div className="support-panel">
                     <div className="support-panel-top"><span>服务内容</span><strong>开发费用 × 10% <em>按年</em></strong></div>
                     <div className={`support-carousel-window ${supportDragging ? 'is-dragging' : ''}`} ref={supportCarouselRef} onPointerDown={beginSupportDrag} onPointerMove={moveSupportDrag} onPointerUp={endSupportDrag} onPointerCancel={endSupportDrag}>
-                      <div className="support-carousel-track" style={{ transform: `translate3d(${supportStep ? -supportIndex * supportStep + supportDragOffset : supportDragOffset}px, 0, 0)`, transition: supportDragging ? 'none' : undefined }}>
-                        {supportServices.map((service, index) => {
+                      <div className="support-carousel-track" onTransitionEnd={handleSupportTransitionEnd} style={{ transform: `translate3d(${supportStep ? -supportIndex * supportStep + supportDragOffset : supportDragOffset}px, 0, 0)`, opacity: supportStep ? 1 : 0, transition: supportDragging || supportInstant ? 'none' : undefined }}>
+                        {[...supportServices, ...supportServices, ...supportServices].map((service, index) => {
                           const ServiceIcon = supportIconMap[service.icon]
-                          return <article className="support-service-card" key={service.title}>
-                          <span className="support-service-index">0{index + 1}</span>
+                          const displayIndex = index % supportServices.length
+                          return <article className="support-service-card" key={`${service.title}-${index}`} aria-hidden={index < supportServices.length || index >= supportServices.length * 2}>
+                          <span className="support-service-index">0{displayIndex + 1}</span>
                           <div className="support-service-mark"><ServiceIcon size={20} strokeWidth={1.8} aria-hidden="true" /></div>
                           <h3>{service.title}</h3>
                           <p>{service.body}</p>
@@ -516,6 +533,13 @@ export default function App() {
             </div>}
           </motion.section>
         })}
+        <motion.section className="after-sales-section" id="after-sales" initial={{ opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .14 }} transition={{ duration: .72, ease: [.22, 1, .36, 1] }}>
+          <div className="after-sales-inner">
+            <p className="section-eyebrow">07 / AFTER-SALES SERVICE</p>
+            <h2>售后服务</h2>
+            <p className="section-body">上线之后，我们继续陪伴产品稳定运行，提供技术支持、问题响应与持续优化。</p>
+          </div>
+        </motion.section>
       </div>
       <AnimatePresence>
         {casePreview && <motion.div className="case-lightbox" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setCasePreview(null)} role="dialog" aria-modal="true" aria-label={`${casePreview.title}完整图片`}>

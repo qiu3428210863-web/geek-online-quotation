@@ -16,12 +16,12 @@ a:focus-visible,button:focus-visible { outline:2px solid var(--purple); outline-
 .nav-brand { display:inline-flex; align-items:center; width:max-content; }
 .nav-brand img { display:block; width:clamp(118px,11vw,154px); height:auto; }
 .progress-nav { min-width:0; color:#54566b; }
-.progress-labels { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); align-items:center; gap:0; white-space:nowrap; }
+.progress-labels { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); align-items:center; gap:0; white-space:nowrap; }
 .progress-labels a { position:relative; color:#7d8093; font-size:clamp(10px,1.08vw,16px); font-weight:800; letter-spacing:-.04em; text-align:center; text-decoration:none; transition:color .25s ease, transform .25s ease; }
 .progress-labels a:hover { color:#5531c8; transform:translateY(-2px); }
 .progress-labels a.active { color:#5932da; }
 .progress-labels a.active::after { content:""; position:absolute; left:50%; bottom:-17px; width:8px; height:8px; border-radius:50%; background:#6338dd; box-shadow:0 0 0 5px rgba(99,56,221,.11); transform:translateX(-50%); }
-.progress-track { position:relative; height:5px; width:calc(100% - 14.2857%); margin:18px 7.14285% 0; border-radius:999px; background:rgba(112,91,203,.16); }
+.progress-track { position:relative; height:5px; width:calc(100% - 16.6667%); margin:18px 8.3333% 0; border-radius:999px; background:rgba(112,91,203,.16); }
 .progress-track span { position:absolute; inset:0 auto 0 0; width:0; border-radius:inherit; background:linear-gradient(90deg,#7657de,#5f30db); transition:none; }
 .progress-track b { position:absolute; top:50%; width:7px; height:7px; border:2px solid rgba(255,255,255,.9); border-radius:50%; background:#c8c0df; transform:translate(-50%,-50%); }
 .progress-track i { position:absolute; top:50%; width:11px; height:11px; border:2px solid #fff; border-radius:50%; background:#6338dd; box-shadow:0 2px 8px rgba(76,47,183,.34); transform:translate(-50%,-50%); transition:none; }
@@ -209,6 +209,11 @@ h1 span { display:inline; background:linear-gradient(110deg,#151a2b 20%,#6b3be4 
 .support-service-card h3 { margin:18px 0 0; color:#1b1d2b; font-size:var(--type-subheading); letter-spacing:-.05em; }
 .support-service-card p { max-width:270px; margin:12px 0 0; color:#676b7b; font-size:var(--type-body); line-height:1.65; }
 .support-carousel-footer { display:flex; align-items:center; justify-content:flex-start; gap:18px; margin-top:22px; color:#9a97a8; font-size:12px; }
+.after-sales-section { position:relative; display:flex; align-items:center; min-height:clamp(300px,34vw,480px); padding:clamp(88px,9vw,140px) max(24px,calc((100% - min(1700px,88vw)) / 2)); scroll-margin-top:110px; }
+.after-sales-section::before { content:""; position:absolute; inset:12% max(24px,calc((100% - min(1700px,88vw)) / 2)); border:1px solid rgba(255,255,255,.72); border-radius:clamp(26px,4vw,54px); background:linear-gradient(130deg,rgba(255,255,255,.52),rgba(247,243,255,.24)); box-shadow:0 24px 70px rgba(88,65,180,.1); backdrop-filter:blur(18px); }
+.after-sales-inner { position:relative; z-index:1; width:min(1700px,88vw); margin:0 auto; text-align:left; }
+.after-sales-inner h2 { margin:18px 0 0; color:#151827; font-size:var(--type-heading); line-height:1.05; letter-spacing:-.065em; }
+.after-sales-inner .section-body { max-width:760px; margin-top:22px; }
 .process-content { align-items:flex-start; padding-right:0; padding-left:0; }
 .process-content::before { display:none; }
 .process-inner { position:relative; z-index:2; width:min(1700px,88vw); margin:0 auto; }
