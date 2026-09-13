@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent, type PointerEvent as ReactPointerEvent } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Activity, ArrowRight, BellRing, CheckCircle2, FileText, FolderKanban, Gauge, Layers3, MessageSquareText, PackageCheck, Paperclip, Paintbrush, PenLine, RefreshCw, Search, Shapes, ShieldCheck, Sparkles, TestTube2, Upload, Wrench, X } from 'lucide-react'
+import { Activity, ArrowLeft, ArrowRight, BellRing, CheckCircle2, FileText, FolderKanban, Gauge, Layers3, MessageSquareText, PackageCheck, Paperclip, Paintbrush, PenLine, RefreshCw, Search, Shapes, ShieldCheck, Sparkles, TestTube2, Upload, Wrench, X } from 'lucide-react'
 
 const stats = [
   ['[XX 工作日]', '项目工期'],
@@ -95,6 +95,7 @@ export default function App() {
   const [companyCard, setCompanyCard] = useState(0)
   const [cardDirection, setCardDirection] = useState(1)
   const [attachmentName, setAttachmentName] = useState('')
+  const [caseIndex, setCaseIndex] = useState(0)
   const [casePreview, setCasePreview] = useState<{ image: string; title: string } | null>(null)
   const [processSelected, setProcessSelected] = useState(0)
   const [costCategory, setCostCategory] = useState<(typeof costCategories)[number]>('全部')
@@ -119,6 +120,11 @@ export default function App() {
     const targetTop = target.getBoundingClientRect().top + window.scrollY - navOffset
     window.history.replaceState(null, '', `#${id}`)
     window.scrollTo({ top: Math.max(0, targetTop), behavior: 'auto' })
+  }
+
+  const changeCase = (direction: number) => {
+    const pageCount = Math.ceil(caseCards.length / 2)
+    setCaseIndex((current) => (current + direction + pageCount) % pageCount)
   }
 
   const changeSupport = (direction: number) => {
@@ -351,16 +357,22 @@ export default function App() {
             <p className="case-chapter">CHAPTER 02</p>
             <h2>参考案例</h2>
             <p className="case-heading-note">针对竞品调研分析的一些设计和视觉参考</p>
+            <div className="case-controls"><button type="button" aria-label="上一个案例" onClick={() => changeCase(-1)}><ArrowLeft size={18} /></button><button type="button" aria-label="下一个案例" onClick={() => changeCase(1)}><ArrowRight size={18} /></button></div>
           </div>
           <div className="case-carousel-wrap">
-            <div className="case-visible-pair" aria-label="案例卡片列表">
-              {caseCards.map((card, index) => <article className="case-card" key={card.id}>
-                <div className="case-card-title"><span>{card.brand}</span><h3>{card.title}</h3></div>
-                <button className="case-image-button" type="button" onClick={() => setCasePreview({ image: card.image, title: `${card.brand} · ${card.title}` })} aria-label={`点击查看${card.brand}${card.title}完整图片`}><img src={card.image} alt={`${card.brand}${card.title}案例`} /><span className="case-image-hint">点击图片查看完整案例</span></button>
-                <div className="case-card-body"><span className="case-rule">—</span><p>{card.body}</p></div>
-                <span className="case-card-index">0{index + 1}</span>
-              </article>)}
-            </div>
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div key={`case-page-${caseIndex}`} className="case-visible-pair" aria-label="案例卡片列表" initial={{ opacity: 0, x: 18 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -18 }} transition={{ duration: .28, ease: [.22, 1, .36, 1] }}>
+                {caseCards.slice(caseIndex * 2, caseIndex * 2 + 2).map((card, offset) => <div className="case-slot" key={card.id}>
+                  <article className="case-card">
+                    <div className="case-card-title"><span>{card.brand}</span><h3>{card.title}</h3></div>
+                    <button className="case-image-button" type="button" onClick={() => setCasePreview({ image: card.image, title: `${card.brand} · ${card.title}` })} aria-label={`点击查看${card.brand}${card.title}完整图片`}><img src={card.image} alt={`${card.brand}${card.title}案例`} /><span className="case-image-hint">点击图片查看完整案例</span></button>
+                    <div className="case-card-body"><span className="case-rule">—</span><p>{card.body}</p></div>
+                    <span className="case-card-index">0{caseIndex * 2 + offset + 1}</span>
+                  </article>
+                </div>)}
+              </motion.div>
+            </AnimatePresence>
+            <div className="case-carousel-footer"><span>切换案例浏览</span><div className="case-dots" aria-hidden="true">{Array.from({ length: Math.ceil(caseCards.length / 2) }, (_, index) => <i className={index === caseIndex ? 'active' : ''} key={index} />)}</div></div>
           </div>
         </motion.section>
         {sections.slice(2).map(([id]) => {
