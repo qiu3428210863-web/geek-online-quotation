@@ -189,12 +189,12 @@ export default function App() {
     companyAutoIntervalRef.current = window.setInterval(() => {
       setCardDirection(1)
       setCompanyCard((current) => (current + 1) % companyCards.length)
-    }, 7600)
+    }, 5200)
   }
 
   const deferCompanyAutoplay = () => {
     clearCompanyAutoplay()
-    companyAutoResumeRef.current = window.setTimeout(startCompanyAutoplay, 10000)
+    companyAutoResumeRef.current = window.setTimeout(startCompanyAutoplay, 2000)
   }
 
   useEffect(() => {
