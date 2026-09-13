@@ -20,12 +20,12 @@ const sections = [
 ] as const
 
 const sectionCopy: Record<(typeof sections)[number][0], { eyebrow: string; title: string; body: string }> = {
-  company: { eyebrow: '01 / COMPANY', title: '把品牌愿景，变成可执行的体验。', body: '从策略、视觉到数字产品，我们为客户公司搭建一套清晰而有生命力的品牌系统。' },
-  cases: { eyebrow: '02 / CASE STUDIES', title: '每一次交付，都是一次长期合作的起点。', body: '精选品牌与数字体验案例，展示从问题洞察到落地上线的完整路径。' },
+  company: { eyebrow: '01 / COMPANY INTRODUCTION', title: '把品牌愿景，变成可执行的体验。', body: '从策略、视觉到数字产品，我们为客户公司搭建一套清晰而有生命力的品牌系统。' },
+  cases: { eyebrow: '02 / REFERENCE CASES', title: '每一次交付，都是一次长期合作的起点。', body: '精选品牌与数字体验案例，展示从问题洞察到落地上线的完整路径。' },
   features: { eyebrow: '03 / FEATURE LIST', title: '清晰的功能清单，让范围一目了然。', body: '将目标拆解为可验证的功能模块，减少沟通成本，让项目始终朝着同一个方向前进。' },
-  pricing: { eyebrow: '04 / DEVELOPMENT QUOTE', title: '报价透明，决策更笃定。', body: '每一项投入都对应具体产出，按阶段拆分计划与预算，便于团队灵活安排。' },
-  meeting: { eyebrow: '05 / WORKSHOP', title: '在一次次对话里，找到正确答案。', body: '通过结构化会议同步目标、节奏与反馈，让每个关键节点都被充分理解。' },
-  process: { eyebrow: '06 / DELIVERY FLOW', title: '从第一张草图到最终上线。', body: '策略、设计、开发、测试与交付环环相扣，建立可持续迭代的工作流。' },
+  pricing: { eyebrow: '04 / CUSTOM DEVELOPMENT QUOTE', title: '报价透明，决策更笃定。', body: '每一项投入都对应具体产出，按阶段拆分计划与预算，便于团队灵活安排。' },
+  meeting: { eyebrow: '05 / MEETING OVERVIEW', title: '在一次次对话里，找到正确答案。', body: '通过结构化会议同步目标、节奏与反馈，让每个关键节点都被充分理解。' },
+  process: { eyebrow: '06 / DEVELOPMENT PROCESS', title: '从第一张草图到最终上线。', body: '策略、设计、开发、测试与交付环环相扣，建立可持续迭代的工作流。' },
   'after-sales': { eyebrow: '07 / AFTER-SALES SERVICE', title: '上线之后，我们仍然在场。', body: '持续维护、数据观察与体验优化，让产品稳定运行并持续增长。' },
 }
 
@@ -486,7 +486,7 @@ export default function App() {
           if (id === 'meeting') return <motion.section className="content-section meeting-content" id={id} key={id} initial={{ opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .14 }} transition={{ duration: .72, ease: [.22, 1, .36, 1] }}>
             <div className="meeting-inner">
               <div className="meeting-section-heading">
-                <p className="section-eyebrow">05 / WORKSHOP</p>
+                <p className="section-eyebrow">05 / MEETING OVERVIEW</p>
                 <h2>关于会议</h2>
               </div>
               <div className="meeting-board">
@@ -500,7 +500,7 @@ export default function App() {
               <div className="process-layout">
                 <div className="process-copy">
                   <div className="process-heading">
-                    <p className="section-eyebrow">06 / DELIVERY FLOW</p>
+                    <p className="section-eyebrow">06 / DEVELOPMENT PROCESS</p>
                     <h2>开发流程说明</h2>
                     <p className="section-body">把每一个关键环节拆开，让协作、反馈与交付都有明确的下一步。</p>
                   </div>
@@ -535,7 +535,7 @@ export default function App() {
           if (id === 'pricing') return <motion.section className="content-section pricing-content" id={id} key={id} initial={{ opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .14 }} transition={{ duration: .72, ease: [.22, 1, .36, 1] }}>
             <div className="pricing-inner">
             <div className="pricing-title-wrap">
-              <p className="section-eyebrow">04 / DEVELOPMENT QUOTE</p>
+              <p className="section-eyebrow">04 / CUSTOM DEVELOPMENT QUOTE</p>
               <h2>定制开发报价清单</h2>
               <div className="pricing-subtitle-row"><p className="pricing-subtitle">项目付款节点</p><span className="pricing-hint"><Sparkles size={13} /> 悬停节点查看详情</span></div>
             </div>
