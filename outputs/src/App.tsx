@@ -553,11 +553,10 @@ export default function App() {
                   <p>开发工期为技术开发时间，按原型图&amp;UI确认后开始计算；可分功能版块逐步上线，后续迭代升级。</p>
                   <p>本次报价为含税1%（增值税专票），不包含服务器、第三方平台（例如人脸识别、消息推送等产生的费用）。</p>
                 </div>
-                <div className="pricing-progress" aria-label="报价清单板块导航">
-                  <span className="pricing-progress-line" aria-hidden="true" />
-                  <a className="pricing-progress-item is-active" href="#pricing-payment" onClick={(event) => handleSectionNavigate(event, 'pricing-payment')}><i>01</i><span>付款节点</span></a>
-                  <a className="pricing-progress-item" href="#pricing-labor" onClick={(event) => handleSectionNavigate(event, 'pricing-labor')}><i>02</i><span>人力投入</span></a>
-                  <a className="pricing-progress-item" href="#pricing-cost" onClick={(event) => handleSectionNavigate(event, 'pricing-cost')}><i>03</i><span>第三方费用</span></a>
+                <div className="pricing-progress" aria-label="报价清单板块">
+                  <div className="pricing-progress-card"><i>01</i><span>人力投入</span></div>
+                  <div className="pricing-progress-card"><i>02</i><span>第三方费用</span></div>
+                  <div className="pricing-progress-card"><i>03</i><span>后期维护费用</span></div>
                 </div>
               </div>
               <section className="labor-details" id="pricing-labor" aria-labelledby="labor-details-title">
