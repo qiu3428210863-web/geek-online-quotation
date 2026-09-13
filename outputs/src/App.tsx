@@ -518,12 +518,18 @@ export default function App() {
           </motion.section>
           if (id === 'pricing') return <motion.section className="content-section pricing-content" id={id} key={id} initial={{ opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .14 }} transition={{ duration: .72, ease: [.22, 1, .36, 1] }}>
             <div className="pricing-inner">
-              <div className="pricing-title-wrap">
-                <p className="section-eyebrow">04 / DEVELOPMENT QUOTE</p>
-                <h2>定制开发报价清单</h2>
-                <div className="pricing-subtitle-row"><p className="pricing-subtitle">项目付款节点</p><span className="pricing-hint"><Sparkles size={13} /> 悬停节点查看详情</span></div>
+            <div className="pricing-title-wrap">
+              <p className="section-eyebrow">04 / DEVELOPMENT QUOTE</p>
+              <h2>定制开发报价清单</h2>
+              <div className="pricing-subtitle-row"><p className="pricing-subtitle">项目付款节点</p><span className="pricing-hint"><Sparkles size={13} /> 悬停节点查看详情</span></div>
+            </div>
+              <div className="pricing-progress" aria-label="报价清单板块导航">
+                <span className="pricing-progress-line" aria-hidden="true" />
+                <a className="pricing-progress-item is-active" href="#pricing-payment" onClick={(event) => handleSectionNavigate(event, 'pricing-payment')}><i>01</i><span>付款节点</span></a>
+                <a className="pricing-progress-item" href="#pricing-labor" onClick={(event) => handleSectionNavigate(event, 'pricing-labor')}><i>02</i><span>人力投入</span></a>
+                <a className="pricing-progress-item" href="#pricing-cost" onClick={(event) => handleSectionNavigate(event, 'pricing-cost')}><i>03</i><span>第三方费用</span></a>
               </div>
-              <div className="pricing-bar" aria-label="付款比例与阶段说明">
+              <div className="pricing-bar" id="pricing-payment" aria-label="付款比例与阶段说明">
                 {pricingSegments.map((segment, index) => <button className={`pricing-segment pricing-segment-${index + 1}`} type="button" key={segment.label} aria-label={`${segment.label}：${segment.detail}`}>
                   <span>{segment.label}</span>
                   <strong>{segment.title}</strong>
@@ -535,7 +541,7 @@ export default function App() {
                 <p>开发工期为技术开发时间，按原型图&amp;UI确认后开始计算；可分功能版块逐步上线，后续迭代升级。</p>
                 <p>本次报价为含税1%（增值税专票），不包含服务器、第三方平台（例如人脸识别、消息推送等产生的费用）。</p>
               </div>
-              <section className="labor-details" aria-labelledby="labor-details-title">
+              <section className="labor-details" id="pricing-labor" aria-labelledby="labor-details-title">
                 <div className="labor-details-heading"><h3 id="labor-details-title">人力投入明细</h3></div>
                 <div className="labor-details-panel">
                   <div className="labor-detail-group">
@@ -549,7 +555,7 @@ export default function App() {
                   </div>
                 </div>
               </section>
-              <section className="cost-library" aria-labelledby="cost-library-title">
+              <section className="cost-library" id="pricing-cost" aria-labelledby="cost-library-title">
                 <div className="cost-library-heading"><h3 id="cost-library-title">第三方费用</h3></div>
                 <div className="cost-notice"><strong>第三方费用说明：</strong><p>云服务资费费用为第三方官方费用，由极客上线负责代购及部署，不涉及收取相关服务费，相关价格以第三方官方实时价格为准。</p></div>
                 <div className="cost-filters" role="tablist" aria-label="第三方费用分类">
