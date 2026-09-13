@@ -201,8 +201,8 @@ h1 span { display:inline; background:linear-gradient(110deg,#151a2b 20%,#6b3be4 
 .cost-detail a:hover,.cost-detail a:focus-visible { color:#4f269f; text-decoration:underline; transform:translateX(2px); }
 .support-library { width:100%; margin-top:clamp(54px,7vw,92px); padding:clamp(24px,3vw,42px); border:1px solid rgba(255,255,255,.78); border-radius:28px; background:linear-gradient(145deg,rgba(255,255,255,.54),rgba(247,243,255,.32)); box-shadow:0 22px 56px rgba(73,50,150,.1),inset 0 1px rgba(255,255,255,.88); backdrop-filter:blur(16px); }
 .support-library-heading { display:flex; align-items:center; justify-content:flex-start; gap:12px; }
-.support-library-heading h3 { margin:0; color:#242633; font-size:var(--type-subheading); letter-spacing:-.05em; }
-.support-library-description { margin:20px 0 0; color:#67617e; font-size:var(--type-body); line-height:1.8; }
+.support-library-heading h3 { margin:0; color:#242633; font-size:clamp(24px,2vw,30px); font-weight:800; line-height:1.2; letter-spacing:-.06em; }
+.support-library-description { margin:12px 0 0; color:#767286; font-size:clamp(15px,1.1vw,18px); font-weight:500; line-height:1.7; letter-spacing:-.015em; }
 .support-notice { display:grid; gap:7px; margin-top:20px; padding:20px 24px; border:1px solid rgba(119,94,190,.18); border-radius:16px; color:#5e6073; background:linear-gradient(135deg,rgba(247,242,255,.92),rgba(255,255,255,.72)); box-shadow:inset 0 1px rgba(255,255,255,.9); }
 .support-notice p { margin:0; font-size:16px; line-height:1.65; letter-spacing:-.02em; }
 .support-notice-lead { color:#343247; font-size:var(--type-subheading) !important; font-weight:700; }
@@ -252,8 +252,8 @@ h1 span { display:inline; background:linear-gradient(110deg,#151a2b 20%,#6b3be4 
 .after-sales-content-grid { display:grid; grid-template-columns:minmax(0,1fr) minmax(220px,.29fr); gap:clamp(24px,4vw,64px); align-items:start; margin-top:40px; }
 .after-sales-detail-panel { min-width:0; min-height:clamp(520px,42vw,680px); padding:clamp(24px,3vw,40px); border:1px solid rgba(255,255,255,.8); border-radius:24px; background:linear-gradient(145deg,rgba(255,255,255,.72),rgba(247,243,255,.42)); box-shadow:0 20px 46px rgba(73,50,150,.1),inset 0 1px rgba(255,255,255,.9); backdrop-filter:blur(16px); overflow-anchor:none; }
 .after-sales-category-content { overflow-anchor:none; }
-.after-sales-category-content h3 { margin:0; color:#242633; font-size:var(--type-subheading); letter-spacing:-.05em; }
-.after-sales-intro { margin:16px 0 0; color:#676b7b; font-size:var(--type-body); line-height:1.75; }
+.after-sales-category-content h3 { margin:0; color:#242633; font-size:clamp(24px,2vw,30px); font-weight:800; line-height:1.2; letter-spacing:-.06em; }
+.after-sales-intro { margin:12px 0 0; color:#767286; font-size:clamp(15px,1.1vw,18px); font-weight:500; line-height:1.7; letter-spacing:-.015em; }
 .after-sales-category-nav { display:flex; flex-direction:column; gap:10px; }
 .after-sales-category-nav button { display:grid; grid-template-columns:28px minmax(0,1fr) 22px; align-items:center; gap:10px; width:100%; cursor:pointer; padding:15px 14px; border:1px solid rgba(119,94,190,.14); border-radius:15px; color:#666b7b; background:rgba(255,255,255,.58); font:inherit; font-size:var(--type-subheading); font-weight:700; text-align:left; transition:transform .22s ease,color .22s ease,background .22s ease,border-color .22s ease,box-shadow .22s ease; }
 .after-sales-category-nav button:hover { color:#5e35c4; border-color:rgba(106,59,226,.28); background:rgba(255,255,255,.86); transform:translateX(-3px); }
@@ -473,3 +473,7 @@ h1 span { display:inline; background:linear-gradient(110deg,#151a2b 20%,#6b3be4 
   .site-footer-legal{align-items:flex-start;gap:8px;white-space:normal;}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+@media(max-width:560px){
+  .support-library-heading h3,.after-sales-category-content h3{font-size:24px;line-height:1.2;}
+  .support-library-description,.after-sales-intro{font-size:16px;line-height:1.7;}
+}
