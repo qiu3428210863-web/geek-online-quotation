@@ -391,6 +391,18 @@ h1 span { display:inline; background:linear-gradient(110deg,#151a2b 20%,#6b3be4 
   .features-content{padding-top:56px;padding-bottom:56px;}
   .company-feature{padding-top:56px;padding-bottom:56px;}
 }
+/* Keep the major sections visually connected instead of leaving oversized gaps. */
+@media(min-width:901px){
+  .company-feature,.content-section,.after-sales-section{padding-top:clamp(76px,7vw,116px);padding-bottom:clamp(76px,7vw,116px);}
+  .case-study-section{padding-top:clamp(82px,8vw,124px);padding-bottom:clamp(82px,8vw,124px);}
+  .features-content{padding-top:clamp(56px,6vw,86px);padding-bottom:clamp(56px,6vw,86px);}
+  .cost-library,.support-library{margin-top:clamp(42px,5vw,68px);}
+}
+@media(max-width:900px){
+  .content-section{padding-top:72px;padding-bottom:72px;}
+  .after-sales-section{padding-top:76px;padding-bottom:76px;}
+  .cost-library,.support-library{margin-top:42px;}
+}
 /* Typography stays consistent across sections, including the mobile overrides. */
 @media(max-width:560px){
   .content-section h2,.case-heading-block h2,.case-intro-card h2{font-size:36px;}
