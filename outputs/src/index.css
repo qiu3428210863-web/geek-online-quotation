@@ -374,11 +374,9 @@ h1 span { display:inline; background:linear-gradient(110deg,#151a2b 20%,#6b3be4 
 .attachment-icon { display:grid; width:46px; height:46px; place-items:center; border-radius:14px; color:#fff; background:linear-gradient(135deg,#7045e4,#9a72f1); box-shadow:0 10px 22px rgba(102,58,220,.24); }
 .attachment-heading strong { display:block; color:#1b1d2b; font-size:clamp(16px,1.35vw,20px); letter-spacing:-.03em; }
 .attachment-heading small { display:block; margin-top:5px; color:#85899b; font-size:11px; }
-.attachment-drop { position:relative; display:flex; min-height:116px; flex-direction:column; align-items:center; justify-content:center; gap:10px; cursor:pointer; padding:20px; border:1px dashed rgba(106,59,226,.38); border-radius:18px; color:#6a3be2; background:rgba(255,255,255,.42); text-align:center; transition:.25s ease; }
-.attachment-drop:hover { border-color:#6a3be2; background:rgba(255,255,255,.72); transform:translateY(-2px); }
-.attachment-drop input { position:absolute; width:1px; height:1px; opacity:0; pointer-events:none; }
-.attachment-drop span { max-width:100%; overflow:hidden; color:#54576b; font-size:12px; text-overflow:ellipsis; white-space:nowrap; }
-.attachment-drop em { display:inline-flex; align-items:center; gap:5px; color:#6a3be2; font-size:11px; font-style:normal; font-weight:800; }
+.attachment-preview { display:flex; align-items:flex-start; gap:12px; min-height:86px; padding:18px 20px; border:1px solid rgba(106,59,226,.13); border-radius:18px; background:rgba(241,236,255,.62); }
+.attachment-preview-status { flex:0 0 auto; padding:5px 8px; border-radius:999px; color:#6a3be2; background:rgba(216,201,255,.62); font-size:11px; font-weight:800; }
+.attachment-preview p { margin:1px 0 0; color:#666b7b; font-size:14px; line-height:1.65; }
 .section-eyebrow { margin:0 0 22px; color:#6043bd; font-size:var(--type-eyebrow); font-weight:800; letter-spacing:.2em; }
 .content-section h2 { max-width:780px; margin:0; color:#151827; font-size:var(--type-heading); line-height:1.05; letter-spacing:-.065em; }
 .section-body { max-width:520px; margin:26px 0 0; color:#606779; font-size:var(--type-body); line-height:1.8; }

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent, type PointerEvent as ReactPointerEvent } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Activity, ArrowLeft, ArrowRight, BellRing, CheckCircle2, FileText, Gauge, Layers3, MapPin, Paperclip, Phone, RefreshCw, ShieldCheck, Sparkles, Upload, Wrench, X } from 'lucide-react'
+import { Activity, ArrowLeft, ArrowRight, BellRing, CheckCircle2, FileText, Gauge, Layers3, MapPin, Phone, RefreshCw, ShieldCheck, Sparkles, Wrench, X } from 'lucide-react'
 
 const stats = [
   ['[XX 工作日]', '项目工期'],
@@ -158,7 +158,6 @@ export default function App() {
   const [scrollProgress, setScrollProgress] = useState(0)
   const [companyCard, setCompanyCard] = useState(0)
   const [cardDirection, setCardDirection] = useState(1)
-  const [attachmentName, setAttachmentName] = useState('')
   const [caseIndex, setCaseIndex] = useState(0)
   const [casePreview, setCasePreview] = useState<{ image: string; title: string } | null>(null)
   const [processSelected, setProcessSelected] = useState(0)
@@ -615,10 +614,10 @@ export default function App() {
             <span className="section-number">04</span>
           </motion.section>
           return <motion.section className={`content-section ${id === 'features' ? 'features-content' : ''}`} id={id} key={id} initial={{ opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .14 }} transition={{ duration: .72, ease: [.22, 1, .36, 1] }}>
-            <div className="section-inner"><p className="section-eyebrow">{item.eyebrow}</p><h2>{id === 'features' ? '功能清单' : item.title}</h2><p className="section-body">{id === 'features' ? '贴售前功能清单附件' : item.body}</p>{id !== 'features' && <span className="section-number">07</span>}</div>
+            <div className="section-inner"><p className="section-eyebrow">{item.eyebrow}</p><h2>{id === 'features' ? '功能清单' : item.title}</h2><p className="section-body">{id === 'features' ? '查看售前功能清单附件' : item.body}</p>{id !== 'features' && <span className="section-number">07</span>}</div>
             {id === 'features' && <div className="attachment-card">
-              <div className="attachment-heading"><span className="attachment-icon"><FileText size={22} /></span><div><strong>售前功能清单附件</strong><small>支持 PDF、DOCX、XLSX、PNG</small></div></div>
-              <label className="attachment-drop"><input type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg" onChange={(event) => setAttachmentName(event.target.files?.[0]?.name ?? '')} /><Upload size={18} /><span>{attachmentName || '点击选择功能清单文件'}</span><em><Paperclip size={14} /> 浏览文件</em></label>
+              <div className="attachment-heading"><span className="attachment-icon"><FileText size={22} /></span><div><strong>售前功能清单附件</strong><small>功能范围与交付标准说明</small></div></div>
+              <div className="attachment-preview"><span className="attachment-preview-status">已整理</span><p>功能模块、范围边界与交付标准已整理在附件中，供项目评审与报价确认时查阅。</p></div>
             </div>}
           </motion.section>
         })}
