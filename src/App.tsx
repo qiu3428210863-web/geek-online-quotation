@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent, type PointerEvent as ReactPointerEvent } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ArrowLeft, ArrowRight, CheckCircle2, CircleDollarSign, ClipboardList, Code2, Kanban, Layers3, LayoutTemplate, Palette, Rocket, Search, Settings2, Sparkles, X } from 'lucide-react'
+import { ArrowLeft, ArrowRight, CheckCircle2, CircleDollarSign, ClipboardList, Code2, FileText, Kanban, Layers3, LayoutTemplate, Palette, Paperclip, Rocket, Search, Settings2, Sparkles, Upload, X } from 'lucide-react'
 
 const stats = [
   ['[XX 工作日]', '项目工期'],
@@ -93,6 +93,7 @@ export default function App() {
   const [scrollProgress, setScrollProgress] = useState(0)
   const [companyCard, setCompanyCard] = useState(0)
   const [cardDirection, setCardDirection] = useState(1)
+  const [attachmentName, setAttachmentName] = useState('')
   const [caseIndex, setCaseIndex] = useState(0)
   const [casePreview, setCasePreview] = useState<{ image: string; title: string } | null>(null)
   const [costCategory, setCostCategory] = useState<(typeof costCategories)[number]>('全部')
@@ -445,6 +446,10 @@ export default function App() {
           </motion.section>
           return <motion.section className={`content-section ${id === 'features' ? 'features-content' : ''}`} id={id} key={id} initial={{ opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .14 }} transition={{ duration: .72, ease: [.22, 1, .36, 1] }}>
             <div className="section-inner"><p className="section-eyebrow">{item.eyebrow}</p><h2>{id === 'features' ? '功能清单' : item.title}</h2><p className="section-body">{id === 'features' ? '贴售前功能清单附件' : item.body}</p>{id !== 'features' && <span className="section-number">07</span>}</div>
+            {id === 'features' && <div className="attachment-card">
+              <div className="attachment-heading"><span className="attachment-icon"><FileText size={22} /></span><div><strong>售前功能清单附件</strong><small>支持 PDF、DOCX、XLSX、PNG</small></div></div>
+              <label className="attachment-drop"><input type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg" onChange={(event) => setAttachmentName(event.target.files?.[0]?.name ?? '')} /><Upload size={18} /><span>{attachmentName || '点击选择功能清单文件'}</span><em><Paperclip size={14} /> 浏览文件</em></label>
+            </div>}
           </motion.section>
         })}
       </div>
