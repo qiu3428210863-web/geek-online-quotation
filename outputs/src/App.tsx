@@ -36,10 +36,10 @@ const companyCards = [
 ]
 
 const caseCards = [
-  { id: 'liuda-map', brand: '溜搭', title: '地图探索', image: './case-liuda-map.png', body: '把附近的路线、互动与惊喜放在一张地图里，让每一次出发都值得期待。' },
-  { id: 'liuda-style', brand: '溜搭', title: '宠物装扮', image: './case-liuda-style.png', body: '用轻松有趣的装扮体验，建立属于自己的宠物形象与社交表达。' },
-  { id: 'awen-profile', brand: '阿闻宠物', title: '完善信息', image: './case-awen-profile.png', body: '档案、品种与健康信息集中管理，让科学照顾从记录开始。' },
-  { id: 'awen-membership', brand: '阿闻宠物', title: '会员中心', image: './case-awen-membership.png', body: '会员权益与服务一站式呈现，为养宠生活提供持续而安心的陪伴。' },
+  { id: 'liuda-map', brand: '溜搭', title: '地图探索', image: './case-liuda-map.webp', body: '把附近的路线、互动与惊喜放在一张地图里，让每一次出发都值得期待。' },
+  { id: 'liuda-style', brand: '溜搭', title: '宠物装扮', image: './case-liuda-style.webp', body: '用轻松有趣的装扮体验，建立属于自己的宠物形象与社交表达。' },
+  { id: 'awen-profile', brand: '阿闻宠物', title: '完善信息', image: './case-awen-profile.webp', body: '档案、品种与健康信息集中管理，让科学照顾从记录开始。' },
+  { id: 'awen-membership', brand: '阿闻宠物', title: '会员中心', image: './case-awen-membership.webp', body: '会员权益与服务一站式呈现，为养宠生活提供持续而安心的陪伴。' },
 ]
 
 const pricingSegments = [
@@ -470,7 +470,8 @@ export default function App() {
                 {caseCards.slice(caseIndex * 2, caseIndex * 2 + 2).map((card, offset) => <div className="case-slot" key={card.id}>
                   <article className="case-card">
                     <div className="case-card-title"><span>{card.brand}</span><h3>{card.title}</h3></div>
-                    <button className="case-image-button" type="button" onClick={() => setCasePreview({ image: card.image, title: `${card.brand} · ${card.title}` })} aria-label={`点击查看${card.brand}${card.title}完整图片`}><img src={card.image} alt={`${card.brand}${card.title}案例`} /><span className="case-image-hint">点击图片查看完整案例</span></button>
+                    <button className="case-image-button" type="button" onClick={() => setCasePreview({ image: card.image, title: `${card.brand} · ${card.title}` })} aria-label={`点击查看${card.brand}${card.title}完整图片`}><img src={card.image} alt={`${card.brand}${card.title}案例`} loading={offset === 0 ? 'eager' : 'lazy'} decoding="async" /></button>
+                    <span className="case-image-hint">点击图片查看完整案例</span>
                     <div className="case-card-body"><span className="case-rule">—</span><p>{card.body}</p></div>
                     <span className="case-card-index">0{caseIndex * 2 + offset + 1}</span>
                   </article>
