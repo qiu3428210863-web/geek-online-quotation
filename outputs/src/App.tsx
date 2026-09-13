@@ -104,6 +104,8 @@ export default function App() {
   const [supportPointerStart, setSupportPointerStart] = useState<number | null>(null)
   const [supportStep, setSupportStep] = useState(0)
   const supportCarouselRef = useRef<HTMLDivElement | null>(null)
+  const companyAutoIntervalRef = useRef<number | null>(null)
+  const companyAutoResumeRef = useRef<number | null>(null)
 
   const handleSectionNavigate = (event: ReactMouseEvent<HTMLAnchorElement>, id: string) => {
     event.preventDefault()
@@ -148,7 +150,33 @@ export default function App() {
     if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId)
   }
 
+  const clearCompanyAutoplay = () => {
+    if (companyAutoIntervalRef.current !== null) window.clearInterval(companyAutoIntervalRef.current)
+    if (companyAutoResumeRef.current !== null) window.clearTimeout(companyAutoResumeRef.current)
+    companyAutoIntervalRef.current = null
+    companyAutoResumeRef.current = null
+  }
+
+  const startCompanyAutoplay = () => {
+    if (companyAutoIntervalRef.current !== null) window.clearInterval(companyAutoIntervalRef.current)
+    companyAutoIntervalRef.current = window.setInterval(() => {
+      setCardDirection(1)
+      setCompanyCard((current) => (current + 1) % companyCards.length)
+    }, 7600)
+  }
+
+  const deferCompanyAutoplay = () => {
+    clearCompanyAutoplay()
+    companyAutoResumeRef.current = window.setTimeout(startCompanyAutoplay, 10000)
+  }
+
+  useEffect(() => {
+    startCompanyAutoplay()
+    return clearCompanyAutoplay
+  }, [])
+
   const selectCompanyCard = (index: number) => {
+    deferCompanyAutoplay()
     if (index === companyCard) return
     setCardDirection(index >= companyCard ? 1 : -1)
     setCompanyCard(index)
