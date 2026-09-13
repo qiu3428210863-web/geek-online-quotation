@@ -608,7 +608,7 @@ export default function App() {
           <div className="after-sales-inner">
             <div className="after-sales-heading">
               <p className="section-eyebrow">07 / AFTER-SALES SERVICE</p>
-              <h2><span className="after-sales-title-index">7.</span> 售后服务说明</h2>
+              <h2>售后服务说明</h2>
             </div>
             <div className="after-sales-notice">
               <span className="after-sales-notice-icon" aria-hidden="true">💡</span>
@@ -619,7 +619,7 @@ export default function App() {
                 <AnimatePresence mode="wait" initial={false}>
                   <motion.div key={afterSalesCategory} className="after-sales-category-content" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: .26, ease: [.22, 1, .36, 1] }}>
                     {afterSalesCategory === 'process' && <>
-                      <h3><span className="after-sales-title-index">7.1</span> 售后流程详细说明</h3>
+                      <h3>售后流程详细说明</h3>
                       <div className="after-sales-process-groups">
                         {afterSalesGroups.map((group) => <div className="after-sales-process-group" key={group.title}>
                           <h4>{group.title}</h4>
