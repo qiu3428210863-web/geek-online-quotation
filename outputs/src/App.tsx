@@ -546,11 +546,6 @@ export default function App() {
                   <span className="pricing-tooltip" role="tooltip">{segment.detail}</span>
                 </button>)}
               </div>
-              <div className="pricing-notes">
-                <h3>补充说明</h3>
-                <p>开发工期为技术开发时间，按原型图&amp;UI确认后开始计算；可分功能版块逐步上线，后续迭代升级。</p>
-                <p>本次报价为含税1%（增值税专票），不包含服务器、第三方平台（例如人脸识别、消息推送等产生的费用）。</p>
-              </div>
               <section className="labor-details" id="pricing-labor" aria-labelledby="labor-details-title">
                 <div className="labor-details-heading"><h3 id="labor-details-title">人力投入明细</h3></div>
                 <div className="labor-details-panel">
@@ -563,6 +558,11 @@ export default function App() {
                     <p>人天合计 = 人数 × 人天/人</p>
                     <p>金额 = 人天合计 × 单价</p>
                   </div>
+                </div>
+                <div className="pricing-notes">
+                  <h3>补充说明</h3>
+                  <p>开发工期为技术开发时间，按原型图&amp;UI确认后开始计算；可分功能版块逐步上线，后续迭代升级。</p>
+                  <p>本次报价为含税1%（增值税专票），不包含服务器、第三方平台（例如人脸识别、消息推送等产生的费用）。</p>
                 </div>
               </section>
               <section className="cost-library" id="pricing-cost" aria-labelledby="cost-library-title">
