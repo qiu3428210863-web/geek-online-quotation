@@ -657,7 +657,10 @@ export default function App() {
                           <div className="after-sales-testing-principles"><span>需求评审</span><i>→</i><span>功能验证</span><i>→</i><span>系统质量</span><i>→</i><span>上线验收</span></div>
                         </div>
                       </div>
-                      <div className="after-sales-testing-cards">{testingRows.map(([stage, work, owner, prerequisite, output]) => <article className="after-sales-testing-card" key={`${stage}-${work}`}><div className="after-sales-testing-card-top"><strong>{stage}</strong><span>{owner}</span></div><p>{work}</p><div className="after-sales-testing-meta"><span><b>前置条件</b>{prerequisite}</span><span><b>产出物</b>{output}</span></div></article>)}</div>
+                      <div className="after-sales-testing-process" aria-label="完整测试流程">
+                        <div className="after-sales-testing-process-head"><span>项目阶段</span><span>测试环节</span><span>工作内容说明</span><span>负责人</span><span>前置条件</span><span>产出物</span></div>
+                        {testingRows.map(([stage, work, owner, prerequisite, output]) => { const [projectStage, testStep] = stage.split(' / '); return <div className="after-sales-testing-process-row" key={`${stage}-${work}`}><strong>{projectStage}</strong><strong>{testStep}</strong><p>{work}</p><span>{owner}</span><span>{prerequisite}</span><span>{output}</span></div> })}
+                      </div>
                     </>}
                     {afterSalesCategory === 'maintenance' && <>
                       <h3>维护说明</h3>
