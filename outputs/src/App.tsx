@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent, type PointerEvent as ReactPointerEvent } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Activity, ArrowRight, BellRing, CheckCircle2, CircleDollarSign, ClipboardList, Code2, FileText, Gauge, Kanban, Layers3, LayoutTemplate, Palette, Paperclip, RefreshCw, Rocket, Search, Settings2, ShieldCheck, Sparkles, Upload, Wrench, X } from 'lucide-react'
+import { Activity, ArrowRight, BellRing, CheckCircle2, FileText, FolderKanban, Gauge, Layers3, MessageSquareText, PackageCheck, Paperclip, Paintbrush, PenLine, RefreshCw, Search, Shapes, ShieldCheck, Sparkles, TestTube2, Upload, Wrench, X } from 'lucide-react'
 
 const stats = [
   ['[XX 工作日]', '项目工期'],
@@ -68,11 +68,10 @@ const processStages = [
   { phase: '售中', title: '原型设计', body: '高效输出功能原型图，直观展示产品结构与核心交互，确保客户对产品有清晰的预期，并提前发现可能的优化点。', icon: 'prototype' },
   { phase: '售中', title: 'UI/UX设计', body: '基于品牌调性和用户体验优化原则，进行界面设计，确保视觉与交互体验既符合用户习惯，又能强化品牌形象。', icon: 'design' },
   { phase: '售中', title: '开发与测试', body: '采用敏捷式开发，将一个大的项目拆分为多个迭代，定期向客户展示迭代进度，并通过功能、性能、安全等多维测试，确保系统的稳定性与可靠性。', icon: 'development' },
-  { phase: '售中', title: '自动化运维', body: '通过自动化运维告警提高系统的稳定性、故障响应速度和性能优化，减少人工干预和错误风险，推动业务的长期稳定运行和持续增长，实现客户持续成功。', icon: 'operations' },
   { phase: '售中', title: '上线与交付', body: '协助完成应用市场审核与上架，确保产品顺利上线。同时，完整交付源码与技术文档，保障客户的自主可控性，并支持后续扩展开发。', icon: 'launch' },
 ] as const
 
-const processIconMap = { search: Search, planning: ClipboardList, quote: CircleDollarSign, management: Kanban, prototype: LayoutTemplate, design: Palette, development: Code2, operations: Settings2, launch: Rocket } as const
+const processIconMap = { search: Search, planning: PenLine, quote: MessageSquareText, management: FolderKanban, prototype: Shapes, design: Paintbrush, development: TestTube2, launch: PackageCheck } as const
 
 const costCategories = ['全部', '基础设施', '域名与证书', '存储与分发', '外部服务'] as const
 const optionLinkUrl = 'https://cloud.tencent.com/login?s_url=https%3A%2F%2Fbuy.cloud.tencent.com%2Fredis'
@@ -97,6 +96,7 @@ export default function App() {
   const [cardDirection, setCardDirection] = useState(1)
   const [attachmentName, setAttachmentName] = useState('')
   const [casePreview, setCasePreview] = useState<{ image: string; title: string } | null>(null)
+  const [processSelected, setProcessSelected] = useState(0)
   const [costCategory, setCostCategory] = useState<(typeof costCategories)[number]>('全部')
   const [expandedCosts, setExpandedCosts] = useState<Record<string, boolean>>({})
   const [supportIndex, setSupportIndex] = useState(0)
@@ -386,21 +386,29 @@ export default function App() {
                     <h2>开发流程说明</h2>
                     <p className="section-body">把每一个关键环节拆开，让协作、反馈与交付都有明确的下一步。</p>
                   </div>
+                  <div className="process-detail-card" aria-live="polite">
+                    <AnimatePresence mode="wait" initial={false}>
+                      <motion.div key={processStages[processSelected].title} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: .25, ease: [.22, 1, .36, 1] }}>
+                        {(() => { const selectedStage = processStages[processSelected]; const SelectedIcon = processIconMap[selectedStage.icon]; return <>
+                          <div className="process-detail-top"><span>{selectedStage.phase}</span><b>0{processSelected + 1}</b></div>
+                          <div className="process-detail-icon" aria-hidden="true"><SelectedIcon size={24} strokeWidth={1.8} /></div>
+                          <h3>{selectedStage.title}</h3>
+                          <p>{selectedStage.body}</p>
+                        </> })()}
+                      </motion.div>
+                    </AnimatePresence>
+                  </div>
                   <div className="process-phase-legend" aria-label="流程阶段"><span><i />售前</span><span><i />售中</span></div>
                 </div>
                 <div className="process-flow" aria-label="开发流程清单">
-                  <motion.div className="process-flow-line" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: .12 }}>
-                    <motion.span className="process-timeline-fill" initial={{ scaleY: 0 }} whileInView={{ scaleY: 1 }} viewport={{ once: true, amount: .12 }} transition={{ duration: .5, ease: [.22, 1, .36, 1] }} />
-                  </motion.div>
+                  <svg className="process-route" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M16 16H84V50H16V84H84" /></svg>
                   <ol className="process-flow-list">
-                    {processStages.map((stage, index) => { const ProcessIcon = processIconMap[stage.icon]; return <motion.li key={stage.title} className={`process-flow-item process-flow-item-${index % 2 === 0 ? 'left' : 'right'}`} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .12 }} transition={{ delay: .2 + index * .055, duration: .3, ease: [.22, 1, .36, 1] }}>
-                      <div className="process-card">
-                        <div className="process-card-top"><span>{stage.phase}</span><b>0{index + 1}</b></div>
-                        <div className="process-card-icon" aria-hidden="true"><ProcessIcon size={21} strokeWidth={1.9} /></div>
+                    {processStages.map((stage, index) => { const ProcessIcon = processIconMap[stage.icon]; return <motion.li key={stage.title} className={`process-flow-item process-flow-item-${index + 1} ${processSelected === index ? 'is-active' : ''}`} onClick={() => setProcessSelected(index)} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); setProcessSelected(index) } }} role="button" tabIndex={0} aria-pressed={processSelected === index} initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .12 }} transition={{ delay: .1 + index * .055, duration: .28, ease: [.22, 1, .36, 1] }}>
+                      <div className="process-node-card">
+                        <span className="process-node-number" aria-hidden="true">{index + 1}</span>
+                        <div className="process-card-icon" aria-hidden="true"><ProcessIcon size={22} strokeWidth={1.8} /></div>
                         <h3>{stage.title}</h3>
-                        <p>{stage.body}</p>
                       </div>
-                      <span className="process-node" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
                     </motion.li>})}
                   </ol>
                 </div>
