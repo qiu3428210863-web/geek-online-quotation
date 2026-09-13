@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent, type PointerEvent as ReactPointerEvent, type WheelEvent as ReactWheelEvent } from 'react'
+import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent, type PointerEvent as ReactPointerEvent } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowLeft, ArrowRight, CheckCircle2, CircleDollarSign, ClipboardList, Code2, Kanban, Layers3, LayoutTemplate, Palette, Rocket, Search, Settings2, Sparkles, X } from 'lucide-react'
 
@@ -103,7 +103,6 @@ export default function App() {
   const [supportPointerStart, setSupportPointerStart] = useState<number | null>(null)
   const [supportStep, setSupportStep] = useState(0)
   const supportCarouselRef = useRef<HTMLDivElement | null>(null)
-  const processScrollRef = useRef<HTMLDivElement | null>(null)
 
   const handleSectionNavigate = (event: ReactMouseEvent<HTMLAnchorElement>, id: string) => {
     event.preventDefault()
@@ -146,20 +145,6 @@ export default function App() {
     setSupportPointerStart(null)
     setSupportDragging(false)
     if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId)
-  }
-
-  const handleProcessWheel = (event: ReactWheelEvent<HTMLDivElement>) => {
-    const viewport = processScrollRef.current
-    if (!viewport) return
-    const maxScroll = viewport.scrollWidth - viewport.clientWidth
-    if (maxScroll <= 0) return
-    const delta = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX
-    const atStart = viewport.scrollLeft <= 1
-    const atEnd = viewport.scrollLeft >= maxScroll - 1
-    if ((delta > 0 && !atEnd) || (delta < 0 && !atStart)) {
-      event.preventDefault()
-      viewport.scrollLeft += delta
-    }
   }
 
   const selectCompanyCard = (index: number) => {
@@ -349,29 +334,33 @@ export default function App() {
             </div>
             <span className="section-number">05</span>
           </motion.section>
-      if (id === 'process') return <motion.section className="content-section process-content" id={id} key={id} onWheel={handleProcessWheel} initial={{ opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .14 }} transition={{ duration: .72, ease: [.22, 1, .36, 1] }}>
+          if (id === 'process') return <motion.section className="content-section process-content" id={id} key={id} initial={{ opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .14 }} transition={{ duration: .72, ease: [.22, 1, .36, 1] }}>
             <div className="process-inner">
-              <div className="process-heading">
-                <p className="section-eyebrow">06 / DELIVERY FLOW</p>
-                <h2>开发流程说明</h2>
-                <p className="section-body">把每一个关键环节拆开，让协作、反馈与交付都有明确的下一步。</p>
-              </div>
-              <div className="process-phase-legend" aria-label="流程阶段"><span><i />售前</span><span><i />售中</span></div>
-              <div className="process-flow" ref={processScrollRef} aria-label="开发流程清单">
-                <motion.div className="process-flow-line" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: .12 }}>
-                  <motion.span className="process-timeline-fill" initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true, amount: .12 }} transition={{ duration: .5, ease: [.22, 1, .36, 1] }} />
-                </motion.div>
-                <ol className="process-flow-list">
-                  {processStages.map((stage, index) => { const ProcessIcon = processIconMap[stage.icon]; return <motion.li key={stage.title} className={`process-flow-item process-flow-item-${index % 2 === 0 ? 'left' : 'right'}`} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .12 }} transition={{ delay: .4 + index * .07, duration: .32, ease: [.22, 1, .36, 1] }}>
-                    <div className="process-card">
-                      <div className="process-card-top"><span>{stage.phase}</span><b>0{index + 1}</b></div>
-                      <div className="process-card-icon" aria-hidden="true"><ProcessIcon size={21} strokeWidth={1.9} /></div>
-                      <h3>{stage.title}</h3>
-                      <p>{stage.body}</p>
-                    </div>
-                    <span className="process-node" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
-                  </motion.li>})}
-                </ol>
+              <div className="process-layout">
+                <div className="process-copy">
+                  <div className="process-heading">
+                    <p className="section-eyebrow">06 / DELIVERY FLOW</p>
+                    <h2>开发流程说明</h2>
+                    <p className="section-body">把每一个关键环节拆开，让协作、反馈与交付都有明确的下一步。</p>
+                  </div>
+                  <div className="process-phase-legend" aria-label="流程阶段"><span><i />售前</span><span><i />售中</span></div>
+                </div>
+                <div className="process-flow" aria-label="开发流程清单">
+                  <motion.div className="process-flow-line" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: .12 }}>
+                    <motion.span className="process-timeline-fill" initial={{ scaleY: 0 }} whileInView={{ scaleY: 1 }} viewport={{ once: true, amount: .12 }} transition={{ duration: .5, ease: [.22, 1, .36, 1] }} />
+                  </motion.div>
+                  <ol className="process-flow-list">
+                    {processStages.map((stage, index) => { const ProcessIcon = processIconMap[stage.icon]; return <motion.li key={stage.title} className={`process-flow-item process-flow-item-${index % 2 === 0 ? 'left' : 'right'}`} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .12 }} transition={{ delay: .2 + index * .055, duration: .3, ease: [.22, 1, .36, 1] }}>
+                      <div className="process-card">
+                        <div className="process-card-top"><span>{stage.phase}</span><b>0{index + 1}</b></div>
+                        <div className="process-card-icon" aria-hidden="true"><ProcessIcon size={21} strokeWidth={1.9} /></div>
+                        <h3>{stage.title}</h3>
+                        <p>{stage.body}</p>
+                      </div>
+                      <span className="process-node" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+                    </motion.li>})}
+                  </ol>
+                </div>
               </div>
             </div>
             <span className="section-number">06</span>
