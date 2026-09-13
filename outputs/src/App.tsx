@@ -69,6 +69,27 @@ const processStages = [
   { phase: '售中', title: '上线与交付', body: '协助完成应用市场审核与上架，确保产品顺利上线。同时，完整交付源码与技术文档，保障客户的自主可控性，并支持后续扩展开发。', icon: 'launch' },
 ] as const
 
+const afterSalesGroups = [
+  {
+    title: '售后与运维',
+    items: [
+      { title: '稳定使用', body: '在系统上线运行过程中，持续收集反馈，优化系统性能，确保产品在生产环境中稳定运行。' },
+      { title: '健康巡检', body: '进行健康巡检与实时告警，全天候监控系统，确保潜在风险得到及时发现与修正。' },
+      { title: '技术支持', body: '提供7×24小时技术支持，随时解决客户问题，保障产品的稳定运行。' },
+      { title: '监控告警', body: '通过监控指标采集系统主动发现问题，实时告警系统保证问题第一时间响应并解决。' },
+    ],
+  },
+  {
+    title: '分析与迭代',
+    items: [
+      { title: '增长转化可量化', body: '利用数据驱动业务优化，精准适配市场需求，确保每次增长都可以被量化。' },
+      { title: '客户成功具象化', body: '从产品上线到稳定使用，提供全方位的服务支持，不断优化调整、提升业务价值。' },
+      { title: '场景拓展', body: '传递行业标杆客户最佳实践，沟通新业务场景发掘，提供产品使用优化建议。' },
+      { title: '定期回访', body: '按月、季、年度定期回访客户，了解业务情况并根据反馈优化服务，并提供持续支持。' },
+    ],
+  },
+] as const
+
 const processIconMap = { search: Search, planning: PenLine, quote: MessageSquareText, management: FolderKanban, prototype: Shapes, design: Paintbrush, development: TestTube2, launch: PackageCheck } as const
 
 const costCategories = ['全部', '基础设施', '域名与证书', '存储与分发', '外部服务'] as const
@@ -96,6 +117,7 @@ export default function App() {
   const [caseIndex, setCaseIndex] = useState(0)
   const [casePreview, setCasePreview] = useState<{ image: string; title: string } | null>(null)
   const [processSelected, setProcessSelected] = useState(0)
+  const [afterSalesOpen, setAfterSalesOpen] = useState('稳定使用')
   const [costCategory, setCostCategory] = useState<(typeof costCategories)[number]>('全部')
   const [expandedCosts, setExpandedCosts] = useState<Record<string, boolean>>({})
   // Keep the carousel in the middle copy of a three-copy track. This gives
@@ -542,9 +564,34 @@ export default function App() {
         })}
         <motion.section className="after-sales-section" id="after-sales" initial={{ opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .14 }} transition={{ duration: .72, ease: [.22, 1, .36, 1] }}>
           <div className="after-sales-inner">
-            <p className="section-eyebrow">07 / AFTER-SALES SERVICE</p>
-            <h2>售后服务</h2>
-            <p className="section-body">上线之后，我们继续陪伴产品稳定运行，提供技术支持、问题响应与持续优化。</p>
+            <div className="after-sales-heading">
+              <p className="section-eyebrow">07 / AFTER-SALES SERVICE</p>
+              <h2>售后服务说明</h2>
+            </div>
+            <div className="after-sales-notice">
+              <span className="after-sales-notice-icon" aria-hidden="true">💡</span>
+              <p>我们始终认为，软件上线只是开始，稳定使用才是关键，<br />所以我们围绕“如何稳定增长”有了一系列的标准化流程。</p>
+            </div>
+            <div className="after-sales-detail-heading"><h3>售后流程详细说明</h3></div>
+            <div className="after-sales-accordion">
+              {afterSalesGroups.map((group) => <section className="after-sales-group" key={group.title} aria-labelledby={`after-sales-group-${group.title}`}>
+                <h4 id={`after-sales-group-${group.title}`}>{group.title}</h4>
+                <div className="after-sales-items">
+                  {group.items.map((item) => {
+                    const isOpen = afterSalesOpen === item.title
+                    return <div className={`after-sales-item ${isOpen ? 'is-open' : ''}`} key={item.title}>
+                      <button type="button" className="after-sales-item-toggle" aria-expanded={isOpen} onClick={() => setAfterSalesOpen(isOpen ? '' : item.title)}>
+                        <span className="after-sales-item-chevron" aria-hidden="true">{isOpen ? '⌄' : '›'}</span>
+                        <span>{item.title}</span>
+                      </button>
+                      <AnimatePresence initial={false}>
+                        {isOpen && <motion.div className="after-sales-item-panel" initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ type: 'spring', stiffness: 360, damping: 30, mass: .5 }}><p>{item.body}</p></motion.div>}
+                      </AnimatePresence>
+                    </div>
+                  })}
+                </div>
+              </section>)}
+            </div>
           </div>
         </motion.section>
       </div>
