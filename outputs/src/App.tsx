@@ -470,8 +470,7 @@ export default function App() {
                 {caseCards.slice(caseIndex * 2, caseIndex * 2 + 2).map((card, offset) => <div className="case-slot" key={card.id}>
                   <article className="case-card">
                     <div className="case-card-title"><span>{card.brand}</span><h3>{card.title}</h3></div>
-                    <button className="case-image-button" type="button" onClick={() => setCasePreview({ image: card.image, title: `${card.brand} · ${card.title}` })} aria-label={`点击查看${card.brand}${card.title}完整图片`}><img src={card.image} alt={`${card.brand}${card.title}案例`} loading={offset === 0 ? 'eager' : 'lazy'} decoding="async" /></button>
-                    <span className="case-image-hint">点击图片查看完整案例</span>
+                    <button className="case-image-button" type="button" onClick={() => setCasePreview({ image: card.image, title: `${card.brand} · ${card.title}` })} aria-label={`点击查看${card.brand}${card.title}完整图片`}><img src={card.image} alt={`${card.brand}${card.title}案例`} loading={offset === 0 ? 'eager' : 'lazy'} decoding="async" /><span className="case-image-hint">点击图片查看完整案例</span></button>
                     <div className="case-card-body"><span className="case-rule">—</span><p>{card.body}</p></div>
                     <span className="case-card-index">0{caseIndex * 2 + offset + 1}</span>
                   </article>
