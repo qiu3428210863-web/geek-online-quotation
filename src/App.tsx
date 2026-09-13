@@ -90,6 +90,48 @@ const afterSalesGroups = [
   },
 ] as const
 
+const afterSalesCategories = [
+  { id: 'process', label: '售后流程详细说明' },
+  { id: 'deliverables', label: '交付物说明' },
+  { id: 'testing', label: '测试说明' },
+  { id: 'maintenance', label: '维护说明' },
+  { id: 'visual', label: '视觉维护说明' },
+] as const
+
+const deliveryRows = [
+  ['售前阶段', '售前方案；竞品及行业分析资料（可选）'],
+  ['实施管理', '产品需求文档（PRD）；重要会议纪要归档；阶段性Demo；Bug与优化项清单（issue列表）'],
+  ['项目材料', '源代码包；上线部署文档；系统管理员操作指南；功能开发进度表'],
+  ['素材资料', '原型和UI设计产物；配套音频/图像文件（如项目涉及）；品牌相关素材'],
+  ['环境部署', '测试报告；巡检报告；第三方账号信息登记表（如云服务器、短信服务、API接入等）'],
+] as const
+
+const testingRows = [
+  ['产品设计 / UI评审', '组织UI/UX设计评审会议，确认界面规范、交互合理性', 'PM/UI设计', 'UI初稿完成', 'UI设计图、设计规范文档'],
+  ['产品研发 / 设计评审', '对接产品需求文档（PRD）与技术方案，明确接口设计和边界条件', '技术负责人', 'PRD评审通过、系统方案确定', '技术方案文档、接口文档草案'],
+  ['产品测试 / 功能测试', '依据功能清单及用户路径进行功能覆盖性测试，验证业务逻辑与操作流程', '测试负责人', '开发功能提交测试环境', '功能测试报告'],
+  ['产品测试 / 系统测试', '覆盖稳定性、安全性（如SQL注入/XSS/权限）、兼容性等全面测试', '测试负责人', '功能测试通过', '系统测试报告、安全测试报告'],
+  ['产品测试 / 压测测试', '模拟高并发使用场景，检验服务端处理能力与响应时间', '测试负责人', '系统测试通过', '压力测试报告'],
+  ['交付&部署 / 测试验收', '基于业务场景进行模拟操作，验证产品满足上线需求', '客户&PM协同', '系统测试完成', '测试验收记录、问题回归报告'],
+  ['交付&部署 / 发布计划', '制定并同步上线计划、人员职责、回滚策略、安全备份方案等', 'PM', '测试通过', '发布计划表'],
+  ['交付&部署 / 部署上线', '完成生产环境部署、配置数据库与域名、上线检查', '技术负责人', '发布计划执行', '上线验收文档、环境部署记录'],
+] as const
+
+const maintenanceRows = [
+  ['副增性维护', '修复现有缺陷，保障系统稳定', '日志排查、故障记录、模块修复'],
+  ['适应性维护', '跟进技术升级，保障系统持续运行', '框架更新、API调整适配'],
+  ['完善性维护', '优化体验与功能，提升产品价值', '新功能建议、逻辑改进、结构调整'],
+  ['预防性维护', '监控系统健康，提前发现风险', '日志分析、性能指标预警'],
+  ['文档管理', '留存系统记录，降低交接成本', '接口文档、操作手册、API文档'],
+] as const
+
+const visualMaintenanceRows = [
+  ['UI类小改动', '单页颜色调整、图标替换等', '8次以内'],
+  ['数据类', '数据字段调整，无逻辑影响等', '3次以内'],
+  ['功能类', '功能开关配置、排序调整等', '3次以内'],
+  ['用户体验类', '步骤简化、引导优化等', '3次以内'],
+] as const
+
 const processIconMap = { search: Search, planning: PenLine, quote: MessageSquareText, management: FolderKanban, prototype: Shapes, design: Paintbrush, development: TestTube2, launch: PackageCheck } as const
 
 const costCategories = ['全部', '基础设施', '域名与证书', '存储与分发', '外部服务'] as const
@@ -117,7 +159,7 @@ export default function App() {
   const [caseIndex, setCaseIndex] = useState(0)
   const [casePreview, setCasePreview] = useState<{ image: string; title: string } | null>(null)
   const [processSelected, setProcessSelected] = useState(0)
-  const [afterSalesOpen, setAfterSalesOpen] = useState('稳定使用')
+  const [afterSalesCategory, setAfterSalesCategory] = useState<(typeof afterSalesCategories)[number]['id']>('process')
   const [costCategory, setCostCategory] = useState<(typeof costCategories)[number]>('全部')
   const [expandedCosts, setExpandedCosts] = useState<Record<string, boolean>>({})
   // Keep the carousel in the middle copy of a three-copy track. This gives
@@ -570,27 +612,45 @@ export default function App() {
             </div>
             <div className="after-sales-notice">
               <span className="after-sales-notice-icon" aria-hidden="true">💡</span>
-              <p>我们始终认为，软件上线只是开始，稳定使用才是关键，<br />所以我们围绕“如何稳定增长”有了一系列的标准化流程。</p>
+              <p>极客上线提供<strong>一年免费的服务</strong>。次年如需继续维护，费用为开发费用的10%。<br /><strong>所有BUG免费修复，小需求免费迭代。</strong><br />内容由客户成功团队全程负责，确保系统稳定运行与持续迭代。</p>
             </div>
-            <div className="after-sales-detail-heading"><h3><span className="after-sales-title-index">7.1</span> 售后流程详细说明</h3></div>
-            <div className="after-sales-accordion">
-              {afterSalesGroups.map((group) => <section className="after-sales-group" key={group.title} aria-labelledby={`after-sales-group-${group.title}`}>
-                <h4 id={`after-sales-group-${group.title}`}>{group.title}</h4>
-                <div className="after-sales-items">
-                  {group.items.map((item) => {
-                    const isOpen = afterSalesOpen === item.title
-                    return <div className={`after-sales-item ${isOpen ? 'is-open' : ''}`} key={item.title}>
-                      <button type="button" className="after-sales-item-toggle" aria-expanded={isOpen} onClick={() => setAfterSalesOpen(isOpen ? '' : item.title)}>
-                        <span className="after-sales-item-chevron" aria-hidden="true">{isOpen ? '⌄' : '›'}</span>
-                        <span>{item.title}</span>
-                      </button>
-                      <AnimatePresence initial={false}>
-                        {isOpen && <motion.div className="after-sales-item-panel" initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ type: 'spring', stiffness: 360, damping: 30, mass: .5 }}><p>{item.body}</p></motion.div>}
-                      </AnimatePresence>
-                    </div>
-                  })}
-                </div>
-              </section>)}
+            <div className="after-sales-content-grid">
+              <div className="after-sales-detail-panel" aria-live="polite">
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.div key={afterSalesCategory} className="after-sales-category-content" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: .26, ease: [.22, 1, .36, 1] }}>
+                    {afterSalesCategory === 'process' && <>
+                      <h3><span className="after-sales-title-index">7.1</span> 售后流程详细说明</h3>
+                      <div className="after-sales-process-groups">
+                        {afterSalesGroups.map((group) => <div className="after-sales-process-group" key={group.title}>
+                          <h4>{group.title}</h4>
+                          <div className="after-sales-process-items">{group.items.map((item) => <article key={item.title}><strong>{item.title}</strong><p>{item.body}</p></article>)}</div>
+                        </div>)}
+                      </div>
+                    </>}
+                    {afterSalesCategory === 'deliverables' && <>
+                      <h3>交付物说明</h3>
+                      <p className="after-sales-intro">根据不同阶段的任务安排，提供以下类型的阶段性交付成果。</p>
+                      <div className="after-sales-data-table delivery-table"><div className="after-sales-table-head"><span>交付分类</span><span>交付细分</span></div>{deliveryRows.map(([title, detail]) => <div className="after-sales-table-row" key={title}><strong>{title}</strong><span>{detail}</span></div>)}</div>
+                    </>}
+                    {afterSalesCategory === 'testing' && <>
+                      <h3>测试说明</h3>
+                      <div className="after-sales-testing-cards">{testingRows.map(([stage, work, owner, prerequisite, output]) => <article className="after-sales-testing-card" key={`${stage}-${work}`}><div className="after-sales-testing-card-top"><strong>{stage}</strong><span>{owner}</span></div><p>{work}</p><div className="after-sales-testing-meta"><span><b>前置条件</b>{prerequisite}</span><span><b>产出物</b>{output}</span></div></article>)}</div>
+                    </>}
+                    {afterSalesCategory === 'maintenance' && <>
+                      <h3>维护说明</h3>
+                      <div className="after-sales-data-table maintenance-table"><div className="after-sales-table-head"><span>服务分类</span><span>目标</span><span>服务内容</span></div>{maintenanceRows.map(([type, goal, detail]) => <div className="after-sales-table-row" key={type}><strong>{type}</strong><span>{goal}</span><span>{detail}</span></div>)}</div>
+                    </>}
+                    {afterSalesCategory === 'visual' && <>
+                      <h3>视觉维护说明</h3>
+                      <p className="after-sales-intro">在不改变核心逻辑的前提下，提供以下轻量级体验优化支持。</p>
+                      <div className="after-sales-visual-list">{visualMaintenanceRows.map(([type, detail, range], index) => <div className="after-sales-visual-row" key={type}><span className="after-sales-visual-index">0{index + 1}</span><strong>{type}</strong><p>{detail}</p><em>{range}</em></div>)}</div>
+                    </>}
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+              <div className="after-sales-category-nav" role="tablist" aria-label="售后服务分类">
+                {afterSalesCategories.map((category, index) => <button type="button" role="tab" aria-selected={afterSalesCategory === category.id} className={afterSalesCategory === category.id ? 'is-active' : ''} key={category.id} onClick={() => setAfterSalesCategory(category.id)}><span className="after-sales-category-number">0{index + 1}</span><span>{category.label}</span><span className="after-sales-category-arrow" aria-hidden="true">{afterSalesCategory === category.id ? '↘' : '→'}</span></button>)}
+              </div>
             </div>
           </div>
         </motion.section>
