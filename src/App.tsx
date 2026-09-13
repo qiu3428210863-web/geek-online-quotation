@@ -566,13 +566,13 @@ export default function App() {
           <div className="after-sales-inner">
             <div className="after-sales-heading">
               <p className="section-eyebrow">07 / AFTER-SALES SERVICE</p>
-              <h2>售后服务说明</h2>
+              <h2><span className="after-sales-title-index">7.</span> 售后服务说明</h2>
             </div>
             <div className="after-sales-notice">
               <span className="after-sales-notice-icon" aria-hidden="true">💡</span>
               <p>我们始终认为，软件上线只是开始，稳定使用才是关键，<br />所以我们围绕“如何稳定增长”有了一系列的标准化流程。</p>
             </div>
-            <div className="after-sales-detail-heading"><h3>售后流程详细说明</h3></div>
+            <div className="after-sales-detail-heading"><h3><span className="after-sales-title-index">7.1</span> 售后流程详细说明</h3></div>
             <div className="after-sales-accordion">
               {afterSalesGroups.map((group) => <section className="after-sales-group" key={group.title} aria-labelledby={`after-sales-group-${group.title}`}>
                 <h4 id={`after-sales-group-${group.title}`}>{group.title}</h4>

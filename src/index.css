@@ -213,6 +213,7 @@ h1 span { display:inline; background:linear-gradient(110deg,#151a2b 20%,#6b3be4 
 .after-sales-section::before { display:none; }
 .after-sales-inner { position:relative; z-index:1; width:min(1700px,88vw); margin:0 auto; text-align:left; }
 .after-sales-heading h2 { margin:18px 0 0; color:#151827; font-size:var(--type-heading); line-height:1.05; letter-spacing:-.065em; }
+.after-sales-title-index { color:#4f5fe8; }
 .after-sales-notice { display:flex; align-items:flex-start; gap:18px; margin-top:30px; padding:24px 30px; border:1px solid rgba(223,168,67,.62); border-radius:18px; color:#252634; background:rgba(255,253,241,.9); box-shadow:0 12px 28px rgba(177,136,55,.06); }
 .after-sales-notice-icon { flex:0 0 auto; font-size:25px; line-height:1.2; }
 .after-sales-notice p { margin:0; font-size:var(--type-subheading); font-weight:700; line-height:1.9; letter-spacing:-.03em; }
