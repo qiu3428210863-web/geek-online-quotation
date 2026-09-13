@@ -649,6 +649,14 @@ export default function App() {
                     </>}
                     {afterSalesCategory === 'testing' && <>
                       <h3>测试说明</h3>
+                      <div className="after-sales-testing-overview">
+                        <div className="after-sales-testing-overview-label"><span>测试流程说明</span><b>QUALITY GATE</b></div>
+                        <div className="after-sales-testing-overview-copy">
+                          <h4>严谨的项目测试说明</h4>
+                          <p>为确保产品上线质量，极客上线建立系统化测试流程，覆盖功能、性能、安全、兼容等关键维度，并以完整测试报告和验收记录保障交付可控、上线可验。</p>
+                          <div className="after-sales-testing-principles"><span>需求评审</span><i>→</i><span>功能验证</span><i>→</i><span>系统质量</span><i>→</i><span>上线验收</span></div>
+                        </div>
+                      </div>
                       <div className="after-sales-testing-cards">{testingRows.map(([stage, work, owner, prerequisite, output]) => <article className="after-sales-testing-card" key={`${stage}-${work}`}><div className="after-sales-testing-card-top"><strong>{stage}</strong><span>{owner}</span></div><p>{work}</p><div className="after-sales-testing-meta"><span><b>前置条件</b>{prerequisite}</span><span><b>产出物</b>{output}</span></div></article>)}</div>
                     </>}
                     {afterSalesCategory === 'maintenance' && <>
