@@ -523,7 +523,6 @@ export default function App() {
                   <ol className="process-flow-list">
                     {processStages.map((stage, index) => { const ProcessIcon = processIconMap[stage.icon]; return <motion.li key={stage.title} className={`process-flow-item process-flow-item-${index + 1} ${processSelected === index ? 'is-active' : ''}`} onClick={() => setProcessSelected(index)} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); setProcessSelected(index) } }} role="button" tabIndex={0} aria-pressed={processSelected === index} initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .12 }} transition={{ delay: .1 + index * .055, duration: .28, ease: [.22, 1, .36, 1] }}>
                       <div className="process-node-card">
-                        <span className="process-node-number" aria-hidden="true">{index + 1}</span>
                         <div className="process-card-icon" aria-hidden="true"><ProcessIcon size={22} strokeWidth={1.8} /></div>
                         <h3>{stage.title}</h3>
                       </div>
