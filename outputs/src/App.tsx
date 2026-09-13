@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent, type PointerEvent as ReactPointerEvent } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Activity, ArrowLeft, ArrowRight, BellRing, CheckCircle2, FileText, FolderKanban, Gauge, Layers3, MessageSquareText, PackageCheck, Paperclip, Paintbrush, PenLine, RefreshCw, Search, Shapes, ShieldCheck, Sparkles, TestTube2, Upload, Wrench, X } from 'lucide-react'
+import { Activity, ArrowLeft, ArrowRight, BellRing, CheckCircle2, FileText, Gauge, Layers3, Paperclip, RefreshCw, ShieldCheck, Sparkles, Upload, Wrench, X } from 'lucide-react'
 
 const stats = [
   ['[XX 工作日]', '项目工期'],
@@ -134,7 +134,7 @@ const visualMaintenanceRows = [
   ['用户体验类', '步骤简化、引导优化等', '3次以内'],
 ] as const
 
-const processIconMap = { search: Search, planning: PenLine, quote: MessageSquareText, management: FolderKanban, prototype: Shapes, design: Paintbrush, development: TestTube2, launch: PackageCheck } as const
+const processIconMap = { search: './process-icon-01.png', planning: './process-icon-02.png', quote: './process-icon-03.png', management: './process-icon-04.png', prototype: './process-icon-05.png', design: './process-icon-06.png', development: './process-icon-07.png', launch: './process-icon-08.png' } as const
 
 const costCategories = ['全部', '基础设施', '域名与证书', '存储与分发', '外部服务'] as const
 const optionLinkUrl = 'https://cloud.tencent.com/login?s_url=https%3A%2F%2Fbuy.cloud.tencent.com%2Fredis'
@@ -507,9 +507,9 @@ export default function App() {
                   <div className="process-detail-card" aria-live="polite">
                     <AnimatePresence mode="wait" initial={false}>
                       <motion.div key={processStages[processSelected].title} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: .25, ease: [.22, 1, .36, 1] }}>
-                        {(() => { const selectedStage = processStages[processSelected]; const SelectedIcon = processIconMap[selectedStage.icon]; return <>
+                        {(() => { const selectedStage = processStages[processSelected]; const selectedIconSrc = processIconMap[selectedStage.icon]; return <>
                           <div className="process-detail-top"><span>{selectedStage.phase}</span><b>0{processSelected + 1}</b></div>
-                          <div className="process-detail-icon" aria-hidden="true"><SelectedIcon size={24} strokeWidth={1.8} /></div>
+                          <div className="process-detail-icon" aria-hidden="true"><img src={selectedIconSrc} alt="" /></div>
                           <h3>{selectedStage.title}</h3>
                           <p>{selectedStage.body}</p>
                         </> })()}
@@ -521,9 +521,9 @@ export default function App() {
                 <div className="process-flow" aria-label="开发流程清单">
                   <svg className="process-route" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M16 16H84V50H16V84H84" /></svg>
                   <ol className="process-flow-list">
-                    {processStages.map((stage, index) => { const ProcessIcon = processIconMap[stage.icon]; return <motion.li key={stage.title} className={`process-flow-item process-flow-item-${index + 1} ${processSelected === index ? 'is-active' : ''}`} onClick={() => setProcessSelected(index)} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); setProcessSelected(index) } }} role="button" tabIndex={0} aria-pressed={processSelected === index} initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .12 }} transition={{ delay: .1 + index * .055, duration: .28, ease: [.22, 1, .36, 1] }}>
+                    {processStages.map((stage, index) => { const processIconSrc = processIconMap[stage.icon]; return <motion.li key={stage.title} className={`process-flow-item process-flow-item-${index + 1} ${processSelected === index ? 'is-active' : ''}`} onClick={() => setProcessSelected(index)} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); setProcessSelected(index) } }} role="button" tabIndex={0} aria-pressed={processSelected === index} initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .12 }} transition={{ delay: .1 + index * .055, duration: .28, ease: [.22, 1, .36, 1] }}>
                       <div className="process-node-card">
-                        <div className="process-card-icon" aria-hidden="true"><ProcessIcon size={22} strokeWidth={1.8} /></div>
+                        <div className="process-card-icon" aria-hidden="true"><img src={processIconSrc} alt="" /></div>
                         <h3>{stage.title}</h3>
                       </div>
                     </motion.li>})}
