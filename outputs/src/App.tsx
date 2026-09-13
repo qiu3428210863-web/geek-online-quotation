@@ -621,7 +621,7 @@ export default function App() {
             </div>
             <div className="after-sales-content-grid">
               <div className="after-sales-detail-panel" aria-live="polite">
-                <AnimatePresence mode="sync" initial={false}>
+                <AnimatePresence mode="wait" initial={false}>
                   <motion.div key={afterSalesCategory} className="after-sales-category-content" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: .26, ease: [.22, 1, .36, 1] }}>
                     {afterSalesCategory === 'process' && <>
                       <h3>售后流程详细说明</h3>
