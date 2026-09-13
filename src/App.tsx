@@ -578,7 +578,7 @@ export default function App() {
                     <h4>{cost.label}</h4>
                     <p className="cost-price">{cost.price}<span className="cost-price-unit">/年</span></p>
                     <div className="cost-tags">{cost.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
-                    <button type="button" className="cost-toggle" aria-expanded={Boolean(expandedCosts[cost.id])} onClick={() => setExpandedCosts((current) => ({ ...current, [cost.id]: !current[cost.id] }))}>▼ 费用备注与选配链接</button>
+                    <button type="button" className="cost-toggle" aria-expanded={Boolean(expandedCosts[cost.id])} onClick={() => setExpandedCosts((current) => ({ ...current, [cost.id]: !current[cost.id] }))}>{expandedCosts[cost.id] ? '▼' : '▶'} 费用备注与选配链接</button>
                     <AnimatePresence initial={false}>
                       {expandedCosts[cost.id] && <motion.div className="cost-detail" initial={{ opacity: 0, height: 0, marginTop: 0, y: -5 }} animate={{ opacity: 1, height: 'auto', marginTop: 10, y: 0 }} exit={{ opacity: 0, height: 0, marginTop: 0, y: -5 }} transition={{ type: 'spring', stiffness: 420, damping: 28, mass: .45 }}><p>{cost.note}</p>{cost.link && <a href={optionLinkUrl} target="_blank" rel="noreferrer">参考选配链接 ↗</a>}</motion.div>}
                     </AnimatePresence>
