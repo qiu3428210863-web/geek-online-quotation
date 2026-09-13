@@ -516,7 +516,6 @@ export default function App() {
                       </motion.div>
                     </AnimatePresence>
                   </div>
-                  <div className="process-phase-legend" aria-label="流程阶段"><span><i />售前</span><span><i />售中</span></div>
                 </div>
                 <div className="process-flow" aria-label="开发流程清单">
                   <svg className="process-route" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M16 16H84V50H16V84H84" /></svg>
