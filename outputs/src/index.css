@@ -208,7 +208,7 @@ h1 span { display:inline; background:linear-gradient(110deg,#151a2b 20%,#6b3be4 
 .support-panel-top em { margin-left:8px; color:#9a96aa; font-size:.82em; font-style:normal; font-weight:600; }
 .support-carousel-window { overflow:hidden; margin:24px -4px 0; padding:4px; cursor:grab; touch-action:pan-y; user-select:none; }
 .support-carousel-window.is-dragging { cursor:grabbing; }
-.support-carousel-track { display:flex; width:max-content; gap:clamp(14px,2vw,24px); will-change:transform; transition:transform .8s cubic-bezier(.22,1,.36,1); }
+.support-carousel-track { display:flex; width:max-content; gap:clamp(14px,2vw,24px); will-change:transform; }
 .support-service-card { position:relative; display:flex; flex:0 0 clamp(270px,28vw,360px); min-height:250px; flex-direction:column; padding:24px; overflow:hidden; border:1px solid rgba(106,59,226,.14); border-radius:24px; background:linear-gradient(150deg,rgba(255,255,255,.9),rgba(244,240,255,.68)); box-shadow:0 16px 30px rgba(76,54,145,.09); }
 .support-service-card::after { content:""; position:absolute; right:-48px; bottom:-56px; width:150px; height:150px; border-radius:50%; background:radial-gradient(circle,rgba(124,79,231,.2),transparent 68%); filter:blur(3px); pointer-events:none; }
 .support-service-index { color:#8f7acb; font-size:12px; font-weight:800; letter-spacing:.14em; }

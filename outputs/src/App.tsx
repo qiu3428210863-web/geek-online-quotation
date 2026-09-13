@@ -162,18 +162,21 @@ export default function App() {
   const [afterSalesCategory, setAfterSalesCategory] = useState<(typeof afterSalesCategories)[number]['id']>('process')
   const [costCategory, setCostCategory] = useState<(typeof costCategories)[number]>('全部')
   const [expandedCosts, setExpandedCosts] = useState<Record<string, boolean>>({})
-  // Keep the carousel in the middle copy of a three-copy track. This gives
-  // both pointer dragging and autoplay room to travel in either direction
-  // before a seamless, invisible index reset is needed.
+  // The track uses three copies of the service list. The middle copy is the
+  // initial viewport, while the fractional index below is advanced every
+  // animation frame for a continuous, constant-speed marquee.
   const [supportIndex, setSupportIndex] = useState<number>(supportServices.length)
   const [supportDragOffset, setSupportDragOffset] = useState(0)
   const [supportDragging, setSupportDragging] = useState(false)
   const [supportPointerStart, setSupportPointerStart] = useState<number | null>(null)
   const [supportStep, setSupportStep] = useState(0)
-  const [supportInstant, setSupportInstant] = useState(false)
   const supportCarouselRef = useRef<HTMLDivElement | null>(null)
-  const supportAutoIntervalRef = useRef<number | null>(null)
+  const supportIndexRef = useRef<number>(supportServices.length)
+  const supportAutoRafRef = useRef<number | null>(null)
+  const supportAutoLastFrameRef = useRef<number | null>(null)
+  const supportAutoplayActiveRef = useRef(false)
   const supportAutoResumeRef = useRef<number | null>(null)
+  const supportStepRef = useRef<number>(0)
   const companyAutoIntervalRef = useRef<number | null>(null)
   const companyAutoResumeRef = useRef<number | null>(null)
 
@@ -193,9 +196,12 @@ export default function App() {
     setCaseIndex((current) => (current + direction + pageCount) % pageCount)
   }
 
-  const changeSupport = (direction: number) => {
-    setSupportIndex((current) => current + direction)
-    setSupportDragOffset(0)
+  const normalizeSupportIndex = (value: number) => {
+    const count = supportServices.length
+    let normalized = value
+    while (normalized >= count * 2) normalized -= count
+    while (normalized < count) normalized += count
+    return normalized
   }
 
   const beginSupportDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
@@ -213,7 +219,11 @@ export default function App() {
   const endSupportDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
     if (supportPointerStart === null) return
     const distance = event.clientX - supportPointerStart
-    if (Math.abs(distance) > 54) changeSupport(distance < 0 ? 1 : -1)
+    if (Math.abs(distance) > 12 && supportStepRef.current > 0) {
+      const nextIndex = normalizeSupportIndex(supportIndexRef.current - distance / supportStepRef.current)
+      supportIndexRef.current = nextIndex
+      setSupportIndex(nextIndex)
+    }
     setSupportDragOffset(0)
     setSupportPointerStart(null)
     setSupportDragging(false)
@@ -222,15 +232,32 @@ export default function App() {
   }
 
   const clearSupportAutoplay = () => {
-    if (supportAutoIntervalRef.current !== null) window.clearInterval(supportAutoIntervalRef.current)
+    supportAutoplayActiveRef.current = false
+    if (supportAutoRafRef.current !== null) window.cancelAnimationFrame(supportAutoRafRef.current)
     if (supportAutoResumeRef.current !== null) window.clearTimeout(supportAutoResumeRef.current)
-    supportAutoIntervalRef.current = null
+    supportAutoRafRef.current = null
+    supportAutoLastFrameRef.current = null
     supportAutoResumeRef.current = null
   }
 
   const startSupportAutoplay = () => {
-    if (supportAutoIntervalRef.current !== null) window.clearInterval(supportAutoIntervalRef.current)
-    supportAutoIntervalRef.current = window.setInterval(() => setSupportIndex((current) => current + 1), 7200)
+    supportAutoplayActiveRef.current = true
+    supportAutoLastFrameRef.current = null
+    if (supportAutoRafRef.current !== null) return
+    const tick = (timestamp: number) => {
+      if (!supportAutoplayActiveRef.current) {
+        supportAutoRafRef.current = null
+        return
+      }
+      const last = supportAutoLastFrameRef.current
+      supportAutoLastFrameRef.current = timestamp
+      const elapsed = last === null ? 0 : Math.min(50, timestamp - last)
+      const nextIndex = normalizeSupportIndex(supportIndexRef.current + (elapsed / 1000) * 0.16)
+      supportIndexRef.current = nextIndex
+      setSupportIndex(nextIndex)
+      supportAutoRafRef.current = window.requestAnimationFrame(tick)
+    }
+    supportAutoRafRef.current = window.requestAnimationFrame(tick)
   }
 
   const scheduleSupportAutoplay = () => {
@@ -273,15 +300,6 @@ export default function App() {
     return () => window.clearInterval(processAutoplay)
   }, [])
 
-  const handleSupportTransitionEnd = () => {
-    const count = supportServices.length
-    if (supportIndex < count || supportIndex >= count * 2) {
-      setSupportInstant(true)
-      setSupportIndex((current) => current < count ? current + count : current - count)
-      window.requestAnimationFrame(() => setSupportInstant(false))
-    }
-  }
-
   const selectCompanyCard = (index: number) => {
     deferCompanyAutoplay()
     if (index === companyCard) return
@@ -299,12 +317,9 @@ export default function App() {
       const card = track?.querySelector<HTMLElement>('.support-service-card')
       if (!track || !card) return
       const gap = Number.parseFloat(window.getComputedStyle(track).columnGap || window.getComputedStyle(track).gap || '0')
-      setSupportStep(card.getBoundingClientRect().width + gap)
-      // The first measurement moves from the first clone set to the middle
-      // set. Disable interpolation for that one frame so the carousel never
-      // visibly jumps on initial layout or responsive resize.
-      setSupportInstant(true)
-      window.requestAnimationFrame(() => setSupportInstant(false))
+      const nextStep = card.getBoundingClientRect().width + gap
+      supportStepRef.current = nextStep
+      setSupportStep(nextStep)
     }
     measureStep()
     const observer = new ResizeObserver(measureStep)
@@ -582,7 +597,7 @@ export default function App() {
                   <div className="support-panel">
                     <div className="support-panel-top"><span>服务内容</span><strong>开发费用 × 10% <em>按年</em></strong></div>
                     <div className={`support-carousel-window ${supportDragging ? 'is-dragging' : ''}`} ref={supportCarouselRef} onPointerDown={beginSupportDrag} onPointerMove={moveSupportDrag} onPointerUp={endSupportDrag} onPointerCancel={endSupportDrag}>
-                      <div className="support-carousel-track" onTransitionEnd={handleSupportTransitionEnd} style={{ transform: `translate3d(${supportStep ? -supportIndex * supportStep + supportDragOffset : supportDragOffset}px, 0, 0)`, opacity: supportStep ? 1 : 0, transition: supportDragging || supportInstant ? 'none' : undefined }}>
+                      <div className="support-carousel-track" style={{ transform: `translate3d(${supportStep ? -supportIndex * supportStep + supportDragOffset : supportDragOffset}px, 0, 0)`, opacity: supportStep ? 1 : 0, transition: 'none' }}>
                         {[...supportServices, ...supportServices, ...supportServices].map((service, index) => {
                           const ServiceIcon = supportIconMap[service.icon]
                           const displayIndex = index % supportServices.length
