@@ -682,7 +682,7 @@ export default function App() {
       <footer className="site-footer">
         <div className="site-footer-inner">
           <div className="site-footer-contact"><p><MapPin size={15} aria-hidden="true" />深圳市宝安区旭生融合中心1栋10楼极客上线</p><p><Phone size={15} aria-hidden="true" />19022485487</p></div>
-          <div className="site-footer-legal"><div><span>隐私政策</span><i>|</i><span>使用条款</span></div><p>2026 © Geek OnUp&nbsp;&nbsp;粤ICP备2024299375号-1</p></div>
+          <div className="site-footer-legal"><p>2026 © Geek OnUp&nbsp;&nbsp;粤ICP备2024299375号-1</p></div>
         </div>
       </footer>
       <AnimatePresence>
