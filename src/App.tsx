@@ -16,6 +16,7 @@ const sections = [
   ['pricing', '开发报价'],
   ['meeting', '关于会议'],
   ['process', '开发流程'],
+  ['after-sales', '售后服务'],
 ] as const
 
 const sectionCopy: Record<(typeof sections)[number][0], { eyebrow: string; title: string; body: string }> = {
@@ -25,6 +26,7 @@ const sectionCopy: Record<(typeof sections)[number][0], { eyebrow: string; title
   pricing: { eyebrow: '04 / DEVELOPMENT QUOTE', title: '报价透明，决策更笃定。', body: '每一项投入都对应具体产出，按阶段拆分计划与预算，便于团队灵活安排。' },
   meeting: { eyebrow: '05 / WORKSHOP', title: '在一次次对话里，找到正确答案。', body: '通过结构化会议同步目标、节奏与反馈，让每个关键节点都被充分理解。' },
   process: { eyebrow: '06 / DELIVERY FLOW', title: '从第一张草图到最终上线。', body: '策略、设计、开发、测试与交付环环相扣，建立可持续迭代的工作流。' },
+  'after-sales': { eyebrow: '07 / AFTER-SALES SERVICE', title: '上线之后，我们仍然在场。', body: '持续维护、数据观察与体验优化，让产品稳定运行并持续增长。' },
 }
 
 const companyCards = [
@@ -479,6 +481,7 @@ export default function App() {
           </div>
         </motion.section>
         {sections.slice(2).map(([id]) => {
+          if (id === 'after-sales') return null
           const item = sectionCopy[id]
           if (id === 'meeting') return <motion.section className="content-section meeting-content" id={id} key={id} initial={{ opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .14 }} transition={{ duration: .72, ease: [.22, 1, .36, 1] }}>
             <div className="meeting-inner">
