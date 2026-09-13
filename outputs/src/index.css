@@ -327,7 +327,7 @@ h1 span { display:inline; background:linear-gradient(110deg,#151a2b 20%,#6b3be4 
 .process-card-icon img { display:block; width:100%; height:100%; object-fit:contain; }
 .process-node-card h3 { margin:0; color:#1b1d2b; font-size:var(--type-subheading); letter-spacing:-.05em; text-align:center; }
 .process-flow-item:hover .process-node-card,.process-flow-item:focus-visible .process-node-card,.process-flow-item.is-active .process-node-card { border-color:rgba(106,59,226,.2); background:rgba(255,255,255,.72); box-shadow:0 16px 34px rgba(73,50,150,.12); transform:translateY(-4px); }
-.meeting-content { align-items:flex-start; padding-right:0; padding-left:0; }
+.meeting-content { align-items:flex-start; padding-top:clamp(54px,5vw,84px); padding-right:0; padding-left:0; }
 .meeting-content::before { display:none; }
 .meeting-inner { position:relative; z-index:2; width:min(1700px,88vw); margin:0 auto; }
 .meeting-section-heading h2 { max-width:none; margin:0; color:#151827; font-size:var(--type-heading); line-height:1.05; letter-spacing:-.065em; }
