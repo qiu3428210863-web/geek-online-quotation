@@ -202,6 +202,13 @@ export default function App() {
     return clearCompanyAutoplay
   }, [])
 
+  useEffect(() => {
+    const processAutoplay = window.setInterval(() => {
+      setProcessSelected((current) => (current + 1) % processStages.length)
+    }, 5200)
+    return () => window.clearInterval(processAutoplay)
+  }, [])
+
   const handleSupportTransitionEnd = () => {
     const count = supportServices.length
     if (supportIndex < count || supportIndex >= count * 2) {
