@@ -588,6 +588,7 @@ export default function App() {
               <section className="support-library" id="support" aria-labelledby="support-library-title">
                 <div className="support-library-heading"><h3 id="support-library-title">后期维护费用</h3></div>
                 <p className="support-library-description">上线之后，首年赠送一年技术运维服务，确保应用程序可正常使用。</p>
+                <div className="support-notice"><p>自上线之日起，首年赠送一年技术运维服务，确保应用程序可正常使用。<br />服务包含技术维保和非技术维保，将由客户成功团队全程负责，<br />对于故障响应时间视问题的紧急程度进行处理。</p></div>
                 <div className="support-inner">
                   <div className="support-panel">
                     <div className="support-panel-top"><span>服务内容</span><strong>开发费用 × 10% <em>按年</em></strong></div>
