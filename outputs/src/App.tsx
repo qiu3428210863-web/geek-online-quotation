@@ -4,7 +4,6 @@ import { Activity, ArrowLeft, ArrowRight, BellRing, CheckCircle2, FileText, Gaug
 
 const stats = [
   ['[XX 工作日]', '项目工期'],
-  ['[V1.0]', '版本'],
   ['[YYYY-MM-DD]', '报价日期'],
   ['30天', '报价有效期'],
 ]
@@ -423,6 +422,7 @@ export default function App() {
                 <div><b>客户名称</b><span>[客户公司]</span></div>
                 <div><b>项目编号</b><span>[G-XXXX]</span></div>
                 <div><b>项目名称</b><span>[项目名称]</span></div>
+                <div><b>版本</b><span>[V1.0]</span></div>
               </motion.div>
               <div className="stats-frame" id="quote-data"><div className="stat-row">{stats.map(([value,label])=><div className="stat" key={label}><p className="stat-value">{value}</p><p className="stat-label">{label}</p></div>)}</div></div>
             </div>
