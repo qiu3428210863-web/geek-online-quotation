@@ -63,7 +63,7 @@ h1 span { display:inline; background:linear-gradient(110deg,#151a2b 20%,#6b3be4 
 .chip svg { color:#7041e6; }.chip-a { top:18%; right:1%; animation:chipFloat 4.3s ease-in-out infinite; }.chip-b { right:8%; bottom:17%; animation:chipFloat 5.3s .6s ease-in-out infinite; }.chip-c { left:12%; bottom:13%; animation:chipFloat 4.8s 1s ease-in-out infinite; }
 .stats-frame { position:static; z-index:auto; width:100%; min-height:0; margin-top:clamp(54px,5vw,84px); padding:0; border:0; background:transparent; }
 .stat-row { display:grid; grid-template-columns:repeat(3,1fr); gap:0; }
-.stat { min-width:0; padding:0 clamp(8px,1.2vw,21px); border-left:1px solid rgba(88,58,177,.24); }.stat:first-child{padding-left:0;border-left:0}.stat-value{font-size:clamp(17px,1.75vw,26px);line-height:1.08;font-weight:800;letter-spacing:-.06em;color:#111725;overflow-wrap:anywhere}.stat-label{margin-top:10px;color:#5f3ab7;font-size:clamp(9px,.82vw,11px);font-weight:800}
+.stat { min-width:0; padding:0 clamp(8px,1.2vw,21px); border-left:1px solid rgba(88,58,177,.24); }.stat:first-child{border-left:0}.stat-value{font-size:clamp(17px,1.75vw,26px);line-height:1.08;font-weight:800;letter-spacing:-.06em;color:#111725;overflow-wrap:anywhere}.stat-label{margin-top:10px;color:#5f3ab7;font-size:clamp(9px,.82vw,11px);font-weight:800}
 .stat-value { white-space:nowrap; }
 .long-page { position:relative; z-index:5; }
 .company-feature { position:relative; z-index:5; min-height:0; display:flex; align-items:center; padding:clamp(76px,9vw,128px) clamp(24px,5vw,78px); scroll-margin-top:112px; }
