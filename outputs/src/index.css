@@ -208,13 +208,12 @@ h1 span { display:inline; background:linear-gradient(110deg,#151a2b 20%,#6b3be4 
 .support-service-card h3 { margin:18px 0 0; color:#1b1d2b; font-size:var(--type-subheading); letter-spacing:-.05em; }
 .support-service-card p { max-width:270px; margin:12px 0 0; color:#676b7b; font-size:var(--type-body); line-height:1.65; }
 .support-carousel-footer { display:flex; align-items:center; justify-content:flex-start; gap:18px; margin-top:22px; color:#9a97a8; font-size:12px; }
-.after-sales-section { position:relative; display:block; padding:clamp(88px,9vw,140px) max(24px,calc((100% - min(1700px,88vw)) / 2)); scroll-margin-top:110px; }
+.after-sales-section { position:relative; display:block; padding:clamp(88px,9vw,140px) max(24px,calc((100% - min(1700px,88vw)) / 2)); scroll-margin-top:110px; overflow-anchor:none; }
 .after-sales-section::before { display:none; }
 .after-sales-inner { position:relative; z-index:1; width:min(1700px,88vw); margin:0 auto; text-align:left; }
 .after-sales-heading h2 { margin:18px 0 0; color:#151827; font-size:var(--type-heading); line-height:1.05; letter-spacing:-.065em; }
 .after-sales-title-index { color:#4f5fe8; }
-.after-sales-notice { display:flex; align-items:flex-start; gap:18px; margin-top:30px; padding:24px 30px; border:1px solid rgba(223,168,67,.62); border-radius:18px; color:#252634; background:rgba(255,253,241,.9); box-shadow:0 12px 28px rgba(177,136,55,.06); }
-.after-sales-notice-icon { flex:0 0 auto; font-size:25px; line-height:1.2; }
+.after-sales-notice { display:flex; align-items:flex-start; margin-top:30px; padding:24px 30px; border:1px solid rgba(106,59,226,.2); border-radius:18px; color:#67617e; background:linear-gradient(120deg,rgba(247,243,255,.92),rgba(238,231,255,.7)); box-shadow:0 12px 28px rgba(106,59,226,.08),inset 0 1px rgba(255,255,255,.9); }
 .after-sales-notice p { margin:0; font-size:var(--type-subheading); font-weight:700; line-height:1.9; letter-spacing:-.03em; }
 .after-sales-detail-heading { margin-top:40px; }
 .after-sales-detail-heading h3 { margin:0; color:#242633; font-size:var(--type-heading); line-height:1.1; letter-spacing:-.06em; }
@@ -229,9 +228,10 @@ h1 span { display:inline; background:linear-gradient(110deg,#151a2b 20%,#6b3be4 
 .after-sales-item.is-open .after-sales-item-chevron { color:#6a3be2; transform:translateY(-2px); }
 .after-sales-item-panel { overflow:hidden; padding:0 20px 18px 56px; }
 .after-sales-item-panel p { margin:0; color:#666b7b; font-size:var(--type-body); line-height:1.75; }
-.after-sales-notice strong { color:#252634; font-weight:800; }
+.after-sales-notice strong { color:#5a3bb0; font-weight:800; }
 .after-sales-content-grid { display:grid; grid-template-columns:minmax(0,1fr) minmax(220px,.29fr); gap:clamp(24px,4vw,64px); align-items:start; margin-top:40px; }
-.after-sales-detail-panel { min-width:0; padding:clamp(24px,3vw,40px); border:1px solid rgba(255,255,255,.8); border-radius:24px; background:linear-gradient(145deg,rgba(255,255,255,.72),rgba(247,243,255,.42)); box-shadow:0 20px 46px rgba(73,50,150,.1),inset 0 1px rgba(255,255,255,.9); backdrop-filter:blur(16px); }
+.after-sales-detail-panel { min-width:0; min-height:clamp(520px,42vw,680px); padding:clamp(24px,3vw,40px); border:1px solid rgba(255,255,255,.8); border-radius:24px; background:linear-gradient(145deg,rgba(255,255,255,.72),rgba(247,243,255,.42)); box-shadow:0 20px 46px rgba(73,50,150,.1),inset 0 1px rgba(255,255,255,.9); backdrop-filter:blur(16px); overflow-anchor:none; }
+.after-sales-category-content { overflow-anchor:none; }
 .after-sales-category-content h3 { margin:0; color:#242633; font-size:var(--type-subheading); letter-spacing:-.05em; }
 .after-sales-intro { margin:16px 0 0; color:#676b7b; font-size:var(--type-body); line-height:1.75; }
 .after-sales-category-nav { display:flex; flex-direction:column; gap:10px; }

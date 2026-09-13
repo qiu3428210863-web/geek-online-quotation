@@ -611,12 +611,11 @@ export default function App() {
               <h2>售后服务说明</h2>
             </div>
             <div className="after-sales-notice">
-              <span className="after-sales-notice-icon" aria-hidden="true">💡</span>
               <p>极客上线提供<strong>一年免费的服务</strong>。次年如需继续维护，费用为开发费用的10%。<br /><strong>所有BUG免费修复，小需求免费迭代。</strong><br />内容由客户成功团队全程负责，确保系统稳定运行与持续迭代。</p>
             </div>
             <div className="after-sales-content-grid">
               <div className="after-sales-detail-panel" aria-live="polite">
-                <AnimatePresence mode="wait" initial={false}>
+                <AnimatePresence mode="sync" initial={false}>
                   <motion.div key={afterSalesCategory} className="after-sales-category-content" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: .26, ease: [.22, 1, .36, 1] }}>
                     {afterSalesCategory === 'process' && <>
                       <h3>售后流程详细说明</h3>
