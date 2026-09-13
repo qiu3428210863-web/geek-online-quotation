@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent, type PointerEvent as ReactPointerEvent } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ArrowLeft, ArrowRight, CheckCircle2, CircleDollarSign, ClipboardList, Code2, FileText, Kanban, Layers3, LayoutTemplate, Palette, Paperclip, Rocket, Search, Settings2, Sparkles, Upload, X } from 'lucide-react'
+import { Activity, ArrowRight, BellRing, CheckCircle2, CircleDollarSign, ClipboardList, Code2, FileText, Gauge, Kanban, Layers3, LayoutTemplate, Palette, Paperclip, RefreshCw, Rocket, Search, Settings2, ShieldCheck, Sparkles, Upload, Wrench, X } from 'lucide-react'
 
 const stats = [
   ['[XX 工作日]', '项目工期'],
@@ -50,13 +50,15 @@ const pricingSegments = [
 ] as const
 
 const supportServices = [
-  { title: '生产保障', body: '生产环境 24×7 技术支持' },
-  { title: '可观测性', body: '日志监控、性能指标分析' },
-  { title: '异常响应', body: '异常告警，接入群聊通知' },
-  { title: '技术支持', body: '技术咨询、线上 BUG 修复' },
-  { title: '稳定运营', body: '确保系统稳定运行，保障客户持续成功' },
-  { title: '持续迭代', body: '收集用户反馈持续迭代，提升不同场景下产品的功能表现' },
+  { title: '生产保障', body: '生产环境 24×7 技术支持', icon: 'production' },
+  { title: '可观测性', body: '日志监控、性能指标分析', icon: 'observability' },
+  { title: '异常响应', body: '异常告警，接入群聊通知', icon: 'incident' },
+  { title: '技术支持', body: '技术咨询、线上 BUG 修复', icon: 'technical' },
+  { title: '稳定运营', body: '确保系统稳定运行，保障客户持续成功', icon: 'operations' },
+  { title: '持续迭代', body: '收集用户反馈持续迭代，提升不同场景下产品的功能表现', icon: 'iteration' },
 ] as const
+
+const supportIconMap = { production: ShieldCheck, observability: Activity, incident: BellRing, technical: Wrench, operations: Gauge, iteration: RefreshCw } as const
 
 const processStages = [
   { phase: '售前', title: '需求沟通', body: '深入了解客户的业务背景与需求，提供针对性的解决思路且48小时内免费提供定制化方案。', icon: 'search' },
@@ -103,6 +105,8 @@ export default function App() {
   const [supportPointerStart, setSupportPointerStart] = useState<number | null>(null)
   const [supportStep, setSupportStep] = useState(0)
   const supportCarouselRef = useRef<HTMLDivElement | null>(null)
+  const supportAutoIntervalRef = useRef<number | null>(null)
+  const supportAutoResumeRef = useRef<number | null>(null)
   const companyAutoIntervalRef = useRef<number | null>(null)
   const companyAutoResumeRef = useRef<number | null>(null)
 
@@ -123,6 +127,7 @@ export default function App() {
   }
 
   const beginSupportDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
+    clearSupportAutoplay()
     setSupportDragging(true)
     setSupportPointerStart(event.clientX)
     event.currentTarget.setPointerCapture(event.pointerId)
@@ -141,6 +146,27 @@ export default function App() {
     setSupportPointerStart(null)
     setSupportDragging(false)
     if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId)
+    scheduleSupportAutoplay()
+  }
+
+  const clearSupportAutoplay = () => {
+    if (supportAutoIntervalRef.current !== null) window.clearInterval(supportAutoIntervalRef.current)
+    if (supportAutoResumeRef.current !== null) window.clearTimeout(supportAutoResumeRef.current)
+    supportAutoIntervalRef.current = null
+    supportAutoResumeRef.current = null
+  }
+
+  const startSupportAutoplay = () => {
+    if (supportAutoIntervalRef.current !== null) window.clearInterval(supportAutoIntervalRef.current)
+    supportAutoIntervalRef.current = window.setInterval(() => setSupportIndex((current) => (current + 1) % supportServices.length), 7200)
+  }
+
+  const scheduleSupportAutoplay = () => {
+    if (supportAutoResumeRef.current !== null) window.clearTimeout(supportAutoResumeRef.current)
+    supportAutoResumeRef.current = window.setTimeout(() => {
+      supportAutoResumeRef.current = null
+      startSupportAutoplay()
+    }, 3000)
   }
 
   const clearCompanyAutoplay = () => {
@@ -197,10 +223,9 @@ export default function App() {
   }, [])
 
   useEffect(() => {
-    if (supportDragging) return
-    const timer = window.setInterval(() => setSupportIndex((current) => (current + 1) % supportServices.length), 7200)
-    return () => window.clearInterval(timer)
-  }, [supportDragging])
+    startSupportAutoplay()
+    return clearSupportAutoplay
+  }, [])
 
   useEffect(() => {
     let frame = 0
@@ -445,16 +470,18 @@ export default function App() {
                     <div className="support-panel-top"><span>服务内容</span><strong>开发费用 × 10% <em>按年</em></strong></div>
                     <div className={`support-carousel-window ${supportDragging ? 'is-dragging' : ''}`} ref={supportCarouselRef} onPointerDown={beginSupportDrag} onPointerMove={moveSupportDrag} onPointerUp={endSupportDrag} onPointerCancel={endSupportDrag}>
                       <div className="support-carousel-track" style={{ transform: `translate3d(${supportStep ? -supportIndex * supportStep + supportDragOffset : supportDragOffset}px, 0, 0)`, transition: supportDragging ? 'none' : undefined }}>
-                        {supportServices.map((service, index) => <article className="support-service-card" key={service.title}>
+                        {supportServices.map((service, index) => {
+                          const ServiceIcon = supportIconMap[service.icon]
+                          return <article className="support-service-card" key={service.title}>
                           <span className="support-service-index">0{index + 1}</span>
-                          <div className="support-service-mark">✦</div>
+                          <div className="support-service-mark"><ServiceIcon size={20} strokeWidth={1.8} aria-hidden="true" /></div>
                           <h3>{service.title}</h3>
                           <p>{service.body}</p>
-                          <span className="support-service-arrow">↗</span>
-                        </article>)}
+                        </article>
+                        })}
                       </div>
                     </div>
-                    <div className="support-carousel-footer"><span>拖动或使用按钮浏览服务</span><div className="support-carousel-controls"><button type="button" aria-label="上一项服务" onClick={() => changeSupport(-1)}><ArrowLeft size={16} /></button><span>0{supportIndex + 1} / 0{supportServices.length}</span><button type="button" aria-label="下一项服务" onClick={() => changeSupport(1)}><ArrowRight size={16} /></button></div></div>
+                    <div className="support-carousel-footer"><span>左右拖动浏览服务</span></div>
                   </div>
                 </div>
               </section>
