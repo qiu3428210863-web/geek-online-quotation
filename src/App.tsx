@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent, type PointerEvent as ReactPointerEvent } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Activity, ArrowLeft, ArrowRight, BellRing, CheckCircle2, FileText, Gauge, Globe2, Layers3, MapPin, MessageCircle, Paperclip, Phone, RefreshCw, ShieldCheck, Sparkles, Upload, Wrench, X } from 'lucide-react'
+import { Activity, ArrowLeft, ArrowRight, BellRing, CheckCircle2, FileText, Gauge, Layers3, MapPin, Paperclip, Phone, RefreshCw, ShieldCheck, Sparkles, Upload, Wrench, X } from 'lucide-react'
 
 const stats = [
   ['[XX 工作日]', '项目工期'],
@@ -682,7 +682,6 @@ export default function App() {
       <footer className="site-footer">
         <div className="site-footer-inner">
           <div className="site-footer-contact"><p><MapPin size={15} aria-hidden="true" />深圳市宝安区旭生融合中心1栋10楼极客上线</p><p><Phone size={15} aria-hidden="true" />19022485487</p></div>
-          <div className="site-footer-social" aria-label="社交媒体"><span><MessageCircle size={18} aria-hidden="true" /></span><span><Globe2 size={18} aria-hidden="true" /></span><span className="site-footer-xhs">小红书</span></div>
           <div className="site-footer-legal"><div><span>隐私政策</span><i>|</i><span>使用条款</span></div><p>2026 © Geek OnUp&nbsp;&nbsp;粤ICP备2024299375号-1</p></div>
         </div>
       </footer>
