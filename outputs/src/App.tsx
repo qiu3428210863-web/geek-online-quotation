@@ -139,6 +139,7 @@ const processIconMap = { search: './process-icon-01.png', planning: './process-i
 const costCategories = ['全部', '基础设施', '域名与证书', '存储与分发', '外部服务'] as const
 const optionLinkUrl = 'https://cloud.tencent.com/login?s_url=https%3A%2F%2Fbuy.cloud.tencent.com%2Fredis'
 const companyIntroPdfUrl = 'https://geekonup.feishu.cn/file/UdzBbfZxzoPibOxs5g4cgeRtnHc'
+const brandWorldUrl = 'https://www.geekonup.com/'
 const thirdPartyCosts = [
   { id: 'server', category: '基础设施', label: '服务器', price: '¥5000', unit: '/ 年', tags: ['CPU：8核', '内存：16G', '硬盘：50G SSD', '网络：10Mbps', '操作系统：Ubuntu 24.04 LTS'], note: '可按需扩容，价格以阿里云、腾讯云为参考。', link: true },
   { id: 'database', category: '基础设施', label: '业务数据库', price: '¥3000', unit: '/ 年', tags: ['类型：MySQL 8.0', '存储：200G', '系列：高可用', 'CPU：2核', '内存：4G', 'Max connection：4000'], note: '可按需扩容，价格以阿里云、腾讯云为参考。', link: true },
@@ -411,7 +412,7 @@ export default function App() {
           </div>
           <div className="progress-track"><span style={{ width: `${scrollProgress}%` }} /><i style={{ left: `${scrollProgress}%` }} />{sections.map(([id], index) => <b key={id} style={{ left: `${(index / (sections.length - 1)) * 100}%` }} />)}</div>
         </div>
-        <a className="primary nav-cta" href="https://www.geekonup.com/">走进我们的品牌世界 <ArrowRight size={16} /></a>
+        <a className="primary nav-cta" href={brandWorldUrl}>走进我们的品牌世界 <ArrowRight size={16} /></a>
       </nav>
       <div className="hero-wrap" id="top">
         <motion.section id="company" initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .8, ease: [0.22, 1, 0.36, 1] }} className="quote-card" aria-label="售前报价方案">
@@ -442,7 +443,7 @@ export default function App() {
             <div className="company-heading"><p className="company-chapter">CHAPTER 01</p><h2 className="company-title">公司介绍</h2></div>
             <fieldset className="company-switcher"><legend className="sr-only">公司介绍主题</legend>{companyCards.map((card, index) => <label key={card.id} className={companyCard === index ? 'selected' : ''} onClick={() => selectCompanyCard(index)}><input type="radio" name="company-topic" checked={companyCard === index} onChange={() => selectCompanyCard(index)} />{card.label}</label>)}</fieldset>
             <motion.div key={companyCards[companyCard].id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="company-body">{companyCards[companyCard].body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</motion.div>
-            <a className="primary company-more" href={companyIntroPdfUrl} target="_blank" rel="noreferrer" aria-label="打开公司介绍 PDF">了解更多 <ArrowRight size={16} /></a>
+            <a className="primary company-more" href={brandWorldUrl} target="_blank" rel="noreferrer" aria-label="打开品牌官网">了解更多 <ArrowRight size={16} /></a>
           </div>
           <div className="company-right">
             <div className="company-stack" aria-live="polite">
