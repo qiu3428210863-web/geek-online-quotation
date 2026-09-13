@@ -271,6 +271,17 @@ h1 span { display:inline; background:linear-gradient(110deg,#151a2b 20%,#6b3be4 
 .after-sales-table-row { border-top:1px solid rgba(119,94,190,.13); color:#666b7b; font-size:var(--type-body); line-height:1.65; }
 .after-sales-data-table .after-sales-table-row:nth-child(even) { background:rgba(241,236,255,.48); }
 .after-sales-table-row strong { color:#171827; font-weight:900; }
+.after-sales-info-cards { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; margin-top:24px; }
+.after-sales-info-card { min-height:154px; padding:18px 19px; border:1px solid rgba(119,94,190,.16); border-radius:17px; background:rgba(255,255,255,.76); box-shadow:0 10px 24px rgba(76,54,145,.06),inset 0 1px rgba(255,255,255,.9); transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease; }
+.after-sales-info-card:hover { border-color:rgba(106,59,226,.28); box-shadow:0 14px 28px rgba(76,54,145,.11); transform:translateY(-3px); }
+.after-sales-info-card-top { display:flex; align-items:center; gap:12px; }
+.after-sales-info-card-top span { display:grid; width:30px; height:30px; flex:0 0 30px; place-items:center; border-radius:50%; color:#6a3be2; background:#f0eaff; font-size:11px; font-weight:900; }
+.after-sales-info-card-top strong { color:#171827; font-size:var(--type-subheading); font-weight:900; }
+.after-sales-info-card > p { margin:14px 0 0; color:#666b7b; font-size:16px; line-height:1.7; }
+.maintenance-card { min-height:188px; }
+.maintenance-card-goal { padding-bottom:14px; border-bottom:1px solid rgba(119,94,190,.14); }
+.maintenance-card-service { display:flex; flex-direction:column; gap:5px; margin-top:13px; color:#666b7b; font-size:15px; line-height:1.55; }
+.maintenance-card-service b { color:#6a3be2; font-size:12px; font-weight:900; letter-spacing:.06em; }
 .after-sales-table-row > * + * { border-left:1px solid rgba(119,94,190,.13); }
 .after-sales-testing-cards { position:relative; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; margin-top:24px; }
 .after-sales-testing-cards::before { content:""; position:absolute; z-index:0; top:42px; bottom:42px; left:50%; width:1px; background:linear-gradient(to bottom,rgba(106,59,226,.28),rgba(106,59,226,.08)); transform:translateX(-50%); }
@@ -379,7 +390,7 @@ h1 span { display:inline; background:linear-gradient(110deg,#151a2b 20%,#6b3be4 
 @media(max-width:900px){.pricing-inner{width:min(1700px,calc(100% - 30px))}}
 @media(max-width:560px){.pricing-inner{width:calc(100% - 20px)}}
 @media(max-width:900px){.support-inner{width:min(1700px,calc(100% - 30px))}.support-panel{margin-top:34px}.support-service-card{flex-basis:min(78vw,360px)}}
-@media(max-width:900px){.after-sales-content-grid{grid-template-columns:1fr;gap:24px}.after-sales-category-nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;order:-1}.after-sales-category-nav button:hover,.after-sales-category-nav button.is-active{transform:none}.after-sales-process-groups{grid-template-columns:1fr}.after-sales-testing-cards{grid-template-columns:1fr}.after-sales-testing-overview{grid-template-columns:1fr;gap:14px}.after-sales-testing-overview-label{padding-right:0;padding-bottom:12px;border-right:0;border-bottom:1px solid rgba(119,94,190,.15)}}
+@media(max-width:900px){.after-sales-content-grid{grid-template-columns:1fr;gap:24px}.after-sales-category-nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;order:-1}.after-sales-category-nav button:hover,.after-sales-category-nav button.is-active{transform:none}.after-sales-process-groups{grid-template-columns:1fr}.after-sales-info-cards{grid-template-columns:1fr}.after-sales-testing-cards{grid-template-columns:1fr}.after-sales-testing-overview{grid-template-columns:1fr;gap:14px}.after-sales-testing-overview-label{padding-right:0;padding-bottom:12px;border-right:0;border-bottom:1px solid rgba(119,94,190,.15)}}
 @media(max-width:560px){.support-inner{width:calc(100% - 20px)}.support-panel{padding:18px;border-radius:22px}.support-panel-top{align-items:flex-start;flex-direction:column;gap:8px}.support-carousel-window{margin-top:18px}.support-service-card{min-height:228px;padding:20px;flex-basis:min(78vw,320px)}.support-service-mark{margin-top:20px}.support-carousel-footer{align-items:flex-start;flex-direction:column;gap:14px}}
 @media(max-width:560px){.after-sales-section{padding-top:72px;padding-bottom:72px}.after-sales-notice{gap:12px;padding:18px 16px}.after-sales-notice p{font-size:16px;line-height:1.75}.after-sales-category-nav{grid-template-columns:1fr}.after-sales-category-nav button{font-size:16px}.after-sales-detail-panel{padding:20px 16px}.after-sales-data-table{overflow:visible;border:0;background:transparent}.after-sales-table-head{display:none}.after-sales-table-row{grid-template-columns:1fr!important;gap:0;margin-top:10px;border:1px solid rgba(119,94,190,.16);border-radius:14px;background:rgba(255,255,255,.68)}.after-sales-table-row > *{padding:10px 14px;border:0!important}.after-sales-table-row > * + *{padding-top:0}.after-sales-visual-row{grid-template-columns:30px minmax(0,1fr);gap:8px}.after-sales-visual-row p{grid-column:2}.after-sales-visual-row em{grid-column:2;font-size:16px}.after-sales-process-items p{font-size:16px}.after-sales-testing-card > p{font-size:16px}.after-sales-testing-overview{padding:16px}.after-sales-testing-overview-copy h4{font-size:18px}.after-sales-testing-overview-copy p{font-size:15px}.after-sales-testing-process-head,.after-sales-testing-process-row{min-width:780px}.after-sales-testing-process-head span,.after-sales-testing-process-row > *{padding:10px 11px;font-size:12px}}
 @media(max-width:560px){.pricing-subtitle-row{flex-direction:column;gap:7px;margin-top:12px}.pricing-subtitle{margin-top:0}.pricing-hint{font-size:10px}}
@@ -415,6 +426,26 @@ h1 span { display:inline; background:linear-gradient(110deg,#151a2b 20%,#6b3be4 
   .content-section{padding-top:72px;padding-bottom:72px;}
   .after-sales-section{padding-top:76px;padding-bottom:76px;}
   .cost-library,.support-library{margin-top:42px;}
+}
+/* Keep the meeting chapter and the following chapters visually compact. */
+@media(min-width:901px){
+  .company-feature,.content-section,.after-sales-section{padding-top:clamp(48px,4vw,64px);padding-bottom:clamp(48px,4vw,64px);}
+  .case-study-section{padding-top:clamp(60px,5vw,82px);padding-bottom:clamp(60px,5vw,82px);}
+  .meeting-content{padding-top:28px;padding-bottom:36px;}
+  .meeting-board{margin-top:clamp(24px,3vw,42px);}
+  .meeting-principles{margin-top:clamp(32px,4vw,56px);}
+  .features-content{padding-top:44px;padding-bottom:44px;}
+  .cost-library,.support-library{margin-top:clamp(24px,3vw,42px);}
+}
+@media(max-width:900px){
+  .content-section{padding-top:56px;padding-bottom:56px;}
+  .meeting-content{padding-top:36px;padding-bottom:42px;}
+  .after-sales-section{padding-top:58px;padding-bottom:58px;}
+}
+@media(max-width:560px){
+  .content-section{padding-top:48px;padding-bottom:48px;}
+  .meeting-content{padding-top:28px;padding-bottom:34px;}
+  .after-sales-section{padding-top:48px;padding-bottom:48px;}
 }
 /* Typography stays consistent across sections, including the mobile overrides. */
 @media(max-width:560px){

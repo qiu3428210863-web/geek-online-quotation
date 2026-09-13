@@ -646,7 +646,7 @@ export default function App() {
                     {afterSalesCategory === 'deliverables' && <>
                       <h3>交付物说明</h3>
                       <p className="after-sales-intro">根据不同阶段的任务安排，提供以下类型的阶段性交付成果。</p>
-                      <div className="after-sales-data-table delivery-table"><div className="after-sales-table-head"><span>交付分类</span><span>交付细分</span></div>{deliveryRows.map(([title, detail]) => <div className="after-sales-table-row" key={title}><strong>{title}</strong><span>{detail}</span></div>)}</div>
+                      <div className="after-sales-info-cards deliverables-cards">{deliveryRows.map(([title, detail], index) => <article className="after-sales-info-card" key={title}><div className="after-sales-info-card-top"><span>0{index + 1}</span><strong>{title}</strong></div><p>{detail}</p></article>)}</div>
                     </>}
                     {afterSalesCategory === 'testing' && <>
                       <h3>测试说明</h3>
@@ -661,7 +661,7 @@ export default function App() {
                     </>}
                     {afterSalesCategory === 'maintenance' && <>
                       <h3>维护说明</h3>
-                      <div className="after-sales-data-table maintenance-table"><div className="after-sales-table-head"><span>服务分类</span><span>目标</span><span>服务内容</span></div>{maintenanceRows.map(([type, goal, detail]) => <div className="after-sales-table-row" key={type}><strong>{type}</strong><span>{goal}</span><span>{detail}</span></div>)}</div>
+                      <div className="after-sales-info-cards maintenance-cards">{maintenanceRows.map(([type, goal, detail], index) => <article className="after-sales-info-card maintenance-card" key={type}><div className="after-sales-info-card-top"><span>0{index + 1}</span><strong>{type}</strong></div><p className="maintenance-card-goal">{goal}</p><div className="maintenance-card-service"><b>服务内容</b><span>{detail}</span></div></article>)}</div>
                     </>}
                     {afterSalesCategory === 'visual' && <>
                       <h3>视觉维护说明</h3>
